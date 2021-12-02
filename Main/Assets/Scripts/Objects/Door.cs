@@ -28,6 +28,12 @@ public class Door : InteractableObject
 
     void SetSprite()
     {
+        // For these booleans, it is apparent what isUp, isDown, isLeft, and isRight stands 
+        // for (the direction that the door is facing). However, it is not clear that isRightFront and isLeftFront
+        // are used to check if right or left walls are front or back walls. Try to use better naming conventions 
+        // for specific boolean cases like these last 2, or add a code comment explaining the scenario they will 
+        // be used for next time.
+
         bool isUp = false;
         bool isDown = false;
         bool isLeft = false;

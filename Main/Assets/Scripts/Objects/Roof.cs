@@ -56,22 +56,6 @@ public class Roof : MonoBehaviour
         bool isDownLeft = false;
         bool isDownRight = false;
 
-        // foreach (Roof roof in GameManager.instance.Roofs[roofIndex])
-        // {
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(0, 1))
-        //         isUp = true;
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(0, -1))
-        //         isDown = true;
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(1, 0))
-        //         isRight = true;
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(-1, 0))
-        //         isLeft = true;
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(-1, -1))
-        //         isDownLeft = true;
-        //     if ((Vector2) roof.transform.position == ((Vector2) transform.position) + new Vector2(1, -1))
-        //         isDownRight = true;
-        // }
-
         if (isDown && isUp && isLeft && isRight && !isDownLeft)
             spriteRenderer.sprite = frontInnerCornerLeft;
         else if (isDown && isUp && isLeft && isRight && !isDownRight)

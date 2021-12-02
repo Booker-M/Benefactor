@@ -79,8 +79,6 @@ public class DialogueSequenceManager : MonoBehaviour
                 string tempDialogue = item.Parent.Element("dialogue").Value.Trim();
 
                 data.Add(new XMLData(tempType, tempPageNum, tempBackdrop, tempSFX, tempCharName, tempPortrait, tempDialogue));
-                //Debug.Log(data[assignmentIndex].dialogueText);
-                //Debug.Log(assignmentIndex);
                 assignmentIndex++;
                 firstCheck = true;
             }
@@ -121,7 +119,6 @@ public class DialogueSequenceManager : MonoBehaviour
                 break;
             case "SoundEffect":
                 GameObject.FindObjectOfType<SFXManager>().PlaySingle(data[currentIndex].SFX);
-                //Debug.Log("Made it");
                 currentIndex++;
                 executeNext();
                 break;
@@ -142,29 +139,6 @@ public class DialogueSequenceManager : MonoBehaviour
                 Debug.Log("Invalid event type: " + data[currentIndex].type);
                 break;
         }
-
-        //if (data[currentIndex].type == "Dialogue")
-        //{
-        //    StartCoroutine("readDialogue");
-        //    currentIndex++;
-        //}
-        //else if (data[currentIndex].type == "NewScene")
-        //{
-        //    GameObject.Find("Backdrop").GetComponent<BackdropManager>().changeBackdrop(data[currentIndex].backdrop);
-        //    StartCoroutine("fadeIn");
-        //    // executeNext and currentIndex++ are handled at the end of the fadeIn / fadeOut coroutines
-        //}
-        //else if (data[currentIndex].type == "FadeOut")
-        //{
-        //    StartCoroutine("fadeOut");
-        //    // executeNext and currentIndex++ are handled at the end of the fadeIn / fadeOut coroutines
-        //}
-        //else if (data[currentIndex].type == "SoundEffect")
-        //{
-        //    GameObject.FindObjectOfType<SFXManager>().PlaySingle(data[currentIndex].SFX);
-        //    currentIndex++;
-        //    executeNext();
-        //}
     }
 
     IEnumerator readDialogue()
