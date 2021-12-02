@@ -18,7 +18,6 @@ public class SFXManager : MonoBehaviour
     public AudioClip Punch2;
 
 
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -55,15 +54,5 @@ public class SFXManager : MonoBehaviour
         }
         SFXSource.Play();
     }
-
-    //public void RandomizeSfx(params AudioClip[] clips)
-    //{
-    //    int randomIndex = Random.Range(0, clips.Length);
-    //    float randomPitch = Random.Range(lowPitchRange, highPitchRange);
-
-    //    SFXSource.pitch = randomPitch;
-    //    SFXSource.clip = clips[randomIndex];
-    //    SFXSource.Play();
-    //}
 
 }
