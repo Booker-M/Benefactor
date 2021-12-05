@@ -3294,7 +3294,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -3338,6 +3338,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
@@ -14723,7 +14735,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      youngerBrotherSpritesheet_486: 8091325114224589194
+      youngerBrotherSpritesheet_85: -8009328801235018202
       youngerBrotherSpritesheet_33: 3224596111195115053
       youngerBrotherSpritesheet_54: 4116845434195178895
       youngerBrotherSpritesheet_477: -3435543175383945197
@@ -14802,10 +14814,10 @@ TextureImporter:
       youngerBrotherSpritesheet_34: 8414872696628350156
       youngerBrotherSpritesheet_45: 1158886163375850357
       youngerBrotherSpritesheet_53: -8129630095251185514
+      youngerBrotherSpritesheet_332: -498091233555463572
+      youngerBrotherSpritesheet_315: -4655242547106395684
       youngerBrotherSpritesheet_316: -8964937173522316949
       youngerBrotherSpritesheet_145: 8200710767134994521
-      youngerBrotherSpritesheet_315: -4655242547106395684
-      youngerBrotherSpritesheet_332: -498091233555463572
       youngerBrotherSpritesheet_18: 4120190118072365862
       youngerBrotherSpritesheet_134: 6555716489435726238
       youngerBrotherSpritesheet_537: -1968149489411606741
@@ -14861,27 +14873,27 @@ TextureImporter:
       youngerBrotherSpritesheet_461: -3882024292041721469
       youngerBrotherSpritesheet_239: -5431545276857169565
       youngerBrotherSpritesheet_518: -1073790863163049307
-      youngerBrotherSpritesheet_268: 2468629709773004843
-      youngerBrotherSpritesheet_306: -4419083446173968420
       youngerBrotherSpritesheet_453: 8043087146165118064
+      youngerBrotherSpritesheet_471: -5452885971760754167
+      youngerBrotherSpritesheet_268: 2468629709773004843
       youngerBrotherSpritesheet_80: 497326278833614877
       youngerBrotherSpritesheet_355: 8740702933780289114
-      youngerBrotherSpritesheet_471: -5452885971760754167
+      youngerBrotherSpritesheet_306: -4419083446173968420
       youngerBrotherSpritesheet_168: 2131176828480849926
       youngerBrotherSpritesheet_445: -5407944165870561836
       youngerBrotherSpritesheet_182: 7260093475999968840
       youngerBrotherSpritesheet_272: -1412163426804600414
       youngerBrotherSpritesheet_225: -4948725363530394931
       youngerBrotherSpritesheet_113: -2317028738214235666
-      youngerBrotherSpritesheet_247: -8228788080797649436
-      youngerBrotherSpritesheet_93: -8178077178168328122
-      youngerBrotherSpritesheet_348: -1568449415356152912
       youngerBrotherSpritesheet_331: 3909592921875505149
+      youngerBrotherSpritesheet_93: -8178077178168328122
+      youngerBrotherSpritesheet_247: -8228788080797649436
+      youngerBrotherSpritesheet_447: -4460428689165315540
       youngerBrotherSpritesheet_22: 7096280972149746794
       youngerBrotherSpritesheet_468: -6545565747548338556
       youngerBrotherSpritesheet_114: -551823785973366901
       youngerBrotherSpritesheet_485: 5991896597720290197
-      youngerBrotherSpritesheet_447: -4460428689165315540
+      youngerBrotherSpritesheet_348: -1568449415356152912
       youngerBrotherSpritesheet_448: -6720557368820952711
       youngerBrotherSpritesheet_472: 4615028271442138985
       youngerBrotherSpritesheet_325: 231314957653683070
@@ -15001,11 +15013,11 @@ TextureImporter:
       youngerBrotherSpritesheet_70: -8002298760175629215
       youngerBrotherSpritesheet_191: -8065740763104168391
       youngerBrotherSpritesheet_16: -3749690534008881411
-      youngerBrotherSpritesheet_138: -1503464846191293421
       youngerBrotherSpritesheet_368: 986998441125690892
-      youngerBrotherSpritesheet_241: 6942078821517928701
-      youngerBrotherSpritesheet_318: -1130354523343281866
       youngerBrotherSpritesheet_371: 7365945399194477231
+      youngerBrotherSpritesheet_138: -1503464846191293421
+      youngerBrotherSpritesheet_318: -1130354523343281866
+      youngerBrotherSpritesheet_241: 6942078821517928701
       youngerBrotherSpritesheet_181: 6964272137542314962
       youngerBrotherSpritesheet_102: 7564471550190851757
       youngerBrotherSpritesheet_261: -4419326957725652013
@@ -15260,10 +15272,10 @@ TextureImporter:
       youngerBrotherSpritesheet_464: 1113071133214489058
       youngerBrotherSpritesheet_505: -1524148281306057527
       youngerBrotherSpritesheet_364: 8890951822274391862
-      youngerBrotherSpritesheet_85: -8009328801235018202
       youngerBrotherSpritesheet_35: 4494788052662366601
-      youngerBrotherSpritesheet_179: 6250051277666939442
       youngerBrotherSpritesheet_435: -1913586541553375282
+      youngerBrotherSpritesheet_179: 6250051277666939442
+      youngerBrotherSpritesheet_486: 8091325114224589194
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

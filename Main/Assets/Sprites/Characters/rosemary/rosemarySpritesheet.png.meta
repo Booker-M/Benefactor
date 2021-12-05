@@ -3294,7 +3294,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -3338,6 +3338,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
@@ -14752,11 +14764,11 @@ TextureImporter:
       rosemarySpritesheet_233: 22077342866858314
       rosemarySpritesheet_26: 3682111213511697821
       rosemarySpritesheet_16: 1211656057853732834
-      rosemarySpritesheet_242: 6152983878768129278
+      rosemarySpritesheet_527: -5690727798056326069
       rosemarySpritesheet_411: -8388898675926563783
+      rosemarySpritesheet_242: 6152983878768129278
       rosemarySpritesheet_51: -6178703574033917895
       rosemarySpritesheet_84: -1733932272141461857
-      rosemarySpritesheet_527: -5690727798056326069
       rosemarySpritesheet_95: -2252055191042160492
       rosemarySpritesheet_141: -3225093506326039613
       rosemarySpritesheet_10: 8755748629819355683
@@ -14798,10 +14810,10 @@ TextureImporter:
       rosemarySpritesheet_15: 5974927074517601205
       rosemarySpritesheet_505: 8872828049672028302
       rosemarySpritesheet_119: 6670883869606249095
-      rosemarySpritesheet_396: 5059028125854716923
-      rosemarySpritesheet_226: 7202437543032223092
-      rosemarySpritesheet_201: 8312452534578225353
       rosemarySpritesheet_478: 1043721042258104778
+      rosemarySpritesheet_226: 7202437543032223092
+      rosemarySpritesheet_396: 5059028125854716923
+      rosemarySpritesheet_201: 8312452534578225353
       rosemarySpritesheet_99: -1999722381334037620
       rosemarySpritesheet_391: -950483833844568693
       rosemarySpritesheet_288: -7429933080565339008
@@ -14858,11 +14870,11 @@ TextureImporter:
       rosemarySpritesheet_209: 8229596105018322766
       rosemarySpritesheet_538: 8080254221426566130
       rosemarySpritesheet_65: -883131640802008111
-      rosemarySpritesheet_69: 609727273339516243
-      rosemarySpritesheet_458: -1964918257984759985
       rosemarySpritesheet_330: 669853857529120933
-      rosemarySpritesheet_489: 7305338422096381533
+      rosemarySpritesheet_458: -1964918257984759985
       rosemarySpritesheet_305: 5464435370389846773
+      rosemarySpritesheet_69: 609727273339516243
+      rosemarySpritesheet_489: 7305338422096381533
       rosemarySpritesheet_8: -890291624425067342
       rosemarySpritesheet_181: -7424328850196592327
       rosemarySpritesheet_475: 5359724150676235000
@@ -14888,10 +14900,10 @@ TextureImporter:
       rosemarySpritesheet_297: 8600643328213657975
       rosemarySpritesheet_496: -3744238044979535130
       rosemarySpritesheet_291: 5072042282229044754
+      rosemarySpritesheet_446: -501279600365098004
       rosemarySpritesheet_376: -5068100419025508465
       rosemarySpritesheet_378: -5366478893997369230
       rosemarySpritesheet_377: -4149062726723917598
-      rosemarySpritesheet_446: -501279600365098004
       rosemarySpritesheet_268: -1314134679407742902
       rosemarySpritesheet_349: -6387832339053473300
       rosemarySpritesheet_164: -8409330446918032377
@@ -15005,8 +15017,8 @@ TextureImporter:
       rosemarySpritesheet_269: 601940729780129688
       rosemarySpritesheet_427: 8774917123313824056
       rosemarySpritesheet_9: 3133240962048955586
-      rosemarySpritesheet_452: -7586187169026354497
       rosemarySpritesheet_463: -5856947090346335248
+      rosemarySpritesheet_452: -7586187169026354497
       rosemarySpritesheet_492: -7380430843918455978
       rosemarySpritesheet_417: -7192436236944879532
       rosemarySpritesheet_513: -5804531204920675323
@@ -15018,11 +15030,11 @@ TextureImporter:
       rosemarySpritesheet_360: 1893150739130514035
       rosemarySpritesheet_153: -568463452413319163
       rosemarySpritesheet_150: 6358359666923000652
-      rosemarySpritesheet_363: 6495078946633679045
-      rosemarySpritesheet_118: 2174109111984465832
-      rosemarySpritesheet_317: -1143890288490940068
       rosemarySpritesheet_507: 7654385827816601878
       rosemarySpritesheet_537: 8927346194196160390
+      rosemarySpritesheet_363: 6495078946633679045
+      rosemarySpritesheet_317: -1143890288490940068
+      rosemarySpritesheet_118: 2174109111984465832
       rosemarySpritesheet_75: 298315262284184349
       rosemarySpritesheet_85: 1726661539292032056
       rosemarySpritesheet_87: -973157386535633723
@@ -15053,13 +15065,13 @@ TextureImporter:
       rosemarySpritesheet_286: 5143406396879990995
       rosemarySpritesheet_488: 979713548561492012
       rosemarySpritesheet_170: -2553916537995330377
+      rosemarySpritesheet_366: -7568687136948023395
       rosemarySpritesheet_56: 3478427745600903129
-      rosemarySpritesheet_191: -85013728828228678
       rosemarySpritesheet_63: 1766209869596744887
       rosemarySpritesheet_108: 1970545187845361176
-      rosemarySpritesheet_498: 7840687147920677426
-      rosemarySpritesheet_366: -7568687136948023395
+      rosemarySpritesheet_191: -85013728828228678
       rosemarySpritesheet_397: 3251577638692642322
+      rosemarySpritesheet_498: 7840687147920677426
       rosemarySpritesheet_277: 1535212795653740338
       rosemarySpritesheet_231: 2309221347365138955
       rosemarySpritesheet_385: 1630735600737508767

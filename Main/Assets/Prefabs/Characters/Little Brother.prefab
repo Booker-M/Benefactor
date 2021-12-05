@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5828532957960981727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.45, y: 0.45, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1183741245
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -5776920401428331615, guid: 083c29d187fd1da468fbaa9c5e7b0463,
     type: 3}
@@ -127,7 +127,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 2.25}
+    oldSize: {x: 1, y: 1.5}
     newSize: {x: 1.5, y: 2.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -162,6 +162,7 @@ MonoBehaviour:
   healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
     type: 3}
   playable: 1
+  talkable: 0
   portrait: {fileID: -8609881113391994360, guid: 2ae95c326515d634892e2254650e9d9a,
     type: 3}
   name: Little Brother
@@ -174,20 +175,9 @@ MonoBehaviour:
   accuracy: 0
   dexterity: 0
   agility: 0
-  isTurn: 0
-  hasGone: 0
-  isMoving: 0
-  talkable: 0
-  subdued: 0
-  pathToObjective: []
   inventory:
   - {fileID: -5498856414594888391, guid: ae876cd8e3a9f8c4c9af44a00acef1e0, type: 3}
   - {fileID: 2648351601887277121, guid: d7223e9ce65c5ff40a98ff9432da0fcf, type: 3}
-  gettingMove: 0
-  gettingAction: 0
-  gettingTarget: 0
-  gettingItem: 0
-  looting: 0
 --- !u!95 &7825540675277893111
 Animator:
   serializedVersion: 4
