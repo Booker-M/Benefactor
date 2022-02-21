@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1183741245
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -187368788, guid: dc79d645d2d14e1449a63dd2125bff0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,6 +129,8 @@ MonoBehaviour:
   name: Plasma Gun
   uses: 20
   amount: 2
+  accuracy: 90
+  critical: 2
   range: 3
   blastRadius: 0
   copies: 1

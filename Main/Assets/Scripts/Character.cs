@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
@@ -49,10 +50,13 @@ public class Character : InteractableObject
     public int talkingRange;
     public int totalActions;
     public float actionDelay;
-    public double strength; //multiplier for range 1 weapon
-    public double accuracy;
+    public double strength;
+    public double magic;
+    public double defense;
+    public double resistance;
     public double dexterity;
     public double agility;
+    public double skill;
     public List<Objective> objectives;
     public List<HoldableObject> inventory;
 
@@ -674,33 +678,60 @@ public class Character : InteractableObject
     {
         GameManager.instance.CameraTarget(toAttack.gameObject);
 
-        yield return StartCoroutine(toAttack.TakeDamage(weapon.amount * (weapon.range == 1 ? strength : 1)));
+        bool hit = DoesHit(toAttack, weapon);
 
-        // Check for subdued
-        if (toAttack.GetHealth() / toAttack.maxHealth < subduedRatio)
-        {
-            if (toAttack.gameObject.GetComponent<Character>() != null)
+        if (hit) {
+            int damage = GetDamage(toAttack, weapon);
+            yield return StartCoroutine(toAttack.TakeDamage(damage));
+
+            // Check for subdued
+            if (toAttack.GetHealth() / toAttack.maxHealth < subduedRatio)
             {
-                Debug.Log("Character Subdued");
-                toAttack.gameObject.GetComponent<Character>().subdued = true;
+                if (toAttack.gameObject.GetComponent<Character>() != null)
+                {
+                    Debug.Log("Character Subdued");
+                    toAttack.gameObject.GetComponent<Character>().subdued = true;
+                }
             }
-        }
-        else
-        {
-            Character character = toAttack.gameObject.GetComponent<Character>();
-            if (character != null)
-                character.Enemy(this);
+            else
+            {
+                Character character = toAttack.gameObject.GetComponent<Character>();
+                if (character != null)
+                    character.Enemy(this);
+            }
+
+            // animator.SetTrigger("enemyAttack");
+            if (toAttack.GetHealth() <= 0)
+                currentObjective = null; //TEMP
+            else
+                Debug.Log("TARGET SURVIVED");   
         }
 
         weapon.uses--;
         if (weapon.uses == 0)
             Remove(weapon);
+    }
 
-        // animator.SetTrigger("enemyAttack");
-        if (toAttack.GetHealth() <= 0)
-            currentObjective = null; //TEMP
-        else
-            Debug.Log("TARGET SURVIVED");
+    protected bool DoesHit(InteractableObject toAttack, HoldableObject weapon) {
+        float min = weapon.accuracy + (float)skill/10f;
+        if (toAttack.gameObject.GetComponent<Character>() != null)
+            min = min - (float)toAttack.gameObject.GetComponent<Character>().agility/10f;
+        bool hit = Random.Range(min,100) >= 50;
+        return hit;
+    }
+
+    protected int GetDamage(InteractableObject toAttack, HoldableObject weapon) {
+        int crit = GetCritical(weapon);
+        float damage = weapon.amount * (float)strength/50f * crit;
+        if (toAttack.gameObject.GetComponent<Character>() != null)
+            damage = damage * (100f - (float)toAttack.gameObject.GetComponent<Character>().defense)/50f;
+        return (int)damage;
+    }
+
+    protected int GetCritical(HoldableObject weapon) {
+        float min = (float)dexterity/100f * weapon.critical/100f;
+        bool crit = Random.Range(min,1) >= 0.5f;
+        return crit ? 2 : 1;
     }
 
     protected virtual IEnumerator Heal(InteractableObject toHeal, HoldableObject medicine)
