@@ -33,5 +33,20 @@ public class InventorySlot : MonoBehaviour
     public void OnPress()
     {
         StartCoroutine(GameManager.instance.activeCharacter.ChooseItem(item));
+        MenuManager.instance.HideAttackInfo();
+    }
+
+    public void OnHover()
+    {
+        Debug.Log("ON HOVER");
+        Debug.Log(item);
+        if (item != null)
+            GameManager.instance.activeCharacter.PreviewItem(item, button.transform.position);
+    }
+
+    public void EndHover()
+    {
+        if (item != null)
+            MenuManager.instance.HideAttackInfo();
     }
 }

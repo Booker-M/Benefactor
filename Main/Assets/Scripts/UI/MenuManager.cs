@@ -22,6 +22,10 @@ public class MenuManager : MonoBehaviour
     public Text characterName;
     public Text healthText;
     public Text movesText;
+    public GameObject attackInfo;
+    public Text attackDamage;
+    public Text attackHit;
+    public Text attackCrit;
     public GameObject mouseIndicatorSprite;
     public GameObject tileIndicatorSprite;
     public List<GameObject> indicators;
@@ -64,6 +68,8 @@ public class MenuManager : MonoBehaviour
         HideInventories();
 
         HidePlayerStats();
+        
+        HideAttackInfo();
 
         backButton.transform.position = new Vector2(Screen.width*0.9f, Screen.height*0.1f);
         HideBackButton();
@@ -138,7 +144,7 @@ public class MenuManager : MonoBehaviour
         playerInventory.GetComponentsInChildren<Text>()[0].text = name != null ? name : type;
         playerInventory.SetActive(true);
         ShowBackButton();
-        instance.HidePlayerStats();
+        // instance.HidePlayerStats();
     }
     public void ShowOtherInventory(String type, List<HoldableObject> inventory, int range = 0, List<HoldableObject> items = null, String name = null)
     {
@@ -191,6 +197,20 @@ public class MenuManager : MonoBehaviour
     public void HidePlayerStats()
     {
         playerStats.SetActive(false);
+    }
+
+    public void ShowAttackInfo(Vector3 position, int damage, int hitPercent, int critPercent)
+    {
+        attackDamage.GetComponent<Text>().text = damage + "";
+        attackHit.GetComponent<Text>().text = hitPercent + "%";
+        attackCrit.GetComponent<Text>().text = critPercent + "%";
+        attackInfo.GetComponent<RectTransform>().transform.position = position + new Vector3(0,130,0);
+        attackInfo.SetActive(true);
+    }
+
+    public void HideAttackInfo()
+    {
+        attackInfo.SetActive(false);
     }
 
     public void ShowBackButton()

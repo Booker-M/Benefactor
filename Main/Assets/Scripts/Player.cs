@@ -14,6 +14,7 @@ public class Player : Character
     protected bool gettingTarget;
     protected bool gettingItem;
     protected bool looting;
+    protected bool attacking;
     protected bool backButton;
 
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class Player : Character
         gettingMove = false;
         gettingTarget = false;
         looting = false;
+        attacking = false;
         backButton = false;
 
         base.Start();
@@ -222,6 +224,7 @@ public class Player : Character
 
         MenuManager.instance.ShowPlayerInventory(type, inventory, type == "Weapon" ? GetDistance(currentObjective.target) : 0);
         gettingItem = true;
+        attacking = (type == "Weapon");
         Debug.Log("Player waiting for item input");
     }
 
@@ -275,6 +278,16 @@ public class Player : Character
         gettingItem = false;
         MenuManager.instance.HideInventories();
         StartCoroutine(base.ChooseItem(item));
+    }
+
+    public void PreviewItem(HoldableObject item, Vector3 position)
+    {
+        if (!attacking)
+            return;
+        int damage = GetDamage(currentObjective.target, item);
+        int hitPercent = HitPercent(currentObjective.target, item);
+        int critPercent = CritPercent(item);
+        MenuManager.instance.ShowAttackInfo(position, damage, hitPercent, critPercent);
     }
 
     protected override void Loot(InteractableObject toLoot)
@@ -332,6 +345,7 @@ public class Player : Character
     public void Back()
     {
         backButton = true;
+        attacking = false;
         if (looting)
         {
             looting = false;

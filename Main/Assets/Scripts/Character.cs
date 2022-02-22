@@ -41,6 +41,29 @@ public class Character : InteractableObject
         }
     }
 
+    public class Stats
+    {   public int health;
+        public int agility;
+        public int strength;
+        public int magic;
+        public int defense;
+        public int resistance;
+        public int skill;
+        public int dexterity;
+
+        public Stats(int min, int max)
+        {
+            health = Random.Range(min,max);
+            strength = Random.Range(min,max);
+            magic = Random.Range(min,max);
+            defense = Random.Range(min,max);
+            resistance = Random.Range(min,max);
+            skill = Random.Range(min,max);
+            dexterity = Random.Range(min,max);
+            agility = Random.Range(min,max);
+        }
+    }
+
     public bool playable;
     public bool talkable;
     public Sprite portrait;
@@ -50,13 +73,7 @@ public class Character : InteractableObject
     public int talkingRange;
     public int totalActions;
     public float actionDelay;
-    public double strength;
-    public double magic;
-    public double defense;
-    public double resistance;
-    public double dexterity;
-    public double agility;
-    public double skill;
+    public int level;
     public List<Objective> objectives;
     public List<HoldableObject> inventory;
 
@@ -80,10 +97,16 @@ public class Character : InteractableObject
     protected State lastState;
     protected int weightStolen;
     protected double subduedRatio = 0.25;
+    protected Stats stats;
+    protected int experience;
+
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        stats = new Stats(5, 15);
+        maxHealth = stats.health;
+
         isTurn = false;
         isMoving = false;
         subdued = false;
@@ -674,11 +697,15 @@ public class Character : InteractableObject
         inventory.Remove(item);
     }
 
+    protected Stats GetStats() {
+        return stats;
+    }
+
     protected IEnumerator Attack (InteractableObject toAttack, HoldableObject weapon)
     {
         GameManager.instance.CameraTarget(toAttack.gameObject);
 
-        bool hit = DoesHit(toAttack, weapon);
+        bool hit = DoesHit(HitPercent(toAttack, weapon));
 
         if (hit) {
             int damage = GetDamage(toAttack, weapon);
@@ -712,26 +739,32 @@ public class Character : InteractableObject
             Remove(weapon);
     }
 
-    protected bool DoesHit(InteractableObject toAttack, HoldableObject weapon) {
-        float min = weapon.accuracy + (float)skill/10f;
+    protected bool DoesHit(int percent) {
+        return Random.Range(0, 100) > percent;
+    }
+
+    protected int HitPercent(InteractableObject toAttack, HoldableObject weapon) {
+        float chance = 100 - (100 - weapon.accuracy) * GetDistance(toAttack) + (float)stats.skill/10f;
         if (toAttack.gameObject.GetComponent<Character>() != null)
-            min = min - (float)toAttack.gameObject.GetComponent<Character>().agility/10f;
-        bool hit = Random.Range(min,100) >= 50;
-        return hit;
+            chance = chance - (float)toAttack.gameObject.GetComponent<Character>().GetStats().agility/10f;
+        return Math.Min(100,Math.Max(0,(int)chance));
     }
 
     protected int GetDamage(InteractableObject toAttack, HoldableObject weapon) {
         int crit = GetCritical(weapon);
-        float damage = weapon.amount * (float)strength/50f * crit;
+        float damage = weapon.amount * (float)stats.strength/50f * crit;
         if (toAttack.gameObject.GetComponent<Character>() != null)
-            damage = damage * (100f - (float)toAttack.gameObject.GetComponent<Character>().defense)/50f;
+            damage = damage * (100f - (float)toAttack.gameObject.GetComponent<Character>().GetStats().defense)/50f;
         return (int)damage;
     }
 
     protected int GetCritical(HoldableObject weapon) {
-        float min = (float)dexterity/100f * weapon.critical/100f;
-        bool crit = Random.Range(min,1) >= 0.5f;
-        return crit ? 2 : 1;
+        return DoesHit(CritPercent(weapon)) ? 2 : 1;
+    }
+
+    protected int CritPercent(HoldableObject weapon) {
+        float chance = Mathf.Sqrt((float)stats.dexterity * weapon.critical);
+        return Math.Min(100,Math.Max(0,(int)chance));
     }
 
     protected virtual IEnumerator Heal(InteractableObject toHeal, HoldableObject medicine)
