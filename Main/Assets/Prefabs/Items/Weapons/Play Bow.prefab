@@ -128,7 +128,7 @@ MonoBehaviour:
   type: Weapon
   name: Play Bow
   uses: 30
-  amount: 2
+  amount: 10
   accuracy: 85
   critical: 5
   range: 3

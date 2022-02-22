@@ -128,7 +128,7 @@ MonoBehaviour:
   type: Weapon
   name: Plasma Gun
   uses: 20
-  amount: 2
+  amount: 15
   accuracy: 90
   critical: 2
   range: 3

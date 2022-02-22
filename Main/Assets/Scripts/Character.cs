@@ -64,6 +64,7 @@ public class Character : InteractableObject
         }
     }
 
+    public int expPerLevelGap = 100;
     public bool playable;
     public bool talkable;
     public Sprite portrait;
@@ -728,10 +729,16 @@ public class Character : InteractableObject
             }
 
             // animator.SetTrigger("enemyAttack");
+            if (this.GetComponent<Player>().playable && currentObjective.target.GetComponent<Character>() != null) {
+                int expGain = Math.Max(currentObjective.target.GetComponent<Character>().level - level, 1) * expPerLevelGap / ((toAttack.GetHealth() <= 0) ? 1 : 3);
+                yield return StartCoroutine(this.GetComponent<Player>().UpdateExp(expGain));
+            }
             if (toAttack.GetHealth() <= 0)
-                currentObjective = null; //TEMP
-            else
-                Debug.Log("TARGET SURVIVED");   
+                currentObjective = null;
+            else if (currentObjective.target.GetComponent<Player>() != null && currentObjective.target.GetComponent<Player>().playable) {
+                int expGain = Math.Max(level - currentObjective.target.GetComponent<Character>().level, 1) * expPerLevelGap / 5;
+                yield return StartCoroutine(currentObjective.target.GetComponent<Player>().UpdateExp(expGain));
+            }
         }
 
         weapon.uses--;
@@ -740,7 +747,7 @@ public class Character : InteractableObject
     }
 
     protected bool DoesHit(int percent) {
-        return Random.Range(0, 100) > percent;
+        return Random.Range(0, 100) <= percent;
     }
 
     protected int HitPercent(InteractableObject toAttack, HoldableObject weapon) {

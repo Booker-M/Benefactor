@@ -411,4 +411,11 @@ public class Player : Character
         MenuManager.instance.HideBackButton();
         yield return StartCoroutine(base.EndTurn());
     }
+
+    public IEnumerator UpdateExp(int amount)
+    {
+        yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
+        experience = experience + amount % 100;
+        level += (int)((experience + amount)/100);
+    }
 }
