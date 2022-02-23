@@ -181,6 +181,7 @@ MonoBehaviour:
   fire: {fileID: 0}
   healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
     type: 3}
+  expPerLevelGap: 100
   playable: 0
   talkable: 1
   portrait: {fileID: 6715957911979874120, guid: 6a7677d8416a9614fa61186e719ed76f,
@@ -191,13 +192,7 @@ MonoBehaviour:
   talkingRange: 1
   totalActions: 1
   actionDelay: 1
-  strength: 25
-  magic: 25
-  defense: 25
-  resistance: 25
-  dexterity: 25
-  agility: 25
-  skill: 25
+  level: 1
   inventory:
   - {fileID: -5498856414594888391, guid: 70791d2237bfa6f4fb33643eaed4084d, type: 3}
   - {fileID: -5498856414594888391, guid: 11c400ec6ad6b874ab4161b618034ae5, type: 3}

@@ -64,7 +64,6 @@ public class Character : InteractableObject
         }
     }
 
-    public int expPerLevelGap = 100;
     public bool playable;
     public bool talkable;
     public Sprite portrait;
@@ -100,6 +99,8 @@ public class Character : InteractableObject
     protected double subduedRatio = 0.25;
     protected Stats stats;
     protected int experience;
+    protected int expPerLevelGap = 100;
+    protected double statUpgradePercent = 35;
 
 
     // Start is called before the first frame update
@@ -698,10 +699,6 @@ public class Character : InteractableObject
         inventory.Remove(item);
     }
 
-    protected Stats GetStats() {
-        return stats;
-    }
-
     protected IEnumerator Attack (InteractableObject toAttack, HoldableObject weapon)
     {
         GameManager.instance.CameraTarget(toAttack.gameObject);
@@ -730,13 +727,13 @@ public class Character : InteractableObject
 
             // animator.SetTrigger("enemyAttack");
             if (this.GetComponent<Player>().playable && currentObjective.target.GetComponent<Character>() != null) {
-                int expGain = Math.Max(currentObjective.target.GetComponent<Character>().level - level, 1) * expPerLevelGap / ((toAttack.GetHealth() <= 0) ? 1 : 3);
+                int expGain = Math.Max(currentObjective.target.GetComponent<Character>().level - level + 1, 1) * expPerLevelGap / ((toAttack.GetHealth() <= 0) ? 1 : 3);
                 yield return StartCoroutine(this.GetComponent<Player>().UpdateExp(expGain));
             }
             if (toAttack.GetHealth() <= 0)
                 currentObjective = null;
             else if (currentObjective.target.GetComponent<Player>() != null && currentObjective.target.GetComponent<Player>().playable) {
-                int expGain = Math.Max(level - currentObjective.target.GetComponent<Character>().level, 1) * expPerLevelGap / 5;
+                int expGain = Math.Max(level - currentObjective.target.GetComponent<Character>().level, 1) * expPerLevelGap / 3;
                 yield return StartCoroutine(currentObjective.target.GetComponent<Player>().UpdateExp(expGain));
             }
         }
@@ -899,5 +896,9 @@ public class Character : InteractableObject
 
     public void SetCurrentObjectiveTarget(InteractableObject target) {
         currentObjective.target = target;
+    }
+
+    public Stats GetStats() {
+        return stats;
     }
 }

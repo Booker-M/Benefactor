@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
+using Random = UnityEngine.Random;
 using UnityEngine.SocialPlatforms;
 
 public class Player : Character
@@ -414,8 +415,69 @@ public class Player : Character
 
     public IEnumerator UpdateExp(int amount)
     {
-        yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
-        experience = experience + amount % 100;
-        level += (int)((experience + amount)/100);
+        Debug.Log("Current Exp: " + experience + ", Exp Gained: " + amount);
+        int carry = 1;
+        while (carry != 0) {
+            int target = Math.Min(experience + amount, 100);
+            carry = Math.Max(0, experience + amount - 100);
+            yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
+            experience = experience + amount % 100;
+            if (target == 100)
+                yield return StartCoroutine(LevelUp());
+            amount = carry;
+        }
+    }
+
+    public IEnumerator LevelUp()
+    {
+        MenuManager.instance.ShowLevelUp(this);
+
+        int i = 0;
+        level++;
+        yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, level));
+
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.health++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.health));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.agility++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.agility));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.strength++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.strength));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.magic++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.magic));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.defense++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.defense));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.resistance++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.resistance));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.skill++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.skill));
+        }
+        i++;
+        if (Random.Range(0,100) <= statUpgradePercent) {
+            stats.dexterity++;
+            yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.dexterity));
+        }
+
+        yield return new WaitForSeconds(5);
+        MenuManager.instance.HideLevelUp();
     }
 }

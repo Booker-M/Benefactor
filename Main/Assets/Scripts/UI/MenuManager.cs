@@ -32,6 +32,10 @@ public class MenuManager : MonoBehaviour
     public Text expText;
     public GameObject mouseIndicatorSprite;
     public GameObject tileIndicatorSprite;
+    public GameObject levelUp;
+    public GameObject levelUpPortrait;
+    public Text levelUpCharacterName;
+    public Text[] stats;
     public List<GameObject> indicators;
     private GameObject mouseIndicator;
     public float unhighlightedAlpha;
@@ -82,6 +86,8 @@ public class MenuManager : MonoBehaviour
 
         inverseUpdateTime = 1 / expUpdateTime;
         HideExperience();
+
+        HideLevelUp();
 
         backButton.transform.position = new Vector2(Screen.width*0.9f, Screen.height*0.1f);
         HideBackButton();
@@ -227,33 +233,25 @@ public class MenuManager : MonoBehaviour
 
     public IEnumerator UpdateExperience(int start, int amount)
     {
-        int carry = 1;
-        while (carry != 0) {
-            float maxWidth = expBarBackground.GetComponent<RectTransform>().rect.width;
-            int target = Math.Min(start + amount, 100);
-            carry = Math.Max(0, start + amount - 100);
-            float startWidth = ((float)start/100)*maxWidth;
-            Vector2 begin = new Vector2(startWidth, expBarBackground.GetComponent<RectTransform>().rect.height);
-            expBar.GetComponent<RectTransform>().sizeDelta = begin;
-            float targetWidth = ((float)target/100)*maxWidth;
-            Vector2 size = expBar.GetComponent<RectTransform>().sizeDelta;
-            float remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
-            Vector2 end = new Vector2(targetWidth, expBarBackground.GetComponent<RectTransform>().rect.height);
-            experience.SetActive(true);
-            while (remaining > float.Epsilon)
-            {
-                size = expBar.GetComponent<RectTransform>().sizeDelta;
-                Vector2 newSize = Vector2.MoveTowards(size, end, inverseUpdateTime * Time.fixedDeltaTime * maxWidth);
-                remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
-                expBar.GetComponent<RectTransform>().sizeDelta = newSize;
-                yield return null;
-                // Debug.Log(expBar.GetComponent<RectTransform>().sizeDelta + ", " + size + ", " + remaining + ", " + targetWidth + ", " + newSize);
-            }
-            yield return new WaitForSeconds(expHideDelay);
-            start = 0;
-            amount = carry;
+        float maxWidth = expBarBackground.GetComponent<RectTransform>().rect.width;
+        float startWidth = ((float)start/100)*maxWidth;
+        Vector2 begin = new Vector2(startWidth, expBarBackground.GetComponent<RectTransform>().rect.height);
+        expBar.GetComponent<RectTransform>().sizeDelta = begin;
+        float targetWidth = ((float)amount/100)*maxWidth;
+        Vector2 size = expBar.GetComponent<RectTransform>().sizeDelta;
+        float remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
+        Vector2 end = new Vector2(targetWidth, expBarBackground.GetComponent<RectTransform>().rect.height);
+        ShowExperience();
+        while (remaining > float.Epsilon)
+        {
+            size = expBar.GetComponent<RectTransform>().sizeDelta;
+            Vector2 newSize = Vector2.MoveTowards(size, end, inverseUpdateTime * Time.fixedDeltaTime * maxWidth);
+            remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
+            expBar.GetComponent<RectTransform>().sizeDelta = newSize;
+            yield return null;
         }
-        experience.SetActive(false);
+        yield return new WaitForSeconds(expHideDelay);
+        HideExperience();
     }
 
     public void ShowExperience()
@@ -264,6 +262,33 @@ public class MenuManager : MonoBehaviour
     public void HideExperience()
     {
         experience.SetActive(false);
+    }
+
+    public void ShowLevelUp(Character character)
+    {
+        levelUpPortrait.GetComponent<Image>().sprite = character.portrait;
+        levelUpCharacterName.GetComponent<Text>().text = character.name;
+        stats[0].text = character.level + "";
+        stats[1].text = character.GetStats().health + "";
+        stats[2].text = character.GetStats().agility + "";
+        stats[3].text = character.GetStats().strength + "";
+        stats[4].text = character.GetStats().magic + "";
+        stats[5].text = character.GetStats().defense + "";
+        stats[6].text = character.GetStats().resistance + "";
+        stats[7].text = character.GetStats().skill + "";
+        stats[8].text = character.GetStats().dexterity + "";
+        levelUp.SetActive(true);
+    }
+
+    public void HideLevelUp()
+    {
+        levelUp.SetActive(false);
+    }
+
+    public IEnumerator LevelUpStat(int i, int value)
+    {
+        yield return new WaitForSeconds(expHideDelay);
+        stats[i].text = value + "";
     }
 
     public void ShowBackButton()
