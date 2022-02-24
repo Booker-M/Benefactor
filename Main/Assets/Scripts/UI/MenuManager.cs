@@ -20,6 +20,8 @@ public class MenuManager : MonoBehaviour
     public GameObject playerStats;
     public GameObject portrait;
     public Text characterName;
+    public Text characterLevel;
+    public Text characterLevelLabel;
     public Text healthText;
     public Text movesText;
     public GameObject attackInfo;
@@ -209,6 +211,8 @@ public class MenuManager : MonoBehaviour
         healthText.GetComponent<Text>().text = target.GetHealth().ToString() + "/" + target.maxHealth;
         movesText.GetComponent<Text>().text = (character != null) ? (character.totalMoves.ToString()) : "";
         movesText.GetComponent<Text>().gameObject.SetActive(character != null);
+        characterLevelLabel.gameObject.SetActive(character != null);
+        characterLevel.text = (character != null) ? character.level + "" : "";
         playerStats.SetActive(true);
     }
 
@@ -241,6 +245,7 @@ public class MenuManager : MonoBehaviour
         Vector2 size = expBar.GetComponent<RectTransform>().sizeDelta;
         float remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
         Vector2 end = new Vector2(targetWidth, expBarBackground.GetComponent<RectTransform>().rect.height);
+        expText.text = start + "";
         ShowExperience();
         while (remaining > float.Epsilon)
         {
@@ -248,6 +253,7 @@ public class MenuManager : MonoBehaviour
             Vector2 newSize = Vector2.MoveTowards(size, end, inverseUpdateTime * Time.fixedDeltaTime * maxWidth);
             remaining = targetWidth < size.x ? size.x - targetWidth : targetWidth - size.x;
             expBar.GetComponent<RectTransform>().sizeDelta = newSize;
+            expText.text = (int)(newSize.x*100/maxWidth) + "";
             yield return null;
         }
         yield return new WaitForSeconds(expHideDelay);

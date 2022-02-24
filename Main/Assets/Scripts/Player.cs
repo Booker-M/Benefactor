@@ -16,6 +16,8 @@ public class Player : Character
     protected bool gettingItem;
     protected bool looting;
     protected bool attacking;
+    protected bool levelingUp;
+    protected int expCarry;
     protected bool backButton;
 
     // Start is called before the first frame update
@@ -27,7 +29,9 @@ public class Player : Character
         gettingTarget = false;
         looting = false;
         attacking = false;
+        levelingUp = false;
         backButton = false;
+        expCarry = 0;
 
         base.Start();
     }
@@ -347,6 +351,18 @@ public class Player : Character
     {
         backButton = true;
         attacking = false;
+
+        if (levelingUp) {
+            levelingUp = false;
+            MenuManager.instance.HideLevelUp();
+            MenuManager.instance.HideBackButton();
+            if (levelingUpPlayer.expCarry > 0)
+                StartCoroutine(levelingUpPlayer.UpdateExp(expCarry));
+            else
+                StartCoroutine(NextStep());
+            return;
+        }
+
         if (looting)
         {
             looting = false;
@@ -416,20 +432,18 @@ public class Player : Character
     public IEnumerator UpdateExp(int amount)
     {
         Debug.Log("Current Exp: " + experience + ", Exp Gained: " + amount);
-        int carry = 1;
-        while (carry != 0) {
-            int target = Math.Min(experience + amount, 100);
-            carry = Math.Max(0, experience + amount - 100);
-            yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
-            experience = experience + amount % 100;
-            if (target == 100)
-                yield return StartCoroutine(LevelUp());
-            amount = carry;
-        }
+        expCarry = Math.Max(0, experience + amount - 100);
+        yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
+        experience = Math.Min(experience + amount, 100);
+        if (experience == 100)
+            StartCoroutine(LevelUp());
+        else
+            GameManager.instance.activeCharacter.Back();
     }
 
     public IEnumerator LevelUp()
     {
+        levelingUp = true;
         MenuManager.instance.ShowLevelUp(this);
 
         int i = 0;
@@ -477,7 +491,6 @@ public class Player : Character
             yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.dexterity));
         }
 
-        yield return new WaitForSeconds(5);
-        MenuManager.instance.HideLevelUp();
+        MenuManager.instance.ShowBackButton();
     }
 }

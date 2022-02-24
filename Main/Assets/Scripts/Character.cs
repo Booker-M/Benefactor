@@ -101,6 +101,7 @@ public class Character : InteractableObject
     protected int experience;
     protected int expPerLevelGap = 100;
     protected double statUpgradePercent = 35;
+    protected Player levelingUpPlayer;
 
 
     // Start is called before the first frame update
@@ -551,13 +552,14 @@ public class Character : InteractableObject
 
     public virtual IEnumerator ChooseItem(HoldableObject item)
     {
+        MenuManager.instance.HidePlayerStats();
+        MenuManager.instance.HideBackButton();
         actionsLeft--;
         UpdateState();
         switch (item.type)
         {
             case "Weapon":
                 yield return StartCoroutine(Attack(currentObjective.target, item));
-                StartCoroutine(NextStep());
                 break;
             case "Medicine":
                 yield return StartCoroutine(Heal(currentObjective.target, item));
@@ -703,8 +705,11 @@ public class Character : InteractableObject
     {
         GameManager.instance.CameraTarget(toAttack.gameObject);
 
-        bool hit = DoesHit(HitPercent(toAttack, weapon));
+        weapon.uses--;
+        if (weapon.uses == 0)
+            Remove(weapon);
 
+        bool hit = DoesHit(HitPercent(toAttack, weapon));
         if (hit) {
             int damage = GetDamage(toAttack, weapon);
             yield return StartCoroutine(toAttack.TakeDamage(damage));
@@ -727,20 +732,21 @@ public class Character : InteractableObject
 
             // animator.SetTrigger("enemyAttack");
             if (this.GetComponent<Player>().playable && currentObjective.target.GetComponent<Character>() != null) {
+                levelingUpPlayer = this.GetComponent<Player>();
                 int expGain = Math.Max(currentObjective.target.GetComponent<Character>().level - level + 1, 1) * expPerLevelGap / ((toAttack.GetHealth() <= 0) ? 1 : 3);
-                yield return StartCoroutine(this.GetComponent<Player>().UpdateExp(expGain));
+                StartCoroutine(this.GetComponent<Player>().UpdateExp(expGain));
+                yield break;
             }
             if (toAttack.GetHealth() <= 0)
                 currentObjective = null;
             else if (currentObjective.target.GetComponent<Player>() != null && currentObjective.target.GetComponent<Player>().playable) {
+                levelingUpPlayer = currentObjective.target.GetComponent<Player>();
                 int expGain = Math.Max(level - currentObjective.target.GetComponent<Character>().level, 1) * expPerLevelGap / 3;
-                yield return StartCoroutine(currentObjective.target.GetComponent<Player>().UpdateExp(expGain));
+                StartCoroutine(currentObjective.target.GetComponent<Player>().UpdateExp(expGain));
+                yield break;
             }
         }
-
-        weapon.uses--;
-        if (weapon.uses == 0)
-            Remove(weapon);
+        StartCoroutine(NextStep());
     }
 
     protected bool DoesHit(int percent) {
