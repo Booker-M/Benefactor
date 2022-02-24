@@ -448,6 +448,7 @@ public class Player : Character
 
         int i = 0;
         level++;
+        experience = 0;
         yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, level));
 
         i++;
