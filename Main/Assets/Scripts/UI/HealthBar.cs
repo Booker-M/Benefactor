@@ -7,6 +7,7 @@ public class HealthBar : MonoBehaviour
 {
     public float updateTime;
     public float hideDelay;
+
     private SpriteRenderer spriteRenderer;
     private float maxWidth;
     private float inverseUpdateTime;
@@ -29,6 +30,8 @@ public class HealthBar : MonoBehaviour
         try
         {
             remaining = targetWidth < spriteRenderer.size.x ? spriteRenderer.size.x - targetWidth : targetWidth - spriteRenderer.size.x;
+            if (targetWidth < spriteRenderer.size.x)
+                StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(updateTime, .1f));
         }
         catch { yield break;  }
         Vector2 end = new Vector2(targetWidth, 0.2f);

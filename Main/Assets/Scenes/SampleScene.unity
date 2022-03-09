@@ -2655,6 +2655,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2733,8 +2734,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: 3.5, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2755,6 +2756,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 2784425834404376428, guid: a8742e7ea61588949bb14d4e4e4f01a0,
     type: 3}
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f42c453702e6a4eb2cb1a0bdfe18f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &521812671
 GameObject:
   m_ObjectHideFlags: 0
@@ -8803,12 +8816,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451082f349da19f43a1c1ea08dbe6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlankPortrait: {fileID: 21300000, guid: 6c80f7305b9cac444b9bfea080baee29, type: 3}
-  RaskolnikovNeutral: {fileID: 21300000, guid: 8304cdde25968a641986bd752e7b1a0c, type: 3}
-  IvanovnaNeutral: {fileID: 21300000, guid: 0f86657dc08519e42a0bf7a7df2e597a, type: 3}
-  Pepov: {fileID: 0}
-  Patron: {fileID: 0}
-  Sergey: {fileID: 0}
+  Unknown: {fileID: 0}
+  Ranger: {fileID: 0}
+  Policeman: {fileID: 0}
+  Policewoman: {fileID: 0}
+  MaleScientist: {fileID: 0}
+  FemaleScientist: {fileID: 0}
+  MaleCultist: {fileID: 0}
+  FemaleCultist: {fileID: 0}
+  OlderBrother: {fileID: 0}
+  YoungerBrother: {fileID: 0}
 --- !u!114 &1139412149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10342,12 +10359,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451082f349da19f43a1c1ea08dbe6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlankPortrait: {fileID: 21300000, guid: 6c80f7305b9cac444b9bfea080baee29, type: 3}
-  RaskolnikovNeutral: {fileID: 21300000, guid: 8304cdde25968a641986bd752e7b1a0c, type: 3}
-  IvanovnaNeutral: {fileID: 21300000, guid: 0f86657dc08519e42a0bf7a7df2e597a, type: 3}
-  Pepov: {fileID: 0}
-  Patron: {fileID: 0}
-  Sergey: {fileID: 0}
+  Unknown: {fileID: 0}
+  Ranger: {fileID: 0}
+  Policeman: {fileID: 0}
+  Policewoman: {fileID: 0}
+  MaleScientist: {fileID: 0}
+  FemaleScientist: {fileID: 0}
+  MaleCultist: {fileID: 0}
+  FemaleCultist: {fileID: 0}
+  OlderBrother: {fileID: 0}
+  YoungerBrother: {fileID: 0}
 --- !u!114 &1418889164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16138,12 +16159,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 451082f349da19f43a1c1ea08dbe6605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlankPortrait: {fileID: 21300000, guid: 6c80f7305b9cac444b9bfea080baee29, type: 3}
-  RaskolnikovNeutral: {fileID: 21300000, guid: 8304cdde25968a641986bd752e7b1a0c, type: 3}
-  IvanovnaNeutral: {fileID: 21300000, guid: 0f86657dc08519e42a0bf7a7df2e597a, type: 3}
-  Pepov: {fileID: 0}
-  Patron: {fileID: 0}
-  Sergey: {fileID: 0}
+  Unknown: {fileID: 0}
+  Ranger: {fileID: 0}
+  Policeman: {fileID: 0}
+  Policewoman: {fileID: 0}
+  MaleScientist: {fileID: 0}
+  FemaleScientist: {fileID: 0}
+  MaleCultist: {fileID: 0}
+  FemaleCultist: {fileID: 0}
+  OlderBrother: {fileID: 0}
+  YoungerBrother: {fileID: 0}
 --- !u!224 &6866872682703052558
 RectTransform:
   m_ObjectHideFlags: 0
