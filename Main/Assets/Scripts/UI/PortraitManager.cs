@@ -7,12 +7,16 @@ public class PortraitManager : MonoBehaviour
 {
     Image ImageComponent;
 
-    public Sprite BlankPortrait;
-    public Sprite RaskolnikovNeutral;
-    public Sprite IvanovnaNeutral;
-    public Sprite Pepov;
-    public Sprite Patron;
-    public Sprite Sergey;
+    public Sprite Unknown;
+    public Sprite Ranger;
+    public Sprite Policeman;
+    public Sprite Policewoman;
+    public Sprite MaleScientist;
+    public Sprite FemaleScientist;
+    public Sprite MaleCultist;
+    public Sprite FemaleCultist;
+    public Sprite OlderBrother;
+    public Sprite YoungerBrother;
 
     public void Awake()
     {
@@ -23,23 +27,35 @@ public class PortraitManager : MonoBehaviour
     {
         switch (newPortraitName)
         {
-            case "RaskolnikovNeutral": 
-                ImageComponent.sprite = RaskolnikovNeutral;
+            case "Unknown": 
+                ImageComponent.sprite = Unknown;
                 break;
-            case "IvanovnaNeutral":
-                ImageComponent.sprite = IvanovnaNeutral;
+            case "Ranger": 
+                ImageComponent.sprite = Ranger;
                 break;
-            case "BlankPortrait":
-                ImageComponent.sprite = BlankPortrait;
+            case "Policeman": 
+                ImageComponent.sprite = Policeman;
                 break;
-            case "Pepov":
-                ImageComponent.sprite = Pepov;
+            case "Policewoman": 
+                ImageComponent.sprite = Policewoman;
                 break;
-            case "Patron":
-                ImageComponent.sprite = Patron;
+            case "MaleScientist": 
+                ImageComponent.sprite = MaleScientist;
                 break;
-            case "Sergey":
-                ImageComponent.sprite = Sergey;
+            case "FemaleScientist": 
+                ImageComponent.sprite = FemaleScientist;
+                break;
+            case "MaleCultist": 
+                ImageComponent.sprite = MaleCultist;
+                break;
+            case "FemaleCultist": 
+                ImageComponent.sprite = FemaleCultist;
+                break;
+            case "OlderBrother": 
+                ImageComponent.sprite = OlderBrother;
+                break;
+            case "YoungerBrother":
+                ImageComponent.sprite = YoungerBrother;
                 break;
             default:
                 Debug.LogError("Invalid portrait name: " + newPortraitName);

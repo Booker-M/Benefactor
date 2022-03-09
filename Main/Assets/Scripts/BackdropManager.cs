@@ -7,9 +7,11 @@ public class BackdropManager : MonoBehaviour
 {
     Image ImageComponent;
 
-    public Sprite Thoroughfair;
-    public Sprite InterogationOffice;
-    public Sprite Bar;
+    public Sprite RangerTower;
+    public Sprite ForestMorning;
+    public Sprite ForestDay;
+    public Sprite ForestNight;
+    public Sprite Crater;
 
     public void Start()
     {
@@ -20,14 +22,20 @@ public class BackdropManager : MonoBehaviour
     {
         switch (newBackdropName)
         {
-            case "Thoroughfair":
-                ImageComponent.sprite = Thoroughfair;
+            case "RangerTower":
+                ImageComponent.sprite = RangerTower;
                 break;
-            case "InterogationOffice":
-                ImageComponent.sprite = InterogationOffice;
+            case "ForestMorning":
+                ImageComponent.sprite = ForestMorning;
                 break;
-            case "Bar":
-                ImageComponent.sprite = Bar;
+            case "ForestDay":
+                ImageComponent.sprite = ForestDay;
+                break;
+            case "ForestNight":
+                ImageComponent.sprite = ForestNight;
+                break;
+            case "Crater":
+                ImageComponent.sprite = Crater;
                 break;
             default:
                 Debug.LogError("Invalid portrait name: " + newBackdropName);

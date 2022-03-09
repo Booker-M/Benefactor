@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 3e5dcf15579c986449eb59b08da6c670
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - SFXSource: {instanceID: 0}
+  - Fall: {instanceID: 0}
+  - Crash: {fileID: 8300000, guid: ec80af43e49783643ae2563919592bb9, type: 3}
+  - FootstepsApproaching: {instanceID: 0}
+  - FootstepsLeaving: {instanceID: 0}
+  - DoorOpening: {instanceID: 0}
+  - Punch1: {instanceID: 0}
+  - Punch2: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

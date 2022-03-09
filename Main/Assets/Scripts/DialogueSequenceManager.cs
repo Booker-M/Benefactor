@@ -22,12 +22,15 @@ public class DialogueSequenceManager : MonoBehaviour
     string currentCharacter;
     string currentDialogue;
 
+    public CameraShake cameraShake;
     public Text dialogueUI;
     public float typingSpeed = .05f;
     public float punctuationDelay = .5f;
     private float alphaIncrementRate = .02f;
     private float alphaIncrementAmount = .005f;
     private float postTransitionDelay = .5f;
+    private float pauseDelay = .5f;
+    private float shakeTime = .5f;
 
     public bool typingInProgress;
     private bool fastForward;
@@ -49,7 +52,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
     void LoadXML()
     {
-        xmlDoc = XDocument.Load("Assets/Resources/XMLFiles/IntroSequence.xml");
+        xmlDoc = XDocument.Load("Assets/Cutscenes/IntroSequence.xml");
         items = xmlDoc.Descendants("page").Elements();
     }
 
@@ -109,6 +112,12 @@ public class DialogueSequenceManager : MonoBehaviour
             case "Dialogue":
                 StartCoroutine("readDialogue");
                 currentIndex++;
+                break;
+            case "Pause":
+                StartCoroutine("pause");
+                break;
+            case "Shake":
+                StartCoroutine("shake");
                 break;
             case "NewScene":
                 GameObject.Find("Backdrop").GetComponent<BackdropManager>().changeBackdrop(data[currentIndex].backdrop);
@@ -197,6 +206,42 @@ public class DialogueSequenceManager : MonoBehaviour
         }
 
         typingInProgress = false;
+    }
+
+    IEnumerator pause()
+    {
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
+        GameObject.Find("Portrait").GetComponent<Image>().enabled = false;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
+
+        yield return new WaitForSeconds(pauseDelay);
+
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
+        GameObject.Find("Portrait").GetComponent<Image>().enabled = true;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
+
+        currentIndex++;
+        executeNext();
+    }
+
+    IEnumerator shake()
+    {
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
+        GameObject.Find("Portrait").GetComponent<Image>().enabled = false;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
+
+        yield return StartCoroutine(cameraShake.Shake(shakeTime, 5f));
+
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
+        GameObject.Find("Portrait").GetComponent<Image>().enabled = true;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
+
+        currentIndex++;
+        executeNext();
     }
 
     IEnumerator fadeAmbience()
