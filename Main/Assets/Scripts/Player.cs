@@ -169,14 +169,14 @@ public class Player : Character
             pathToObjective = pathToObjective.Skip(1).ToArray();
             MenuManager.instance.HideBackButton();
             yield return StartCoroutine(FollowPath());
-            StartCoroutine(NextStep());
+            // StartCoroutine(NextStep());
         }
-        else
-        {
+        // else
+        // {
             GetAvailableTargets();
             GetAvailableActions();
             SelectAction();
-        }
+        // }
     }
 
     protected void SelectAction()
