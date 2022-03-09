@@ -21,6 +21,9 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip takeDamage;
     public AudioClip heal;
+    public AudioClip getExp;
+    public AudioClip levelUp;
+    public AudioClip statUp;
     public AudioClip leftFoot;
     public AudioClip rightFoot;
 
@@ -81,11 +84,31 @@ public class SoundManager : MonoBehaviour
         efxSource.clip = takeDamage;
         efxSource.Play();
     }
+
     public void Heal()
     {
         efxSource.clip = heal;
         efxSource.Play();
     }
+
+    public void GetExp()
+    {
+        efxSource.clip = getExp;
+        efxSource.Play();
+    }
+
+    public void LevelUp()
+    {
+        efxSource.clip = levelUp;
+        efxSource.Play();
+    }
+
+    public void StatUp()
+    {
+        efxSource.clip = statUp;
+        efxSource.Play();
+    }
+
     public IEnumerator Walk(float moveTime)
     {
         efxSource.clip = leftFoot;

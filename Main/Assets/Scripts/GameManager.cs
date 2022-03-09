@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
         enabled = false;
     }
 
-    public void PlayerSelectCharacter()
+    public IEnumerator PlayerSelectCharacter()
     {
         Dictionary<Vector2, Vector2[]> paths = new Dictionary<Vector2, Vector2[]>();
         foreach (Player character in GetPlayableCharacters())
@@ -161,8 +161,9 @@ public class GameManager : MonoBehaviour
         GameObject.Find("MenuManager").GetComponent<MenuManager>().ShowPaths(paths);
 
         gettingNextCharacter = true;
-        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowMouse();
         CameraTarget(GetPlayableCharacters()[0].gameObject); //temp until camera follows mouse
+        yield return new WaitForSeconds(turnDelay);
+        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowMouse();
     }
 
     public void AISelectCharacter()
@@ -211,7 +212,7 @@ public class GameManager : MonoBehaviour
 
         if (playerTurn)
         {
-            PlayerSelectCharacter();
+            StartCoroutine(PlayerSelectCharacter());
         } else {
             //yield return new WaitForSeconds(turnDelay);
             AISelectCharacter();

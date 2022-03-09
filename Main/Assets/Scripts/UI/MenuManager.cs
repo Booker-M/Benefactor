@@ -38,6 +38,7 @@ public class MenuManager : MonoBehaviour
     public GameObject levelUpPortrait;
     public Text levelUpCharacterName;
     public Text[] stats;
+    public Image[] statIcons;
     public List<GameObject> indicators;
     private GameObject mouseIndicator;
     public float unhighlightedAlpha;
@@ -255,6 +256,8 @@ public class MenuManager : MonoBehaviour
             expBar.GetComponent<RectTransform>().sizeDelta = newSize;
             expText.text = (int)(newSize.x*100/maxWidth) + "";
             yield return null;
+            if ((int)(remaining/targetWidth) % 20 == 0)
+                SoundManager.instance.GetExp();
         }
         yield return new WaitForSeconds(expHideDelay);
         HideExperience();
@@ -283,7 +286,11 @@ public class MenuManager : MonoBehaviour
         stats[6].text = character.GetStats().resistance + "";
         stats[7].text = character.GetStats().skill + "";
         stats[8].text = character.GetStats().dexterity + "";
+        foreach (Image image in statIcons) {
+            image.gameObject.SetActive(false);
+        }
         levelUp.SetActive(true);
+        SoundManager.instance.LevelUp();
     }
 
     public void HideLevelUp()
@@ -295,6 +302,8 @@ public class MenuManager : MonoBehaviour
     {
         yield return new WaitForSeconds(expHideDelay);
         stats[i].text = value + "";
+        statIcons[i].gameObject.SetActive(true);
+        SoundManager.instance.StatUp();
     }
 
     public void ShowBackButton()
