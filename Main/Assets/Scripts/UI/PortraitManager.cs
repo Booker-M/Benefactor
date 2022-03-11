@@ -13,6 +13,8 @@ public class PortraitManager : MonoBehaviour
     public Sprite Policewoman;
     public Sprite MaleScientist;
     public Sprite FemaleScientist;
+    public Sprite CultLeader;
+    public Sprite CultLeaderShadow;
     public Sprite MaleCultist;
     public Sprite FemaleCultist;
     public Sprite OlderBrother;
@@ -44,6 +46,12 @@ public class PortraitManager : MonoBehaviour
                 break;
             case "FemaleScientist": 
                 ImageComponent.sprite = FemaleScientist;
+                break;
+            case "CultLeader": 
+                ImageComponent.sprite = CultLeader;
+                break;
+            case "CultLeaderShadow": 
+                ImageComponent.sprite = CultLeaderShadow;
                 break;
             case "MaleCultist": 
                 ImageComponent.sprite = MaleCultist;

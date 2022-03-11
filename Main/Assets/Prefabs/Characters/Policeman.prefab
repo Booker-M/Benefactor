@@ -181,11 +181,9 @@ MonoBehaviour:
   fire: {fileID: 0}
   healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
     type: 3}
-  expPerLevelGap: 100
   playable: 0
   talkable: 1
-  portrait: {fileID: 6715957911979874120, guid: 6a7677d8416a9614fa61186e719ed76f,
-    type: 3}
+  portrait: {fileID: 1607319076, guid: 74c904cc8af601d46a98c35272e852b2, type: 3}
   name: Policeman
   moveTime: 0.15
   totalMoves: 4

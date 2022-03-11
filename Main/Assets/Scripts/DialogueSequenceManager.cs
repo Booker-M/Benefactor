@@ -12,9 +12,10 @@ using UnityEngine.SceneManagement;
 
 public class DialogueSequenceManager : MonoBehaviour
 {
-    XDocument xmlDoc;
+    public XDocument xmlDoc;
     IEnumerable<XElement> items;
     List<XMLData> data = new List<XMLData>();
+    public string cutscene;
 
     private int currentIndex;
     private int pageNum;
@@ -27,10 +28,8 @@ public class DialogueSequenceManager : MonoBehaviour
     public float typingSpeed = .05f;
     public float punctuationDelay = .5f;
     private float alphaIncrementRate = .02f;
-    private float alphaIncrementAmount = .005f;
+    private float alphaIncrementAmount = 3f;
     private float postTransitionDelay = .5f;
-    private float pauseDelay = .5f;
-    private float shakeTime = .5f;
 
     public bool typingInProgress;
     private bool fastForward;
@@ -52,7 +51,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
     void LoadXML()
     {
-        xmlDoc = XDocument.Load("Assets/Cutscenes/IntroSequence.xml");
+        xmlDoc = XDocument.Load(Application.dataPath + "/Cutscenes/" + cutscene + ".xml");
         items = xmlDoc.Descendants("page").Elements();
     }
 
@@ -75,13 +74,15 @@ public class DialogueSequenceManager : MonoBehaviour
             {
                 string tempType = item.Parent.Element("type").Value.Trim();
                 int tempPageNum = int.Parse(item.Parent.Attribute("number").Value);
-                string tempBackdrop = item.Parent.Element("backdrop").Value.Trim();
-                string tempSFX = item.Parent.Element("SFX").Value.Trim();
-                string tempCharName = item.Parent.Element("character").Value.Trim();
-                string tempPortrait = item.Parent.Element("portrait").Value.Trim();
-                string tempDialogue = item.Parent.Element("dialogue").Value.Trim();
+                string tempBackdrop = item.Parent.Element("backdrop") != null ? item.Parent.Element("backdrop").Value.Trim() : null;
+                string tempSFX = item.Parent.Element("SFX") != null ? item.Parent.Element("SFX").Value.Trim() : null;
+                string tempCharName = item.Parent.Element("character") != null ? item.Parent.Element("character").Value.Trim() : null;
+                string tempPortraitLeft = item.Parent.Element("portraitLeft") != null ? item.Parent.Element("portraitLeft").Value.Trim() : null;
+                string tempPortraitRight = item.Parent.Element("portraitRight") != null ? item.Parent.Element("portraitRight").Value.Trim() : null;
+                string tempDialogue = item.Parent.Element("dialogue") != null ? item.Parent.Element("dialogue").Value.Trim() : null;
+                float tempDuration = item.Parent.Element("duration") != null ? float.Parse(item.Parent.Element("duration").Value) : 0.0f;
 
-                data.Add(new XMLData(tempType, tempPageNum, tempBackdrop, tempSFX, tempCharName, tempPortrait, tempDialogue));
+                data.Add(new XMLData(tempType, tempPageNum, tempBackdrop, tempSFX, tempCharName, tempPortraitLeft, tempPortraitRight, tempDialogue, tempDuration));
                 //Debug.Log(data[assignmentIndex].dialogueText);
                 //Debug.Log(assignmentIndex);
                 assignmentIndex++;
@@ -111,7 +112,6 @@ public class DialogueSequenceManager : MonoBehaviour
         {
             case "Dialogue":
                 StartCoroutine("readDialogue");
-                currentIndex++;
                 break;
             case "Pause":
                 StartCoroutine("pause");
@@ -120,7 +120,10 @@ public class DialogueSequenceManager : MonoBehaviour
                 StartCoroutine("shake");
                 break;
             case "NewScene":
-                GameObject.Find("Backdrop").GetComponent<BackdropManager>().changeBackdrop(data[currentIndex].backdrop);
+                if (data[currentIndex].backdrop != null) {
+                    GameObject.Find("Backdrop").GetComponent<BackdropManager>().changeBackdrop(data[currentIndex].backdrop);
+                    GameObject.Find("ParallaxManager").GetComponent<ParallaxManager>().changeParallax("Disable");
+                }
                 GameObject.FindObjectOfType<AmbienceManager>().GetComponent<AudioSource>().volume = 1;
                 StartCoroutine("fadeIn");
                 break;
@@ -144,8 +147,23 @@ public class DialogueSequenceManager : MonoBehaviour
                 currentIndex++;
                 executeNext();
                 break;
+            case "Parallax":
+                GameObject.Find("ParallaxManager").GetComponent<ParallaxManager>().changeParallax(data[currentIndex].backdrop);
+                currentIndex++;
+                executeNext();
+                break;
             case "StartScene":
                 beginScene();
+                break;
+            case "HideLeftPortrait":
+                hidePortraitLeft();
+                currentIndex++;
+                executeNext();
+                break;
+            case "HideRightPortrait":
+                hidePortraitRight();
+                currentIndex++;
+                executeNext();
                 break;
             default:
                 Debug.Log("Invalid event type: " + data[currentIndex].type);
@@ -182,9 +200,27 @@ public class DialogueSequenceManager : MonoBehaviour
 
         dialogueUI.text = "";
         currentDialogue = data[currentIndex].dialogueText;
+        showDialogue();
 
         GameObject.Find("SpeakingCharacter").GetComponent<Text>().text = data[currentIndex].characterName;
-        GameObject.Find("Portrait").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portrait);
+        if (data[currentIndex].portraitLeft != null) {
+            GameObject.Find("PortraitLeft").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portraitLeft);
+            GameObject.Find("PortraitLeft").GetComponent<Image>().color = new Color( 1f, 1f, 1f);
+            showPortraitLeft();
+            if (GameObject.Find("PortraitRight").GetComponent<Image>().enabled == true) {
+                GameObject.Find("PortraitRight").GetComponent<Image>().color = new Color( 0.5f, 0.5f, 0.5f);
+                showPortraitRight();
+            }
+        }
+        if (data[currentIndex].portraitRight != null) {
+            GameObject.Find("PortraitRight").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portraitRight);
+            GameObject.Find("PortraitRight").GetComponent<Image>().color = new Color( 1f, 1f, 1f);
+            showPortraitRight();
+            if (GameObject.Find("PortraitLeft").GetComponent<Image>().enabled == true) {
+                GameObject.Find("PortraitLeft").GetComponent<Image>().color = new Color( 0.5f, 0.5f, 0.5f);
+                showPortraitRight();
+            }
+        }
 
         foreach (char letter in currentDialogue)
         {
@@ -198,6 +234,7 @@ public class DialogueSequenceManager : MonoBehaviour
             {
                 dialogueUI.text = currentDialogue;
                 fastForward = false;
+                currentIndex++;
                 typingInProgress = false;
                 yield break;
             }
@@ -205,22 +242,15 @@ public class DialogueSequenceManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed + specialCharacterDelay);
         }
 
+        currentIndex++;
         typingInProgress = false;
     }
 
     IEnumerator pause()
     {
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = false;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
-
-        yield return new WaitForSeconds(pauseDelay);
-
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = true;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
+        hideDialogue();
+        yield return new WaitForSeconds(data[currentIndex].duration);
+        showDialogue();
 
         currentIndex++;
         executeNext();
@@ -228,17 +258,9 @@ public class DialogueSequenceManager : MonoBehaviour
 
     IEnumerator shake()
     {
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = false;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
-
-        yield return StartCoroutine(cameraShake.Shake(shakeTime, 5f));
-
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = true;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
+        hideDialogue();
+        yield return StartCoroutine(cameraShake.Shake(data[currentIndex].duration, 5f));
+        showDialogue();
 
         currentIndex++;
         executeNext();
@@ -279,14 +301,13 @@ public class DialogueSequenceManager : MonoBehaviour
         transitioning = true;
         Image cover = GameObject.Find("Cover").GetComponent<Image>();
 
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = false;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
+        hideDialogue();
+        hidePortraitLeft();
+        hidePortraitRight();
 
         while (cover.color.a >= 0)
         {
-            cover.color -= new Color(0, 0, 0, alphaIncrementAmount);
+            cover.color -= new Color(0, 0, 0, alphaIncrementAmount*Time.deltaTime);
             if (fastForward)
             {
                 cover.color -= new Color(0, 0, 0, cover.color.a);
@@ -296,11 +317,6 @@ public class DialogueSequenceManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(postTransitionDelay);
-
-        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
-        GameObject.Find("Portrait").GetComponent<Image>().enabled = true;
-        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
-        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
 
         transitioning = false;
         currentIndex++;
@@ -314,7 +330,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
         while (cover.color.a <= 1)
         {
-            cover.color += new Color (0, 0, 0, alphaIncrementAmount);
+            cover.color += new Color (0, 0, 0, alphaIncrementAmount*Time.deltaTime);
             if (fastForward)
             {
                 cover.color += new Color(0, 0, 0, (1 - cover.color.a));
@@ -334,6 +350,9 @@ public class DialogueSequenceManager : MonoBehaviour
     {
         switch (data[currentIndex].backdrop)
         {
+            case "Intro":
+                SceneManager.LoadScene("IntroCutscene", LoadSceneMode.Single);
+                break;
             case "Scenario1":
                 // Should load Scenario 1, but for right now, just loads test level
                 SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
@@ -345,8 +364,45 @@ public class DialogueSequenceManager : MonoBehaviour
     private void clearFields()
     {
         GameObject.Find("SpeakingCharacter").GetComponent<Text>().text = data[currentIndex].characterName;
-        GameObject.Find("Portrait").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portrait);
+        GameObject.Find("PortraitLeft").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portraitLeft);
+        GameObject.Find("PortraitRight").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portraitRight);
         dialogueUI.text = "";
+    }
+
+    private void hideDialogue()
+    {
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = false;
+        GameObject.Find("SpeakerFrame").GetComponent<Image>().enabled = false;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = false;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = false;
+    }
+
+    private void hidePortraitLeft()
+    {
+        GameObject.Find("PortraitLeft").GetComponent<Image>().enabled = false;
+    }
+
+    private void hidePortraitRight()
+    {
+        GameObject.Find("PortraitRight").GetComponent<Image>().enabled = false;
+    }
+
+    private void showDialogue()
+    {
+        GameObject.Find("DialogueBackground").GetComponent<Image>().enabled = true;
+        GameObject.Find("SpeakerFrame").GetComponent<Image>().enabled = true;
+        GameObject.Find("SpeakingCharacter").GetComponent<Text>().enabled = true;
+        GameObject.Find("Dialogue").GetComponent<Text>().enabled = true;
+    }
+
+    private void showPortraitLeft()
+    {
+        GameObject.Find("PortraitLeft").GetComponent<Image>().enabled = true;
+    }
+
+    private void showPortraitRight()
+    {
+        GameObject.Find("PortraitRight").GetComponent<Image>().enabled = true;
     }
 
 }
@@ -358,18 +414,22 @@ public class XMLData
     public string backdrop;
     public string SFX;
     public string characterName;
-    public string portrait;
+    public string portraitLeft;
+    public string portraitRight;
     public string dialogueText;
+    public float duration;
 
-    public XMLData(string pageType, int page, string backdropName, string SoundEffect, string charName, string character, string dialogue)
+    public XMLData(string pageType, int page, string backdropName, string SoundEffect, string charName, string characterLeft, string characterRight, string dialogue, float time)
     {
         type = pageType;
         pageNum = page;
         backdrop = backdropName;
         SFX = SoundEffect;
         characterName = charName;
-        portrait = character;
+        portraitLeft = characterLeft;
+        portraitRight = characterRight;
         dialogueText = dialogue;
+        duration = time;
     }
 }
 

@@ -1,0 +1,399 @@
+<?xml version= "1.0" encoding= "UTF-8" standalone= "yes"?>
+
+<IntroSequence>
+	
+	<!--
+		Notes to be wary of:
+		 -Currently, page elements must contain all 6 properties. This would ideally not be the case 
+		 -Page numbers are numbered strangely to make changing them possible without having to change every other page
+			number. The code currently iterates through each page number to access this data, so it does need to be sequential
+		 -Other values I want to add would be <fadeOutTime>, <fadeInTime>, a delay type, and a SFX type
+		 -Need to implement SFX System
+	-->
+
+	<!--START OF SCENE 1-->
+	<page number = "100">
+		<type>NewScene</type>
+		<backdrop>RangerTower</backdrop>
+	</page>
+	
+	<page number = "101">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>ZZZZzzzzZZZZzzzzzz</dialogue>
+	</page>
+
+	<page number = "102">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>ZZZZzzzzZZZZzzzzzz</dialogue>
+	</page>
+
+	<page number = "103">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>ZZzzz *snort* zzZZzz</dialogue>
+	</page>
+
+	<page number = "104">
+		<type>SoundEffect</type>
+		<SFX>Fall</SFX>
+	</page>
+
+	<page number = "105">
+		<type>Pause</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "106">
+		<type>SoundEffect</type>
+		<SFX>Crash</SFX>
+	</page>
+
+	<page number = "107">
+		<type>Shake</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "108">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>*GASP* WHO'STHEREISWEARTOGODI'LL-</dialogue>
+	</page>
+
+	<page number = "109">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>Oh... I wonder what could make such a ruckus out there?</dialogue>
+	</page>
+
+	<page number = "110">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>*sigh* Suppose no one else is going to check it out.</dialogue>
+	</page>
+
+	<page number = "111">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>Time to lace up the 'ole boots.</dialogue>
+	</page>
+
+	<page number = "112">
+		<type>FadeOut</type>
+	</page>
+	<!--END OF SCENE 0-->
+	
+	
+	<!--START OF SCENE 2-->
+
+	<page number = "200">
+		<type>Ambience</type>
+	</page>
+
+	<page number = "201">
+		<type>Parallax</type>
+		<backdrop>ForestNight</backdrop>
+	</page>
+	
+	<page number = "202">
+		<type>NewScene</type>
+	</page>
+
+	<page number = "203">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			Now which direction did that sound come from?
+		</dialogue>
+	</page>
+
+	<page number = "204">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			This way?
+		</dialogue>
+	</page>
+
+	<page number = "205">
+		<type>SoundEffect</type>
+		<SFX>FootstepsApproaching</SFX>
+	</page>
+
+	<page number = "206">
+		<type>Pause</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "207">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			I'd take the quiet forest over the bustling city most days...
+		</dialogue>
+	</page>
+
+	<page number = "208">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			...but nights like these I think I'd prefer a police siren blaring outside my window.
+		</dialogue>
+	</page>
+
+	<page number = "209">
+		<type>SoundEffect</type>
+		<SFX>FootstepsApproaching</SFX>
+	</page>
+
+	<page number = "210">
+		<type>Pause</type>
+		<duration>1.0</duration>
+	</page>
+
+	<page number = "211">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>I must be getting close by now.</dialogue>
+	</page>
+
+	<page number = "212">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>Wait, what the hell is that??</dialogue>
+	</page>
+
+	<page number = "213">
+		<type>FadeOut</type>
+	</page>
+
+	<!--START OF SCENE 3-->
+
+	<page number = "300">
+		<type>Ambience</type>
+	</page>
+
+	<page number = "301">
+		<type>NewScene</type>
+		<backdrop>Crater</backdrop>
+	</page>
+
+	<page number = "302">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			Is that... a meteorite?
+		</dialogue>
+	</page>
+
+	<page number = "303">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			It's so beautiful.
+		</dialogue>
+	</page>
+
+	<page number = "304">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			It's perfect.
+		</dialogue>
+	</page>
+
+	<page number = "305">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			I have to... I have to touch it.
+		</dialogue>
+	</page>
+
+	<page number = "306">
+		<type>SoundEffect</type>
+		<SFX>Fall</SFX>
+	</page>
+
+	<page number = "307">
+		<type>Shake</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "308">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>
+			AAHH. AAAHHHHHHHHH.
+		</dialogue>
+	</page>
+
+	<page number = "309">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>What the hell? What is happening to me??</dialogue>
+	</page>
+
+	<page number = "310">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>There's something... coursing through me. It's burning in my veins.</dialogue>
+	</page>
+
+	<page number = "311">
+		<type>Pause</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "312">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>My, my, my...</dialogue>
+	</page>
+
+	<page number = "313">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>I REALLY wish you hadn't done that.</dialogue>
+	</page>
+
+	<page number = "314">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>H- *cough* Hel- *cough* Help me!</dialogue>
+	</page>
+
+	<page number = "315">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>You poor, ignorant fool. That wasn't meant for you.</dialogue>
+	</page>
+
+	<page number = "316">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>You're no vessel for such power. You're too weak.</dialogue>
+	</page>
+
+	<page number = "317">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>But I've waited too long for this to let you waste it.</dialogue>
+	</page>
+
+	<page number = "318">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>You've left me no choice.</dialogue>
+	</page>
+
+	<page number = "319">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>What- *cough* are you- *cough* doing? Stop-</dialogue>
+	</page>
+
+	<page number = "320">
+		<type>SoundEffect</type>
+		<SFX>Crash</SFX>
+	</page>
+
+	<page number = "321">
+		<type>Shake</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "322">
+		<type>Dialogue</type>
+		<character>Ranger</character>
+		<portraitLeft>Ranger</portraitLeft>
+		<dialogue>AAHHH. AAAAAAHHHH. AAAAAH-</dialogue>
+	</page>
+
+	<page number = "323">
+		<type>SoundEffect</type>
+		<SFX>Crash</SFX>
+	</page>
+
+	<page number = "324">
+		<type>Shake</type>
+		<duration>0.5</duration>
+	</page>
+
+	<page number = "325">
+		<type>HideLeftPortrait</type>
+	</page>
+
+	<page number = "326">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>...There was only one way to take it from you.</dialogue>
+	</page>
+
+	<page number = "327">
+		<type>StopAmbience</type>
+	</page>
+
+	<page number = "328">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>You wouldn't have survived regardless.</dialogue>
+	</page>
+
+	<page number = "329">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>But maybe... Maybe the world can.</dialogue>
+	</page>
+
+	<page number = "330">
+		<type>Dialogue</type>
+		<character>? ? ?</character>
+		<portraitRight>CultLeaderShadow</portraitRight>
+		<dialogue>Think of it as serving a... higher purpose.</dialogue>
+	</page>
+
+	<page number = "331">
+		<type>FadeOut</type>
+	</page>
+
+	<page number = "332">
+		<type>StartScene</type>
+		<backdrop>Intro</backdrop>
+	</page>
+
+	<!--END OF SCENE 3-->
+	
+</IntroSequence>

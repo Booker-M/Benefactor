@@ -41,9 +41,11 @@ public class DialogueManager : MonoBehaviour
     public GameObject talkingNPC;
     public Text dialogueUI;
     public GameObject dialogueBackground;
-    public GameObject portrait;
+    public GameObject portraitLeft;
+    public GameObject portraitRight;
     public GameObject conversationOptions;
     public GameObject talkingCharacter;
+    public GameObject talkingCharacterFrame;
 
     // Speeds and whatnot
     public float typingSpeed = .05f;
@@ -104,6 +106,8 @@ public class DialogueManager : MonoBehaviour
     {
         conversationOptions.SetActive(false);
         dialogueBackground.SetActive(false);
+        portraitLeft.SetActive(false);
+        portraitRight.SetActive(false);
     }
 
     private void Update()
@@ -113,6 +117,8 @@ public class DialogueManager : MonoBehaviour
             GameManager.instance.dialogueInProgress = false;
             dialogueBackground.SetActive(false);
             conversationOptions.SetActive(false);
+            portraitLeft.SetActive(false);
+            portraitRight.SetActive(false);
         }
         else if (Input.GetMouseButtonDown(0) && !typingInProgress && waitingForPlayerResponse)
         {
@@ -127,6 +133,7 @@ public class DialogueManager : MonoBehaviour
     // Only to be used by players
     public void initiateDialogue(GameObject initiator, GameObject responder)
     {
+        MenuManager.instance.HidePlayerStats();
         //currentIndex = 0;
         //pageNum = 0;
         conversationType = null;
@@ -144,7 +151,10 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.text = "";
         // portrait.GetComponent<PortraitManager>().changePortrait("RaskolnikovNeutral");
         // talkingCharacter.GetComponent<Text>().text = "Raskolnikov";
-        portrait.GetComponent<Image>().sprite = GameManager.instance.activeCharacter.GetComponent<Character>().portrait;
+        portraitLeft.GetComponent<Image>().sprite = initiator.GetComponent<Character>().portrait;
+        portraitRight.GetComponent<Image>().sprite = responder.GetComponent<Character>().portrait;
+        portraitLeft.SetActive(true);
+        portraitRight.SetActive(true);
         talkingCharacter.GetComponent<Text>().text = GameManager.instance.activeCharacter.GetComponent<Character>().name;
         conversationOptions.SetActive(true);
     }
@@ -238,7 +248,7 @@ public class DialogueManager : MonoBehaviour
         currentDialogue = toDisplay;
 
         talkingCharacter.GetComponent<Text>().text = speakingCharacter.GetComponent<Character>().name;
-        portrait.GetComponent<Image>().sprite = speakingCharacter.GetComponent<Character>().portrait;
+        // portrait.GetComponent<Image>().sprite = speakingCharacter.GetComponent<Character>().portrait;
 
         foreach (char letter in currentDialogue)
         {
