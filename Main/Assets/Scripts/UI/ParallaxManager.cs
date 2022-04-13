@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ParallaxManager : MonoBehaviour
 {
-    public Image background;
+    public SpriteRenderer background;
     public Image[] layers;
     public Image[] layers2;
 
@@ -16,11 +16,15 @@ public class ParallaxManager : MonoBehaviour
     public Sprite[] mountainsNightLayers;
 
     public float speed = -0.5f;
+    public int shootingStarAmount;
+    public ShootingStar shootingStar;
     private bool moving;
+    private List<ShootingStar> shootingStars;
 
     private void Start()
     {
         // changeParallax("Disable");
+        shootingStars = new List<ShootingStar>();
         for (int i = 0; i < layers.Length; i++) {
             layers[i].GetComponent<RectTransform>().localPosition = new Vector2(0, layers[i].GetComponent<RectTransform>().localPosition.y);
             layers2[i].GetComponent<RectTransform>().localPosition = new Vector2(layers2[i].GetComponent<RectTransform>().rect.width, layers2[i].GetComponent<RectTransform>().localPosition.y);
@@ -45,6 +49,7 @@ public class ParallaxManager : MonoBehaviour
 
     public void changeParallax(string newParallaxName)
     {
+        DespawnStars();
         switch (newParallaxName)
         {
             case "ForestNight":
@@ -55,6 +60,7 @@ public class ParallaxManager : MonoBehaviour
             case "MountainsNight":
                 background.sprite = mountainsNightBackground;
                 swapLayers(mountainsNightLayers);
+                SpawnStars();
                 moving = true;
                 break;
             case "Disable":
@@ -79,6 +85,21 @@ public class ParallaxManager : MonoBehaviour
                 layers2[i].enabled = false;
             }
         }
+    }
+
+    private void SpawnStars() {
+        for (int i = 0; i < shootingStarAmount; i++) {
+            ShootingStar current = Instantiate(shootingStar);
+            shootingStars.Add(current);
+            current.transform.parent = transform;
+        }
+    }
+
+    private void DespawnStars() {
+        for (int i = 0; i < shootingStars.Count; i++) {
+            Destroy(shootingStars[i]);
+        }
+        shootingStars = new List<ShootingStar>();
     }
 
 }

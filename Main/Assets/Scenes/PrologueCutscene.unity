@@ -1948,6 +1948,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 83c86f5fd195aba42b37e602bfa9e891, type: 3}
   - {fileID: 21300000, guid: eeca5b02791209a4c97dab8cd8921082, type: 3}
   speed: 0.1
+  shootingStarAmount: 0
+  shootingStar: {fileID: 0}
 --- !u!4 &1822372328
 Transform:
   m_ObjectHideFlags: 0
