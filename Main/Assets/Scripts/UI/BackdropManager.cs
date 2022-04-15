@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BackdropManager : MonoBehaviour
 {
-    public Image ImageComponent;
+    public SpriteRenderer spriteRenderer;
 
     public Sprite RangerTower;
     public Sprite ForestMorning;
@@ -18,19 +18,19 @@ public class BackdropManager : MonoBehaviour
         switch (newBackdropName)
         {
             case "RangerTower":
-                ImageComponent.sprite = RangerTower;
+                spriteRenderer.sprite = RangerTower;
                 break;
             case "ForestMorning":
-                ImageComponent.sprite = ForestMorning;
+                spriteRenderer.sprite = ForestMorning;
                 break;
             case "ForestDay":
-                ImageComponent.sprite = ForestDay;
+                spriteRenderer.sprite = ForestDay;
                 break;
             case "ForestNight":
-                ImageComponent.sprite = ForestNight;
+                spriteRenderer.sprite = ForestNight;
                 break;
             case "Crater":
-                ImageComponent.sprite = Crater;
+                spriteRenderer.sprite = Crater;
                 break;
             default:
                 Debug.LogError("Invalid portrait name: " + newBackdropName);
