@@ -1,0 +1,29 @@
+<?xml version= "1.0" encoding= "UTF-8" standalone= "yes"?>
+
+<IntroSequence>
+	
+	<!--
+		Notes to be wary of:
+		 -Currently, page elements must contain all 6 properties. This would ideally not be the case 
+		 -Page numbers are numbered strangely to make changing them possible without having to change every other page
+			number. The code currently iterates through each page number to access this data, so it does need to be sequential
+		 -Other values I want to add would be <fadeOutTime>, <fadeInTime>, a delay type, and a SFX type
+		 -Need to implement SFX System
+	-->
+
+	<!--START OF SCENE 1-->
+
+	<page number = "100">
+		<type>Parallax</type>
+		<backdrop>MountainsNight</backdrop>
+	</page>
+	
+	<page number = "101">
+		<type>NewScene</type>
+	</page>
+
+	<page number = "102">
+		<type>Menu</type>
+	</page>
+	
+</IntroSequence>

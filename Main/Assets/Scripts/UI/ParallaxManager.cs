@@ -18,6 +18,7 @@ public class ParallaxManager : MonoBehaviour
     public float speed = -0.5f;
     public int shootingStarAmount;
     public ShootingStar shootingStar;
+    public GameObject treehouse;
     private bool moving;
     private List<ShootingStar> shootingStars;
 
@@ -50,6 +51,7 @@ public class ParallaxManager : MonoBehaviour
     public void changeParallax(string newParallaxName)
     {
         DespawnStars();
+        treehouse.SetActive(false);
         switch (newParallaxName)
         {
             case "ForestNight":
@@ -61,6 +63,7 @@ public class ParallaxManager : MonoBehaviour
                 background.sprite = mountainsNightBackground;
                 swapLayers(mountainsNightLayers);
                 SpawnStars();
+                treehouse.SetActive(true);
                 moving = true;
                 break;
             case "Disable":

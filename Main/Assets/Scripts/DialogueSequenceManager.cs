@@ -110,6 +110,9 @@ public class DialogueSequenceManager : MonoBehaviour
 
         switch (data[currentIndex].type)
         {
+            case "Menu":
+                Menu();
+                break;
             case "Dialogue":
                 StartCoroutine("readDialogue");
                 break;
@@ -211,6 +214,8 @@ public class DialogueSequenceManager : MonoBehaviour
                 GameObject.Find("PortraitRight").GetComponent<Image>().color = new Color( 0.5f, 0.5f, 0.5f);
                 showPortraitRight();
             }
+
+            GameObject.Find("DialogueBackground").transform.localPosition = new Vector2(-50, GameObject.Find("DialogueBackground").transform.localPosition.y);
         }
         if (data[currentIndex].portraitRight != null) {
             GameObject.Find("PortraitRight").GetComponent<PortraitManager>().changePortrait(data[currentIndex].portraitRight);
@@ -220,6 +225,8 @@ public class DialogueSequenceManager : MonoBehaviour
                 GameObject.Find("PortraitLeft").GetComponent<Image>().color = new Color( 0.5f, 0.5f, 0.5f);
                 showPortraitRight();
             }
+
+            GameObject.Find("DialogueBackground").transform.localPosition = new Vector2(50, GameObject.Find("DialogueBackground").transform.localPosition.y);
         }
 
         foreach (char letter in currentDialogue)
@@ -246,6 +253,10 @@ public class DialogueSequenceManager : MonoBehaviour
         typingInProgress = false;
     }
 
+    private void Menu() {
+        transitioning = true;
+    }
+
     IEnumerator pause()
     {
         hideDialogue();
@@ -259,7 +270,7 @@ public class DialogueSequenceManager : MonoBehaviour
     IEnumerator shake()
     {
         hideDialogue();
-        yield return StartCoroutine(cameraShake.Shake(data[currentIndex].duration, 5f));
+        yield return StartCoroutine(cameraShake.Shake(data[currentIndex].duration, 0.25f));
         showDialogue();
 
         currentIndex++;
