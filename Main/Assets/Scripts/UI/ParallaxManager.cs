@@ -16,16 +16,12 @@ public class ParallaxManager : MonoBehaviour
     public Sprite[] mountainsNightLayers;
 
     public float speed = -0.5f;
-    public int shootingStarAmount;
-    public ShootingStar shootingStar;
     public GameObject treehouse;
     private bool moving;
-    private List<ShootingStar> shootingStars;
 
     private void Start()
     {
         // changeParallax("Disable");
-        shootingStars = new List<ShootingStar>();
         for (int i = 0; i < layers.Length; i++) {
             layers[i].GetComponent<RectTransform>().localPosition = new Vector2(0, layers[i].GetComponent<RectTransform>().localPosition.y);
             layers2[i].GetComponent<RectTransform>().localPosition = new Vector2(layers2[i].GetComponent<RectTransform>().rect.width, layers2[i].GetComponent<RectTransform>().localPosition.y);
@@ -91,18 +87,11 @@ public class ParallaxManager : MonoBehaviour
     }
 
     private void SpawnStars() {
-        for (int i = 0; i < shootingStarAmount; i++) {
-            ShootingStar current = Instantiate(shootingStar);
-            shootingStars.Add(current);
-            current.transform.parent = transform;
-        }
+
     }
 
     private void DespawnStars() {
-        for (int i = 0; i < shootingStars.Count; i++) {
-            Destroy(shootingStars[i]);
-        }
-        shootingStars = new List<ShootingStar>();
+
     }
 
 }

@@ -51,7 +51,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
     void LoadXML()
     {
-        xmlDoc = XDocument.Load(Application.dataPath + "/Cutscenes/" + cutscene + ".xml");
+        xmlDoc = XDocument.Load(System.IO.Directory.GetCurrentDirectory() + "/Assets/Cutscenes/" + cutscene + ".xml");
         items = xmlDoc.Descendants("page").Elements();
     }
 

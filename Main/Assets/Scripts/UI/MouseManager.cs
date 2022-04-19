@@ -27,6 +27,9 @@ public class MouseManager : MonoBehaviour
 
     public bool GetNextCharacter(List<Player> characters)
     {
+        if (PauseMenu.instance.IsPaused())
+            return true;
+
         UpdateMousePosition();
         
         foreach (Player character in characters)
@@ -52,6 +55,8 @@ public class MouseManager : MonoBehaviour
 
     public bool GetMoveInput(Character character, Dictionary<Vector2, Vector2[]> paths)
     {
+        if (PauseMenu.instance.IsPaused())
+            return true;
         UpdateMousePosition();
 
         if (paths.ContainsKey(currentMouseCoords))
@@ -77,6 +82,8 @@ public class MouseManager : MonoBehaviour
 
     public bool GetTargetInput(Character character, List<InteractableObject> objects)
     {
+        if (PauseMenu.instance.IsPaused())
+            return true;
         UpdateMousePosition();
         
         foreach (InteractableObject o in objects)

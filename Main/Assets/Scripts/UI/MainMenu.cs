@@ -25,6 +25,11 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(SwitchScene("PrologueCutscene"));
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     IEnumerator SwitchScene(String scene)
     {
         cover.raycastTarget = true;

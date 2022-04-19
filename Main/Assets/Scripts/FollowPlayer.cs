@@ -23,7 +23,7 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (followMouse || toFollow != null) {
+        if (!PauseMenu.instance.IsPaused() && (followMouse || toFollow != null)) {
             Vector3 target = new Vector3();
             if (followMouse)
             {

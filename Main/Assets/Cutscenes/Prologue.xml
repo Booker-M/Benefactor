@@ -62,7 +62,7 @@
 		<type>Dialogue</type>
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
-		<dialogue>*GASP* WHO'STHEREISWEARTOGODI'LL-</dialogue>
+		<dialogue>WHO'STHEREISWEARTOGODI'LL-</dialogue>
 	</page>
 
 	<page number = "109">
@@ -76,7 +76,7 @@
 		<type>Dialogue</type>
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
-		<dialogue>*sigh* Suppose no one else is going to check it out.</dialogue>
+		<dialogue>Suppose no one else is going to check it out.</dialogue>
 	</page>
 
 	<page number = "111">
@@ -197,7 +197,7 @@
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
 		<dialogue>
-			Is that... a meteorite?
+			Is that... a meteor? No, meteorite! Or maybe meteor's right? Nah, meteoroid? Fine.
 		</dialogue>
 	</page>
 
@@ -206,7 +206,7 @@
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
 		<dialogue>
-			It's so beautiful.
+			...Space rock.
 		</dialogue>
 	</page>
 
@@ -215,7 +215,7 @@
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
 		<dialogue>
-			It's perfect.
+			It's so beautiful. It's perfect.
 		</dialogue>
 	</page>
 
@@ -284,7 +284,7 @@
 		<type>Dialogue</type>
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
-		<dialogue>H- *cough* Hel- *cough* Help me!</dialogue>
+		<dialogue>H- Hel- Help me!</dialogue>
 	</page>
 
 	<page number = "315">
@@ -319,7 +319,7 @@
 		<type>Dialogue</type>
 		<character>Ranger</character>
 		<portraitLeft>Ranger</portraitLeft>
-		<dialogue>What- *cough* are you- *cough* doing? Stop-</dialogue>
+		<dialogue>What- are you- doing? Stop-</dialogue>
 	</page>
 
 	<page number = "320">

@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
         objectiveText.text = "Enemies Remaining: " + GetNonplayableCharacters(true).Count;
         objectiveText.alignment = TextAnchor.MiddleRight;
         objectiveText.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f, 1);
-        objectiveText.GetComponent<RectTransform>().localPosition = new Vector3(450, 260, 0);
+        objectiveText.GetComponent<RectTransform>().localPosition = new Vector3(430, 260, 0);
     }
 
     public void GameOver()
