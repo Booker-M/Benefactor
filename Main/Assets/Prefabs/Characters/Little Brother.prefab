@@ -159,8 +159,6 @@ MonoBehaviour:
   damagedSprite: {fileID: 0}
   corpseSprite: {fileID: 0}
   fire: {fileID: 0}
-  healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
-    type: 3}
   playable: 1
   talkable: 0
   portrait: {fileID: 21300000, guid: 2ae95c326515d634892e2254650e9d9a, type: 3}
@@ -172,7 +170,7 @@ MonoBehaviour:
   actionDelay: 1
   level: 1
   inventory:
-  - {fileID: -5498856414594888391, guid: ae876cd8e3a9f8c4c9af44a00acef1e0, type: 3}
+  - {fileID: -5498856414594888391, guid: ccb5a900753703b4cabe5eb144c3498a, type: 3}
   - {fileID: 2648351601887277121, guid: d7223e9ce65c5ff40a98ff9432da0fcf, type: 3}
 --- !u!95 &7825540675277893111
 Animator:

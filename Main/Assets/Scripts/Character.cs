@@ -639,6 +639,8 @@ public class Character : InteractableObject
 
         foreach (HoldableObject item in character.inventory)
         {
+            if (item.power)
+                continue;
             weightStolen += item.weight;
             if (CaughtStealing(character))
             {
@@ -712,6 +714,11 @@ public class Character : InteractableObject
         bool hit = DoesHit(HitPercent(toAttack, weapon));
         if (hit) {
             int damage = GetDamage(toAttack, weapon);
+
+            if (weapon.effect != null) {
+                Instantiate(weapon.effect, toAttack.transform);
+            }
+
             yield return StartCoroutine(toAttack.TakeDamage(damage));
 
             // Check for subdued

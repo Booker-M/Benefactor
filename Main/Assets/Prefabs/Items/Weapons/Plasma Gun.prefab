@@ -135,3 +135,4 @@ MonoBehaviour:
   blastRadius: 0
   copies: 1
   weight: 6
+  weaponType: Gun

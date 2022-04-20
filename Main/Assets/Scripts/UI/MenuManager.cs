@@ -150,7 +150,7 @@ public class MenuManager : MonoBehaviour
         int j = 0;
         for (int i = 0; i < items.Count; i++)
         {
-            if (items != null && (range == 0 || items[i].range >= range))
+            if (items != null && (range == 0 || items[i].range >= range) && (type == "Weapon" || !items[i].power))
             {
                 playerSlots[j].AddItem(items[i]);
                 j++;
@@ -174,7 +174,7 @@ public class MenuManager : MonoBehaviour
         int j = 0;
         for (int i = 0; i < items.Count; i++)
         {
-            if (items != null && (range == 0 || items[i].range >= range))
+            if (items != null && (range == 0 || items[i].range >= range) && (type == "Weapon" || !items[i].power))
             {
                 otherSlots[j].AddItem(items[i]);
                 j++;

@@ -16,6 +16,9 @@ public class HoldableObject : MonoBehaviour
     public int blastRadius; //blast radius, 1 normally, over 1 for area of effect throwables
     public int copies;
     public int weight;
+    public GameObject effect;
+    public GameObject projectile;
+    public bool power;
 
     // Start is called before the first frame update
     void Start()
