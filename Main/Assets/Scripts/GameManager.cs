@@ -163,7 +163,8 @@ public class GameManager : MonoBehaviour
         gettingNextCharacter = true;
         CameraTarget(GetPlayableCharacters()[0].gameObject); //temp until camera follows mouse
         yield return new WaitForSeconds(turnDelay);
-        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowMouse();
+        if (gettingNextCharacter)
+            GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowMouse();
     }
 
     public void AISelectCharacter()
