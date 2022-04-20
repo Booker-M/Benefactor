@@ -73,12 +73,14 @@ public class FollowPlayer : MonoBehaviour
     public void FollowMouse()
     {
         followMouse = true;
+        // Debug.Log("FOLLOW MOUSE");
     }
 
     public void FollowTarget()
     {
         followMouse = false;
         menuManager.HideMouseIndicator();
+        // Debug.Log("FOLLOW TARGET");
     }
 
 }

@@ -433,8 +433,9 @@ public class Player : Character
     {
         Debug.Log("Current Exp: " + experience + ", Exp Gained: " + amount);
         expCarry = Math.Max(0, experience + amount - 100);
+        amount -= expCarry;
         yield return StartCoroutine(MenuManager.instance.UpdateExperience(experience, amount));
-        experience = Math.Min(experience + amount, 100);
+        experience += amount;
         if (experience == 100)
             StartCoroutine(LevelUp());
         else

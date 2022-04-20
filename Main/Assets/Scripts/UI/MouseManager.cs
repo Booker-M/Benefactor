@@ -20,7 +20,7 @@ public class MouseManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
 
         currentMouseCoords = new Vector2{};
     }

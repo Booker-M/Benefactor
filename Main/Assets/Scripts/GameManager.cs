@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
         characters = new List<Player>();
         boardScript = GetComponent<BoardManager>();
         dialogueInProgress = false;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!doingSetup && activeCharacter == null)
+        if (!doingSetup && activeCharacter == null && !gettingNextCharacter)
         {
             StartCoroutine(NextTurn());
         }

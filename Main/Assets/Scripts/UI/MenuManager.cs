@@ -62,7 +62,7 @@ public class MenuManager : MonoBehaviour
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
 
         actionButtons = new Dictionary<String, GameObject>();
         actionButtons.Add("Attack", GameObject.Find("AttackButton"));
