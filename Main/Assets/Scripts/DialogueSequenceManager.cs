@@ -31,18 +31,17 @@ public class DialogueSequenceManager : MonoBehaviour
     private float alphaIncrementAmount = 3f;
     private float postTransitionDelay = .5f;
 
-    public bool typingInProgress;
+    public bool inProgress;
     private bool fastForward;
-    private bool transitioning;
 
     void Start()
     {
-        currentIndex = 0;
+        currentIndex = -1;
         pageNum = 0;
 
         LoadXML();
         StartCoroutine("AssignData");
-        typingInProgress = false;
+        inProgress = false;
         fastForward = false;
 
         GameObject.Find("Cover").GetComponent<Image>().color += new Color(0, 0, 0, 1);
@@ -94,24 +93,26 @@ public class DialogueSequenceManager : MonoBehaviour
 
     private void Update()
     {
-
-        if (Input.GetMouseButtonDown(0) && !typingInProgress && !transitioning) 
-        {
-            executeNext();
-        } else if (Input.GetMouseButtonDown(0))
-        {
-            fastForward = true;
+        if (Input.GetMouseButtonDown(0)) {
+            if (inProgress) 
+            {
+                fastForward = true;
+            } else
+            {
+                executeNext();
+            }
         }
     }
 
     private void executeNext()
     {
+        inProgress = true;
+        currentIndex++;
         Debug.Log("executing page: " + currentIndex);
 
         switch (data[currentIndex].type)
         {
             case "Menu":
-                Menu();
                 break;
             case "Dialogue":
                 StartCoroutine("readDialogue");
@@ -137,22 +138,18 @@ public class DialogueSequenceManager : MonoBehaviour
             case "SoundEffect":
                 GameObject.FindObjectOfType<SFXManager>().PlaySingle(data[currentIndex].SFX);
                 //Debug.Log("Made it");
-                currentIndex++;
                 executeNext();
                 break;
             case "Ambience":
                 GameObject.FindObjectOfType<AmbienceManager>().PlaySingle(data[currentIndex].SFX);
-                currentIndex++;
                 executeNext();
                 break;
             case "StopAmbience":
                 StartCoroutine("fadeAmbienceMidScene");
-                currentIndex++;
                 executeNext();
                 break;
             case "Parallax":
                 GameObject.Find("ParallaxManager").GetComponent<ParallaxManager>().changeParallax(data[currentIndex].backdrop);
-                currentIndex++;
                 executeNext();
                 break;
             case "StartScene":
@@ -160,12 +157,10 @@ public class DialogueSequenceManager : MonoBehaviour
                 break;
             case "HideLeftPortrait":
                 hidePortraitLeft();
-                currentIndex++;
                 executeNext();
                 break;
             case "HideRightPortrait":
                 hidePortraitRight();
-                currentIndex++;
                 executeNext();
                 break;
             default:
@@ -199,8 +194,6 @@ public class DialogueSequenceManager : MonoBehaviour
 
     IEnumerator readDialogue()
     {
-        typingInProgress = true;
-
         dialogueUI.text = "";
         currentDialogue = data[currentIndex].dialogueText;
         showDialogue();
@@ -241,30 +234,25 @@ public class DialogueSequenceManager : MonoBehaviour
             {
                 dialogueUI.text = currentDialogue;
                 fastForward = false;
-                currentIndex++;
-                typingInProgress = false;
+                inProgress = false;
                 yield break;
             }
 
             yield return new WaitForSeconds(typingSpeed + specialCharacterDelay);
         }
 
-        currentIndex++;
-        typingInProgress = false;
-    }
-
-    private void Menu() {
-        transitioning = true;
+        inProgress = false;
     }
 
     IEnumerator pause()
     {
         hideDialogue();
+        inProgress = false;
         yield return new WaitForSeconds(data[currentIndex].duration);
-        showDialogue();
-
-        currentIndex++;
-        executeNext();
+        if (!inProgress) {
+            showDialogue();
+            executeNext();
+        }
     }
 
     IEnumerator shake()
@@ -273,7 +261,6 @@ public class DialogueSequenceManager : MonoBehaviour
         yield return StartCoroutine(cameraShake.Shake(data[currentIndex].duration, 0.25f));
         showDialogue();
 
-        currentIndex++;
         executeNext();
     }
 
@@ -309,7 +296,6 @@ public class DialogueSequenceManager : MonoBehaviour
 
     IEnumerator fadeIn()
     {
-        transitioning = true;
         Image cover = GameObject.Find("Cover").GetComponent<Image>();
 
         hideDialogue();
@@ -329,14 +315,12 @@ public class DialogueSequenceManager : MonoBehaviour
 
         yield return new WaitForSeconds(postTransitionDelay);
 
-        transitioning = false;
-        currentIndex++;
+        inProgress = false;
         executeNext();
     }
 
     IEnumerator fadeOut()
     {
-        transitioning = true;
         Image cover = GameObject.Find("Cover").GetComponent<Image>();
 
         while (cover.color.a <= 1)
@@ -352,8 +336,7 @@ public class DialogueSequenceManager : MonoBehaviour
 
         yield return new WaitForSeconds(postTransitionDelay);
 
-        transitioning = false;
-        currentIndex++;
+        inProgress = false;
         executeNext();
     }
 
