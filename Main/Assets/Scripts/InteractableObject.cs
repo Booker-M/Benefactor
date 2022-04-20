@@ -14,7 +14,6 @@ public class InteractableObject : MonoBehaviour
     public Sprite damagedSprite;
     public Sprite corpseSprite;
     public GameObject fire;
-    public HealthBar healthBar;
 
     protected SpriteRenderer spriteRenderer;
     protected double health;
@@ -30,7 +29,6 @@ public class InteractableObject : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
         health = maxHealth;
-        healthBar = Instantiate(healthBar, transform.position, Quaternion.identity);
         //leavesCorpse = false;
         isCorpse = false;
         receiveActions = new SortedSet<String>();
@@ -49,9 +47,10 @@ public class InteractableObject : MonoBehaviour
         if (!damageable) yield break;
         if (damagedSprite != null)
             spriteRenderer.sprite = damagedSprite;
+        int oldHealth = (int) health;
         health = Math.Max(health - damage, 0);
         SoundManager.instance.TakeDamage();
-        yield return StartCoroutine(UpdateHealthBar());
+        yield return StartCoroutine(UpdateHealthBar(oldHealth));
 
         if (health <= 0)
         {
@@ -82,9 +81,10 @@ public class InteractableObject : MonoBehaviour
     public virtual IEnumerator Heal(double amount)
     {
         if (!damageable) yield break;
+        int oldHealth = (int) health;
         health = Math.Min(health + amount, maxHealth);
         SoundManager.instance.Heal();
-        yield return StartCoroutine(UpdateHealthBar());
+        yield return StartCoroutine(UpdateHealthBar(oldHealth));
         UpdatePosition();
     }
 
@@ -126,9 +126,11 @@ public class InteractableObject : MonoBehaviour
         GameManager.instance.UpdateNode(transform.position, damageable, walkOver ? 0 : (float)health);
     }
 
-    protected IEnumerator UpdateHealthBar(bool animate = true)
+    protected IEnumerator UpdateHealthBar(int oldHealth, bool animate = true)
     {
         Debug.Log("Updating Health");
-        yield return StartCoroutine(healthBar.UpdateHealth((int)health, (int)maxHealth, transform.position, animate));
+        GameObject healthBar = GameObject.Find("HealthBar");
+        healthBar.transform.position = transform.position;
+        yield return StartCoroutine(healthBar.GetComponent<HealthBar>().UpdateHealth((int) oldHealth, (int)health, (int)maxHealth, transform.position, animate));
     }
 }

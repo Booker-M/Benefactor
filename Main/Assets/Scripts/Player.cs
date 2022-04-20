@@ -419,7 +419,7 @@ public class Player : Character
         ErasePosition();
         transform.position = lastState.position;
         UpdatePosition();
-        StartCoroutine(UpdateHealthBar(false));
+        StartCoroutine(UpdateHealthBar((int) health, false));
         CheckRoof();
     }
 

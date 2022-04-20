@@ -20,11 +20,12 @@ public class HealthBar : MonoBehaviour
         inverseUpdateTime = 1 / updateTime;
     }
 
-    public IEnumerator UpdateHealth(int currentHealth, int totalHealth, Vector3 position, bool animate = true)
+    public IEnumerator UpdateHealth(int oldHealth, int newHealth, int totalHealth, Vector3 position, bool animate = true)
     {
+        spriteRenderer.size = new Vector2((float)((float) oldHealth/(float) totalHealth), spriteRenderer.size.y);
         if (animate)
             spriteRenderer.enabled = true;
-        float targetWidth = (float)currentHealth / (float)totalHealth;
+        float targetWidth = (float)newHealth / (float)totalHealth;
         transform.localPosition = new Vector3(position.x - (maxWidth - spriteRenderer.size.x) / 2, position.y + 0.7f, position.y + 0.7f);
         float remaining = 1;
         try
@@ -43,7 +44,7 @@ public class HealthBar : MonoBehaviour
             transform.localPosition = new Vector3(position.x - (maxWidth - spriteRenderer.size.x) / 2, position.y + 0.7f, position.y + 0.7f);
             yield return null;
         }
-        if (currentHealth > 0) 
+        if (newHealth > 0) 
             yield return new WaitForSeconds(hideDelay);
         spriteRenderer.enabled = false;
     }
