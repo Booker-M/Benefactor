@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7991227353612988546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.31883878, y: -0.058476243, z: -10.339555}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85, y: 0.85, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1183741245
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 9211646168690293479, guid: 733dc285e4227c746a0bc57aa043472c,
     type: 3}
@@ -136,8 +136,6 @@ MonoBehaviour:
   damagedSprite: {fileID: 0}
   corpseSprite: {fileID: 0}
   fire: {fileID: 0}
-  healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
-    type: 3}
   locked: 0
   takesKey: 0
   items:

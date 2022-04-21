@@ -97,8 +97,8 @@ MonoBehaviour:
     minimum: 10
     maximum: 20
   enemyCount:
-    minimum: 4
-    maximum: 4
+    minimum: 6
+    maximum: 7
   buildingCount:
     minimum: 3
     maximum: 8
@@ -119,9 +119,11 @@ MonoBehaviour:
   - {fileID: 5828532957960981727, guid: 9dfdcd00a8877bb4d8342c8be1806065, type: 3}
   - {fileID: 5828532957960981727, guid: d05ede304b84bb74e996003457a52929, type: 3}
   - {fileID: 5828532957960981727, guid: b33d39d989bab2241aa51d251ed64c6c, type: 3}
+  - {fileID: 3459576626915240523, guid: 5197b8fd4f45d1f40909d1c20fea8d8e, type: 3}
   enemies:
   - {fileID: 5495209542717074604, guid: 95434a6419c3c8540b8a58911e28f596, type: 3}
   - {fileID: 8178759162555290993, guid: 70d91124e870e344f89f261e24c1ac92, type: 3}
+  - {fileID: 6396008092024031312, guid: d970f7a580372ad42ba3297c12f1e350, type: 3}
   trees:
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
@@ -184,6 +186,7 @@ MonoBehaviour:
   - {x: 15, y: 0}
   - {x: 16, y: 0}
   - {x: 16, y: 1}
+  - {x: 15, y: 1}
 --- !u!114 &5498348103610966037
 MonoBehaviour:
   m_ObjectHideFlags: 0

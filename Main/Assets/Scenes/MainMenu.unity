@@ -12381,7 +12381,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 047b929beb10565479851d39b452dfb6, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12508,7 +12508,7 @@ MonoBehaviour:
   dialogueUI: {fileID: 364637637}
   typingSpeed: 0.05
   punctuationDelay: 0.5
-  typingInProgress: 0
+  inProgress: 0
 --- !u!4 &1869527808
 Transform:
   m_ObjectHideFlags: 0

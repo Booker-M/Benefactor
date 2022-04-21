@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1183741245
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 4540334852527006005, guid: fbc06fafcaa923e4fb511fa62188ed29,
     type: 3}
@@ -136,5 +136,3 @@ MonoBehaviour:
   damagedSprite: {fileID: 0}
   corpseSprite: {fileID: 0}
   fire: {fileID: 0}
-  healthBar: {fileID: -3089663232832473053, guid: 9796aa1dfd0ae534ea62b22b00df3157,
-    type: 3}
