@@ -17,6 +17,7 @@ public class HoldableObject : MonoBehaviour
     public int copies;
     public int weight;
     public GameObject effect;
+    public GameObject swing;
     public GameObject projectile;
     public bool power;
 

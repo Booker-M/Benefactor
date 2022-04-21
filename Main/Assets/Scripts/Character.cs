@@ -715,6 +715,16 @@ public class Character : InteractableObject
         if (hit) {
             int damage = GetDamage(toAttack, weapon);
 
+            if (weapon.swing != null) {
+                Vector3 targ = toAttack.transform.position;
+                targ.z = 0f;
+                Vector3 objectPos = transform.position;
+                targ.x = targ.x - objectPos.x;
+                targ.y = targ.y - objectPos.y;
+                float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+                GameObject swing = Instantiate(weapon.swing, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
+            }
+
             if (weapon.effect != null) {
                 Instantiate(weapon.effect, toAttack.transform);
             }

@@ -163,7 +163,7 @@ MonoBehaviour:
   talkable: 1
   portrait: {fileID: 2423972551562549796, guid: a54246bf0c985bb4089f676138635e02,
     type: 3}
-  name: Scientist
+  name: Technician
   moveTime: 0.15
   totalMoves: 4
   talkingRange: 1
