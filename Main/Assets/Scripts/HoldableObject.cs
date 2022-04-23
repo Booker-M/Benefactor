@@ -19,7 +19,9 @@ public class HoldableObject : MonoBehaviour
     public GameObject effect;
     public GameObject swing;
     public GameObject projectile;
+    public GameObject weapon;
     public bool power;
+    public bool bow;
 
     // Start is called before the first frame update
     void Start()

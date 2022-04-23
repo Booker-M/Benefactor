@@ -172,6 +172,7 @@ MonoBehaviour:
   inventory:
   - {fileID: -5498856414594888391, guid: ccb5a900753703b4cabe5eb144c3498a, type: 3}
   - {fileID: 2648351601887277121, guid: 3c8bc909cfcf86140a11ded9170ebd02, type: 3}
+  isMale: 1
 --- !u!95 &2671471383929473081
 Animator:
   serializedVersion: 4

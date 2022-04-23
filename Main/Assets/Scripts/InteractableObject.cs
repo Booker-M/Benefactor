@@ -61,7 +61,8 @@ public class InteractableObject : MonoBehaviour
             }
             else
             {
-                gameObject.SetActive(false);
+                StartCoroutine(animateDeath());
+                // gameObject.SetActive(false);
                 GameManager.instance.RemoveDeadCharacters(); // For some reason, this didn't work, so instead, GameManager just doesn't move characters at <= 0 health
                 ErasePosition();
             }
@@ -76,6 +77,11 @@ public class InteractableObject : MonoBehaviour
         }
 
         Debug.Log(this + " took " + damage + " damage");
+    }
+
+    protected virtual IEnumerator animateDeath() {
+        gameObject.SetActive(false);
+        yield return null;
     }
 
     public virtual IEnumerator Heal(double amount)

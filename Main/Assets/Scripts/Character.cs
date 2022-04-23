@@ -76,6 +76,7 @@ public class Character : InteractableObject
     public int level;
     public List<Objective> objectives;
     public List<HoldableObject> inventory;
+    public bool isMale;
 
     protected bool subdued;
     protected Objective currentObjective;
@@ -322,21 +323,14 @@ public class Character : InteractableObject
     protected string animateMovement(Vector2 end, string lastState) {
         string state = null;
         if (transform.position.x < end.x && lastState != "moveRight")
-        {
             state = "moveRight";
-        }
         else if (transform.position.x > end.x && lastState != "moveLeft")
-        {
             state = "moveLeft";
-        }
         else if (transform.position.y < end.y && lastState != "moveBack")
-        {
             state = "moveBack";
-        }
         else if (transform.position.y > end.y && lastState != "moveFront")
-        {
             state = "moveFront";
-        }
+        
         if (state == null)
         {
             state = lastState;
@@ -347,11 +341,86 @@ public class Character : InteractableObject
         return state;
     }
 
+    protected void animateWeapon(AnimatedWeapon weapon, Vector2 target) {
+        string direction = null;
+        if (transform.position.x < target.x)
+            direction = "right";
+        else if (transform.position.x > target.x)
+            direction = "left";
+        else if (transform.position.y < target.y)
+            direction = "back";
+        else if (transform.position.y > target.y)
+            direction = "front";
+        weapon.Animate(isMale, direction);
+    }
+
+    protected void animateSwipe(Vector2 target) {
+        string state = null;
+        if (transform.position.x < target.x)
+            state = "swipeRight";
+        else if (transform.position.x > target.x)
+            state = "swipeLeft";
+        else if (transform.position.y < target.y)
+            state = "swipeBack";
+        else if (transform.position.y > target.y)
+            state = "swipeFront";
+        
+        resetAnimations();
+        animator.SetTrigger(state);
+    }
+
+    protected void animatePower(Vector2 target) {
+        string state = null;
+        if (transform.position.x < target.x)
+            state = "powerRight";
+        else if (transform.position.x > target.x)
+            state = "powerLeft";
+        else if (transform.position.y < target.y)
+            state = "powerBack";
+        else if (transform.position.y > target.y)
+            state = "powerFront";
+
+        resetAnimations();
+        animator.SetTrigger(state);
+    }
+
+    protected void animateBow(Vector2 target) {
+        string state = null;
+        if (transform.position.x < target.x)
+            state = "bowRight";
+        else if (transform.position.x > target.x)
+            state = "bowLeft";
+        else if (transform.position.y < target.y)
+            state = "bowBack";
+        else if (transform.position.y > target.y)
+            state = "bowFront";
+
+        resetAnimations();
+        animator.SetTrigger(state);
+    }
+
+    protected override IEnumerator animateDeath() {
+        animator.SetTrigger("death");
+        yield return null;
+    }
+
     protected void resetAnimations() {
         animator.ResetTrigger("moveRight");
         animator.ResetTrigger("moveLeft");
         animator.ResetTrigger("moveBack");
         animator.ResetTrigger("moveFront");
+        animator.ResetTrigger("swipeRight");
+        animator.ResetTrigger("swipeLeft");
+        animator.ResetTrigger("swipeBack");
+        animator.ResetTrigger("swipeFront");
+        animator.ResetTrigger("bowRight");
+        animator.ResetTrigger("bowLeft");
+        animator.ResetTrigger("bowBack");
+        animator.ResetTrigger("bowFront");
+        animator.ResetTrigger("powerRight");
+        animator.ResetTrigger("powerLeft");
+        animator.ResetTrigger("powerBack");
+        animator.ResetTrigger("powerFront");
         animator.ResetTrigger("idle");
     }
 
@@ -711,23 +780,48 @@ public class Character : InteractableObject
         if (weapon.uses == 0)
             Remove(weapon);
 
-        bool hit = DoesHit(HitPercent(toAttack, weapon));
-        if (hit) {
-            int damage = GetDamage(toAttack, weapon);
+        
+            Vector3 targ = toAttack.transform.position;
+            targ.z = 0f;
+            Vector3 objectPos = transform.position;
+            targ.x = targ.x - objectPos.x;
+            targ.y = targ.y - objectPos.y;
+            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+
+            if (weapon.weapon != null) {
+                AnimatedWeapon animatedWeapon = Instantiate(weapon.weapon.GetComponent<AnimatedWeapon>(), this.transform);
+                animateWeapon(animatedWeapon, toAttack.transform.position);
+            }
+
+            if (weapon.power) {
+                animatePower(toAttack.transform.position);
+            } else if (weapon.bow) {
+                animateBow(toAttack.transform.position);
+            }
 
             if (weapon.swing != null) {
-                Vector3 targ = toAttack.transform.position;
-                targ.z = 0f;
-                Vector3 objectPos = transform.position;
-                targ.x = targ.x - objectPos.x;
-                targ.y = targ.y - objectPos.y;
-                float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
                 GameObject swing = Instantiate(weapon.swing, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
+                animateSwipe(toAttack.transform.position);
+            }
+
+            float totalTime = 0;
+            while (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && totalTime < 0.1f) {
+                yield return new WaitForSeconds(0.01f);
+                totalTime += 0.01f;
+            }
+            totalTime = 0;
+            while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && totalTime < 0.5f) {
+                yield return new WaitForSeconds(0.01f);
+                totalTime += 0.01f;
             }
 
             if (weapon.effect != null) {
                 Instantiate(weapon.effect, toAttack.transform);
             }
+
+        bool hit = DoesHit(HitPercent(toAttack, weapon));
+        if (hit) {
+            int damage = GetDamage(toAttack, weapon);
 
             yield return StartCoroutine(toAttack.TakeDamage(damage));
 
