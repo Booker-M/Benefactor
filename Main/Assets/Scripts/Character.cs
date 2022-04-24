@@ -401,6 +401,7 @@ public class Character : InteractableObject
 
     protected override IEnumerator animateDeath() {
         animator.SetTrigger("death");
+        Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         yield return null;
     }
 
@@ -797,11 +798,12 @@ public class Character : InteractableObject
                 animatePower(toAttack.transform.position);
             } else if (weapon.bow) {
                 animateBow(toAttack.transform.position);
+            } else {
+                animateSwipe(toAttack.transform.position);
             }
 
             if (weapon.swing != null) {
                 GameObject swing = Instantiate(weapon.swing, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
-                animateSwipe(toAttack.transform.position);
             }
 
             float totalTime = 0;

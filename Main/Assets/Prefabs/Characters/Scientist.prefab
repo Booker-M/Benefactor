@@ -154,7 +154,7 @@ MonoBehaviour:
   maxHealth: 3
   damageable: 1
   repairable: 1
-  leavesCorpse: 0
+  leavesCorpse: 1
   walkOver: 0
   damagedSprite: {fileID: 0}
   corpseSprite: {fileID: 0}
@@ -171,6 +171,7 @@ MonoBehaviour:
   actionDelay: 1
   level: 1
   inventory:
+  - {fileID: -5498856414594888391, guid: 903bd8f3f2fee9449ad325947a51c159, type: 3}
   - {fileID: -5498856414594888391, guid: 11c400ec6ad6b874ab4161b618034ae5, type: 3}
   - {fileID: 2648351601887277121, guid: 3c8bc909cfcf86140a11ded9170ebd02, type: 3}
   isMale: 1

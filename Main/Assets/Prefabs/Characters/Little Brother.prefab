@@ -154,7 +154,7 @@ MonoBehaviour:
   maxHealth: 5
   damageable: 1
   repairable: 1
-  leavesCorpse: 0
+  leavesCorpse: 1
   walkOver: 0
   damagedSprite: {fileID: 0}
   corpseSprite: {fileID: 0}

@@ -54,21 +54,19 @@ public class InteractableObject : MonoBehaviour
 
         if (health <= 0)
         {
-            if (leavesCorpse)
-            {
-                spriteRenderer.sprite = corpseSprite;
-                isCorpse = true;
-            }
-            else
-            {
-                StartCoroutine(animateDeath());
-                // gameObject.SetActive(false);
-                GameManager.instance.RemoveDeadCharacters(); // For some reason, this didn't work, so instead, GameManager just doesn't move characters at <= 0 health
-                ErasePosition();
-            }
             if (fire != null)
             {
                 Instantiate(fire, transform.position, Quaternion.identity);
+            }
+            StartCoroutine(animateDeath());
+            GameManager.instance.RemoveDeadCharacters(); // For some reason, this didn't work, so instead, GameManager just doesn't move characters at <= 0 health
+            ErasePosition();
+            if (leavesCorpse)
+            {
+                // spriteRenderer.sprite = corpseSprite;
+                isCorpse = true;
+            } else {
+                gameObject.SetActive(false);
             }
         }
         else
