@@ -162,6 +162,7 @@ public class Character : InteractableObject
             FindPath();
             yield return new WaitForSeconds(moveTime);
             if (pathToObjective.Length > 0)
+            // if (pathToObjective.Length > ((currentObjective.action == "Attack") ? GetAttackRange() : 0))
             {
                 yield return StartCoroutine(FollowPath());
                 StartCoroutine(NextStep());
@@ -467,7 +468,7 @@ public class Character : InteractableObject
         GetObjectsToActOn("Trade", 1);
     }
 
-    protected void GetAttackRange()
+    protected int GetAttackRange()
     {
         attackRange = 1;
         if (HasItemType("Weapon"))
@@ -479,6 +480,7 @@ public class Character : InteractableObject
                     attackRange = weapon.range;
             }
         }
+        return attackRange;
     }
 
     protected void GetObjectsToActOn(String action, int range)

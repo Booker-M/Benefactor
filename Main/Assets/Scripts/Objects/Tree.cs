@@ -28,12 +28,12 @@ public class Tree : InteractableObject
  
          while (spriteRenderer.material.color.a > 0)
          {
-             alphaVal -= 0.01f;
+             alphaVal -= 0.2f*Time.fixedDeltaTime;
              tmp.a = alphaVal;
              spriteRenderer.material.color = tmp;
              leaves.GetComponent<SpriteRenderer>().material.color = tmp;
  
-             yield return new WaitForSeconds(0.05f); // update interval
+             yield return null; // update interval
          }
      }
  
@@ -44,12 +44,12 @@ public class Tree : InteractableObject
  
          while (spriteRenderer.material.color.a < 1)
          {
-             alphaVal += 0.01f;
+             alphaVal += 0.2f*Time.fixedDeltaTime;
              tmp.a = alphaVal;
              spriteRenderer.material.color = tmp;
              leaves.GetComponent<SpriteRenderer>().material.color = tmp;
  
-             yield return new WaitForSeconds(0.05f); // update interval
+             yield return null; // update interval
          }
      }
 }

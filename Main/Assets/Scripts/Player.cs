@@ -62,7 +62,7 @@ public class Player : Character
 
     protected override IEnumerator NextStep()
     {
-        if (!playable) {
+        if (!playable || GameManager.instance.auto) {
             StartCoroutine(base.NextStep());
             yield break;
         }
@@ -84,7 +84,7 @@ public class Player : Character
 
     protected override void UpdateObjectives()
     {
-        if (!playable) {
+        if (!playable || GameManager.instance.auto) {
             base.UpdateObjectives();
             return;
         }
@@ -143,7 +143,7 @@ public class Player : Character
 
     protected override void FindPath()
     {
-        if (!playable) {
+        if (!playable || GameManager.instance.auto) {
             base.FindPath();
             return;
         }
@@ -222,7 +222,7 @@ public class Player : Character
 
     protected override void SelectItem(String type)
     {
-        if (!playable) {
+        if (!playable || GameManager.instance.auto) {
             base.SelectItem(type);
             return;
         }
@@ -492,7 +492,9 @@ public class Player : Character
             stats.dexterity++;
             yield return StartCoroutine(MenuManager.instance.LevelUpStat(i, stats.dexterity));
         }
-
-        MenuManager.instance.ShowBackButton();
+        if (GameManager.instance.auto)
+            Back();
+        else
+            MenuManager.instance.ShowBackButton();
     }
 }

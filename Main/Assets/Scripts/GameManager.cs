@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public bool playerStart;
     public List<String> objectives;
     public int objective;
+    public bool auto;
 
     // Start is called before the first frame update
     void Awake()
@@ -54,10 +55,12 @@ public class GameManager : MonoBehaviour
     {
         if (!doingSetup && gettingNextCharacter)
         {
-            gettingNextCharacter = GameObject.Find("MouseManager").GetComponent<MouseManager>().GetNextCharacter(GetPlayableCharacters());
-            if (!gettingNextCharacter)
-            {
-                StartCoroutine(StartTurn());
+            if (auto)
+                StartCoroutine(PlayerSelectCharacter());
+            else {
+                gettingNextCharacter = GameObject.Find("MouseManager").GetComponent<MouseManager>().GetNextCharacter(GetPlayableCharacters());
+                if (!gettingNextCharacter)
+                    StartCoroutine(StartTurn());
             }
         }
 
@@ -155,12 +158,24 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator PlayerSelectCharacter()
     {
+        if (auto) {
+            gettingNextCharacter = false;
+            MenuManager.instance.HideIndicators();
+            List<Player> playableCharacters = GetPlayableCharacters();
+
+            int i = new System.Random().Next(playableCharacters.Count);
+            activeCharacter = playableCharacters[i];
+
+            StartCoroutine(StartTurn(true));
+            yield break;
+        }
+
         Dictionary<Vector2, Vector2[]> paths = new Dictionary<Vector2, Vector2[]>();
         foreach (Player character in GetPlayableCharacters())
         {
             paths.Add((Vector2)character.transform.position, new Vector2[] { (Vector2)character.transform.position });
         }
-        GameObject.Find("MenuManager").GetComponent<MenuManager>().ShowPaths(paths);
+        GameObject.Find("MenuManager").GetComponent<MenuManager>().ShowPaths(paths);            
 
         gettingNextCharacter = true;
         CameraTarget(GetPlayableCharacters()[0].gameObject); //temp until camera follows mouse

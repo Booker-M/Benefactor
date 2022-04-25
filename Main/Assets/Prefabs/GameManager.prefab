@@ -211,6 +211,7 @@ MonoBehaviour:
   objectives:
   - Defeat All Enemies
   objective: 0
+  auto: 0
 --- !u!156049354 &8936469483842678999
 Grid:
   m_ObjectHideFlags: 0

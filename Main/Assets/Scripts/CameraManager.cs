@@ -52,14 +52,14 @@ public class CameraManager : MonoBehaviour
                 Vector3 newPosition = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
                 BoardManager board = GameManager.instance.GetComponent<BoardManager>();
                 Vector2 maxPosition = new Vector2((float)board.columns - minPosition.x - 1, (float)board.rows - minPosition.y - 1);
-                if (newPosition.x < minPosition.x * (Camera.main.orthographicSize/5))
-                    newPosition.x = minPosition.x * (Camera.main.orthographicSize/5);
-                if (newPosition.y < minPosition.y * (Camera.main.orthographicSize/5))
-                    newPosition.y = minPosition.y * (Camera.main.orthographicSize/5);
-                if (newPosition.x > maxPosition.x * (Camera.main.orthographicSize/5))
-                    newPosition.x = maxPosition.x * (Camera.main.orthographicSize/5);
-                if (newPosition.y > maxPosition.y * (Camera.main.orthographicSize/5))
-                    newPosition.y = maxPosition.y * (Camera.main.orthographicSize/5);
+                if (newPosition.x < minPosition.x - (5f-Camera.main.orthographicSize))
+                    newPosition.x = minPosition.x - (5f-Camera.main.orthographicSize);
+                if (newPosition.y < minPosition.y - (5f-Camera.main.orthographicSize))
+                    newPosition.y = minPosition.y - (5f-Camera.main.orthographicSize);
+                if (newPosition.x > maxPosition.x + (5f-Camera.main.orthographicSize))
+                    newPosition.x = maxPosition.x + (5f-Camera.main.orthographicSize);
+                if (newPosition.y > maxPosition.y + (5f-Camera.main.orthographicSize))
+                    newPosition.y = maxPosition.y + (5f-Camera.main.orthographicSize);
                 transform.position = newPosition;
             }
         }

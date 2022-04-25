@@ -160,6 +160,7 @@ MonoBehaviour:
   corpseSprite: {fileID: 0}
   fire: {fileID: 0}
   playable: 1
+  auto: 1
   talkable: 0
   portrait: {fileID: 21300000, guid: 2ae95c326515d634892e2254650e9d9a, type: 3}
   name: Little Brother
