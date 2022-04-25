@@ -624,6 +624,7 @@ public class Character : InteractableObject
     {
         MenuManager.instance.HidePlayerStats();
         MenuManager.instance.HideBackButton();
+        MenuManager.instance.HideMouseIndicator();
         actionsLeft--;
         UpdateState();
         switch (item.type)
@@ -732,13 +733,9 @@ public class Character : InteractableObject
 
     protected virtual IEnumerator EndTurn()
     {
-        //yield return new WaitForSeconds(actionDelay);
-
         // Conditionally doesn't end your turn if there is still dialogue in progress
         if (GameManager.instance.dialogueInProgress)
             yield return new WaitUntil(() => GameManager.instance.dialogueInProgress == false);
-        else
-            yield return new WaitForSeconds(0f);
 
         CheckSpace(true);
         isTurn = false;
@@ -773,53 +770,52 @@ public class Character : InteractableObject
         inventory.Remove(item);
     }
 
-    protected IEnumerator Attack (InteractableObject toAttack, HoldableObject weapon)
+    protected IEnumerator Attack(InteractableObject toAttack, HoldableObject weapon)
     {
-        GameManager.instance.CameraTarget(toAttack.gameObject);
+        GameManager.instance.CameraTarget(gameObject, 0.5f);
 
         weapon.uses--;
         if (weapon.uses == 0)
             Remove(weapon);
 
-        
-            Vector3 targ = toAttack.transform.position;
-            targ.z = 0f;
-            Vector3 objectPos = transform.position;
-            targ.x = targ.x - objectPos.x;
-            targ.y = targ.y - objectPos.y;
-            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+        Vector3 targ = toAttack.transform.position;
+        targ.z = 0f;
+        Vector3 objectPos = transform.position;
+        targ.x = targ.x - objectPos.x;
+        targ.y = targ.y - objectPos.y;
+        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
 
-            if (weapon.weapon != null) {
-                AnimatedWeapon animatedWeapon = Instantiate(weapon.weapon.GetComponent<AnimatedWeapon>(), this.transform);
-                animateWeapon(animatedWeapon, toAttack.transform.position);
-            }
+        if (weapon.weapon != null) {
+            AnimatedWeapon animatedWeapon = Instantiate(weapon.weapon.GetComponent<AnimatedWeapon>(), this.transform);
+            animateWeapon(animatedWeapon, toAttack.transform.position);
+        }
 
-            if (weapon.power) {
-                animatePower(toAttack.transform.position);
-            } else if (weapon.bow) {
-                animateBow(toAttack.transform.position);
-            } else {
-                animateSwipe(toAttack.transform.position);
-            }
+        if (weapon.swing != null)
+            Instantiate(weapon.swing, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
 
-            if (weapon.swing != null) {
-                GameObject swing = Instantiate(weapon.swing, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle)));
-            }
+        if (weapon.bow) {
+            animateBow(toAttack.transform.position);
+        } else if (weapon.power) {
+            animatePower(toAttack.transform.position);
+        } else {
+            animateSwipe(toAttack.transform.position);
+        }
 
-            float totalTime = 0;
-            while (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && totalTime < 0.1f) {
-                yield return new WaitForSeconds(0.01f);
-                totalTime += 0.01f;
-            }
-            totalTime = 0;
-            while (!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && totalTime < 0.5f) {
-                yield return new WaitForSeconds(0.01f);
-                totalTime += 0.01f;
-            }
+        while(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                yield return new WaitForEndOfFrame();
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < (weapon.bow ? 0.75 : 1) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            yield return new WaitForEndOfFrame();
 
-            if (weapon.effect != null) {
-                Instantiate(weapon.effect, toAttack.transform);
-            }
+        GameManager.instance.CameraTarget(toAttack.gameObject, 0.5f);
+
+        if (weapon.projectile != null) {
+            Projectile projectile = Instantiate(weapon.projectile, this.transform.position, Quaternion.Euler(new Vector3(0, 0, angle))).GetComponent<Projectile>();
+            StartCoroutine(projectile.Shoot(toAttack.transform.position));
+            yield return new WaitForSeconds(projectile.moveTime);
+        }
+
+        if (weapon.effect != null)
+            Instantiate(weapon.effect, toAttack.transform.position,  Quaternion.Euler(new Vector3(0, 0, 0)));
 
         bool hit = DoesHit(HitPercent(toAttack, weapon));
         if (hit) {
@@ -843,7 +839,6 @@ public class Character : InteractableObject
                     character.Enemy(this);
             }
 
-            // animator.SetTrigger("enemyAttack");
             if (this.GetComponent<Player>().playable && currentObjective.target.GetComponent<Character>() != null) {
                 levelingUpPlayer = this.GetComponent<Player>();
                 int expGain = Math.Max(currentObjective.target.GetComponent<Character>().level - level + 1, 1) * expPerLevelGap / ((toAttack.GetHealth() <= 0) ? 1 : 3);
@@ -858,7 +853,15 @@ public class Character : InteractableObject
                 StartCoroutine(currentObjective.target.GetComponent<Player>().UpdateExp(expGain));
                 yield break;
             }
+        } else {
+            GameObject missText = GameObject.Find("MissText");
+            missText.transform.position = new Vector2(toAttack.gameObject.transform.position.x, toAttack.gameObject.transform.position.y + 0.5f);
+            missText.GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(actionDelay);
+            missText.GetComponent<SpriteRenderer>().enabled = false;
         }
+        GameManager.instance.CameraTarget(gameObject);
+        yield return new WaitForSeconds(actionDelay);
         StartCoroutine(NextStep());
     }
 
@@ -892,7 +895,7 @@ public class Character : InteractableObject
 
     protected virtual IEnumerator Heal(InteractableObject toHeal, HoldableObject medicine)
     {
-        GameManager.instance.CameraTarget(toHeal.gameObject);
+        GameManager.instance.CameraTarget(toHeal.gameObject, 0.5f);
 
         yield return StartCoroutine(toHeal.Heal(medicine.amount));
 
@@ -903,6 +906,9 @@ public class Character : InteractableObject
             character.Ally(this);
 
         currentObjective = null; //TEMP
+
+        GameManager.instance.CameraTarget(gameObject);
+        yield return new WaitForSeconds(actionDelay);
     }
 
     public void Ally(Character character, bool updateTeam = true)

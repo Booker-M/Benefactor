@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPlayer : MonoBehaviour
+public class CameraManager : MonoBehaviour
 {
 
     private float moveSpeed;
@@ -52,14 +52,14 @@ public class FollowPlayer : MonoBehaviour
                 Vector3 newPosition = Vector3.MoveTowards(transform.position, target, moveSpeed * Time.deltaTime);
                 BoardManager board = GameManager.instance.GetComponent<BoardManager>();
                 Vector2 maxPosition = new Vector2((float)board.columns - minPosition.x - 1, (float)board.rows - minPosition.y - 1);
-                if (newPosition.x < minPosition.x)
-                    newPosition.x = minPosition.x;
-                if (newPosition.y < minPosition.y)
-                    newPosition.y = minPosition.y;
-                if (newPosition.x > maxPosition.x)
-                    newPosition.x = maxPosition.x;
-                if (newPosition.y > maxPosition.y)
-                    newPosition.y = maxPosition.y;
+                if (newPosition.x < minPosition.x * (Camera.main.orthographicSize/5))
+                    newPosition.x = minPosition.x * (Camera.main.orthographicSize/5);
+                if (newPosition.y < minPosition.y * (Camera.main.orthographicSize/5))
+                    newPosition.y = minPosition.y * (Camera.main.orthographicSize/5);
+                if (newPosition.x > maxPosition.x * (Camera.main.orthographicSize/5))
+                    newPosition.x = maxPosition.x * (Camera.main.orthographicSize/5);
+                if (newPosition.y > maxPosition.y * (Camera.main.orthographicSize/5))
+                    newPosition.y = maxPosition.y * (Camera.main.orthographicSize/5);
                 transform.position = newPosition;
             }
         }

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private BoardManager boardScript;
     public List<Player> characters;
     private bool doingSetup;
+    private bool zooming;
 
     public bool gettingNextCharacter;
     public Player activeCharacter;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
         boardScript = GetComponent<BoardManager>();
         dialogueInProgress = false;
         playerTurn = playerStart;
+        zooming = false;
     }
 
     // Update is called once per frame
@@ -164,7 +166,7 @@ public class GameManager : MonoBehaviour
         CameraTarget(GetPlayableCharacters()[0].gameObject); //temp until camera follows mouse
         yield return new WaitForSeconds(turnDelay);
         if (gettingNextCharacter)
-            GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowMouse();
+            GameObject.Find("Main Camera").GetComponent<CameraManager>().FollowMouse();
     }
 
     public void AISelectCharacter()
@@ -224,7 +226,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Active Character: " + activeCharacter);
         CameraTarget(activeCharacter.gameObject);
-        GameObject.Find("Main Camera").GetComponent<FollowPlayer>().FollowTarget();
+        GameObject.Find("Main Camera").GetComponent<CameraManager>().FollowTarget();
         if (delay)
             yield return new WaitForSeconds(turnDelay);
         activeCharacter.StartTurn();
@@ -304,8 +306,23 @@ public class GameManager : MonoBehaviour
         Grid[(int)position.x][(int)position.y] = new Node(position, damageable, health + 1);
     }
 
-    public void CameraTarget(GameObject toTarget)
+    public void CameraTarget(GameObject toTarget, float zoom = 1)
     {
-        Camera.main.GetComponent<FollowPlayer>().Target(toTarget);
+        Camera.main.GetComponent<CameraManager>().Target(toTarget);
+        StartCoroutine(CameraZoom(zoom));
+    }
+
+    private IEnumerator CameraZoom(float zoom) {
+        while (zooming == true) {
+            yield return new WaitForEndOfFrame();
+        }
+        Debug.Log("Zooming to: " + zoom);
+        zooming = true;
+        while (Math.Abs(Camera.main.orthographicSize - (Camera.main.orthographicSize*0.99f + zoom*5*0.01f)) > 0.0001) {
+            Camera.main.orthographicSize = Camera.main.orthographicSize*0.99f + zoom*5*0.01f;
+            yield return new WaitForEndOfFrame();
+        }
+        Camera.main.orthographicSize = zoom*5;
+        zooming = false;
     }
 }

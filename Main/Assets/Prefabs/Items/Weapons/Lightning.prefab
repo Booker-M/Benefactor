@@ -136,5 +136,8 @@ MonoBehaviour:
   copies: 1
   weight: 0
   effect: {fileID: 4488686633690031037, guid: c70cac63a827b43419acb7e487ed69e2, type: 3}
+  swing: {fileID: 0}
   projectile: {fileID: 0}
+  weapon: {fileID: 0}
   power: 1
+  bow: 0
