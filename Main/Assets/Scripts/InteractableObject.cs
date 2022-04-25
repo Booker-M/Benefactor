@@ -58,16 +58,9 @@ public class InteractableObject : MonoBehaviour
             {
                 Instantiate(fire, transform.position, Quaternion.identity);
             }
-            StartCoroutine(animateDeath());
             GameManager.instance.RemoveDeadCharacters(); // For some reason, this didn't work, so instead, GameManager just doesn't move characters at <= 0 health
             ErasePosition();
-            if (leavesCorpse)
-            {
-                // spriteRenderer.sprite = corpseSprite;
-                isCorpse = true;
-            } else {
-                gameObject.SetActive(false);
-            }
+            StartCoroutine(animateDeath());
         }
         else
         {
@@ -78,8 +71,8 @@ public class InteractableObject : MonoBehaviour
     }
 
     protected virtual IEnumerator animateDeath() {
+        yield return StartCoroutine(FadeOut());
         gameObject.SetActive(false);
-        yield return null;
     }
 
     public virtual IEnumerator Heal(double amount)
@@ -137,4 +130,34 @@ public class InteractableObject : MonoBehaviour
         healthBar.transform.position = transform.position;
         yield return StartCoroutine(healthBar.GetComponent<HealthBar>().UpdateHealth((int) oldHealth, (int)health, (int)maxHealth, transform.position, animate));
     }
+
+    protected virtual IEnumerator FadeOut()
+     {
+         float alphaVal = spriteRenderer.material.color.a;
+         Color tmp = spriteRenderer.material.color;
+ 
+         while (spriteRenderer.material.color.a > 0)
+         {
+             alphaVal -= 0.01f;
+             tmp.a = alphaVal;
+             spriteRenderer.material.color = tmp;
+ 
+             yield return new WaitForSeconds(0.01f); // update interval
+         }
+     }
+ 
+     protected virtual IEnumerator FadeIn()
+     {
+         float alphaVal = spriteRenderer.material.color.a;
+         Color tmp = spriteRenderer.material.color;
+ 
+         while (spriteRenderer.material.color.a < 1)
+         {
+             alphaVal += 0.01f;
+             tmp.a = alphaVal;
+             spriteRenderer.material.color = tmp;
+ 
+             yield return new WaitForSeconds(0.01f); // update interval
+         }
+     }
 }

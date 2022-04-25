@@ -401,8 +401,8 @@ public class Character : InteractableObject
 
     protected override IEnumerator animateDeath() {
         animator.SetTrigger("death");
-        Destroy(gameObject, this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
-        yield return null;
+        yield return new WaitForSeconds(this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        StartCoroutine(base.animateDeath());
     }
 
     protected void resetAnimations() {

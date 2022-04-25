@@ -15,9 +15,41 @@ public class Tree : InteractableObject
         leaves.SetTree(this);
     }
 
-    protected override void ErasePosition()
-    {
+    protected override IEnumerator animateDeath() {
+        yield return StartCoroutine(FadeOut());
         GameObject.Destroy(leaves.gameObject);
-        base.ErasePosition();
+        gameObject.SetActive(false);
     }
+
+    protected override IEnumerator FadeOut()
+     {
+         float alphaVal = spriteRenderer.material.color.a;
+         Color tmp = spriteRenderer.material.color;
+ 
+         while (spriteRenderer.material.color.a > 0)
+         {
+             alphaVal -= 0.01f;
+             tmp.a = alphaVal;
+             spriteRenderer.material.color = tmp;
+             leaves.GetComponent<SpriteRenderer>().material.color = tmp;
+ 
+             yield return new WaitForSeconds(0.05f); // update interval
+         }
+     }
+ 
+    protected override IEnumerator FadeIn()
+     {
+         float alphaVal = spriteRenderer.material.color.a;
+         Color tmp = spriteRenderer.material.color;
+ 
+         while (spriteRenderer.material.color.a < 1)
+         {
+             alphaVal += 0.01f;
+             tmp.a = alphaVal;
+             spriteRenderer.material.color = tmp;
+             leaves.GetComponent<SpriteRenderer>().material.color = tmp;
+ 
+             yield return new WaitForSeconds(0.05f); // update interval
+         }
+     }
 }

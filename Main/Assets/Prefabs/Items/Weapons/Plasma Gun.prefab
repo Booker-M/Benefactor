@@ -135,4 +135,9 @@ MonoBehaviour:
   blastRadius: 0
   copies: 1
   weight: 6
-  weaponType: Gun
+  effect: {fileID: 0}
+  swing: {fileID: 0}
+  projectile: {fileID: 0}
+  weapon: {fileID: 0}
+  power: 0
+  bow: 0
