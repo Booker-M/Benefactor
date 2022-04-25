@@ -181,7 +181,7 @@ MonoBehaviour:
   fire: {fileID: 0}
   playable: 0
   talkable: 1
-  portrait: {fileID: 1607319076, guid: 74c904cc8af601d46a98c35272e852b2, type: 3}
+  portrait: {fileID: 1917913235, guid: 4c56f2cedc3be3d4e8efe37bc4055029, type: 3}
   name: Enforcer
   moveTime: 0.15
   totalMoves: 5
@@ -191,6 +191,5 @@ MonoBehaviour:
   level: 1
   inventory:
   - {fileID: -5498856414594888391, guid: 70791d2237bfa6f4fb33643eaed4084d, type: 3}
-  - {fileID: -5498856414594888391, guid: 11c400ec6ad6b874ab4161b618034ae5, type: 3}
   - {fileID: -5498856414594888391, guid: b67a25e2dbb90a64ba4959583c7d4227, type: 3}
   isMale: 1

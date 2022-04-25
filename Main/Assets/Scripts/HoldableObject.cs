@@ -22,6 +22,7 @@ public class HoldableObject : MonoBehaviour
     public GameObject weapon;
     public bool power;
     public bool bow;
+    public AudioClip sound;
 
     // Start is called before the first frame update
     void Start()

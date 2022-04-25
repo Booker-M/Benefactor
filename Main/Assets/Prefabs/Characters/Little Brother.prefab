@@ -160,9 +160,8 @@ MonoBehaviour:
   corpseSprite: {fileID: 0}
   fire: {fileID: 0}
   playable: 1
-  auto: 1
   talkable: 0
-  portrait: {fileID: 21300000, guid: 2ae95c326515d634892e2254650e9d9a, type: 3}
+  portrait: {fileID: 186347478, guid: 080d5a02efd52e147bcd4ed8c71ed359, type: 3}
   name: Little Brother
   moveTime: 0.15
   totalMoves: 4
@@ -172,6 +171,7 @@ MonoBehaviour:
   level: 1
   inventory:
   - {fileID: -5498856414594888391, guid: ccb5a900753703b4cabe5eb144c3498a, type: 3}
+  - {fileID: -5498856414594888391, guid: f79a2ea8d749aa441a3b96668a3ad8a7, type: 3}
   - {fileID: 2648351601887277121, guid: d7223e9ce65c5ff40a98ff9432da0fcf, type: 3}
   isMale: 1
 --- !u!95 &7825540675277893111

@@ -128,9 +128,9 @@ MonoBehaviour:
   type: Weapon
   name: Lightning
   uses: 10
-  amount: 10
-  accuracy: 85
-  critical: 10
+  amount: 30
+  accuracy: 80
+  critical: 30
   range: 3
   blastRadius: 0
   copies: 1
@@ -141,3 +141,4 @@ MonoBehaviour:
   weapon: {fileID: 0}
   power: 1
   bow: 0
+  sound: {fileID: 8300000, guid: 12933bf7132eec04e9208dd938a61aaf, type: 3}

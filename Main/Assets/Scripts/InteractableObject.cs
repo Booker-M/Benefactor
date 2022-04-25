@@ -71,6 +71,7 @@ public class InteractableObject : MonoBehaviour
     }
 
     protected virtual IEnumerator animateDeath() {
+        SFXManager.instance.PlaySingle("Die");
         yield return StartCoroutine(FadeOut());
         gameObject.SetActive(false);
     }

@@ -26,6 +26,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip statUp;
     public AudioClip leftFoot;
     public AudioClip rightFoot;
+    public AudioClip openDoor;
+    public AudioClip closeDoor;
+    public AudioClip unlock;
 
     // Start is called before the first frame update
     void Awake()
@@ -106,6 +109,24 @@ public class SoundManager : MonoBehaviour
     public void StatUp()
     {
         efxSource.clip = statUp;
+        efxSource.Play();
+    }
+
+    public void OpenDoor()
+    {
+        efxSource.clip = openDoor;
+        efxSource.Play();
+    }
+
+    public void CloseDoor()
+    {
+        efxSource.clip = closeDoor;
+        efxSource.Play();
+    }
+
+    public void Unlock()
+    {
+        efxSource.clip = unlock;
         efxSource.Play();
     }
 

@@ -260,8 +260,12 @@ public class Player : Character
                 Player character = currentObjective.target.gameObject.GetComponent<Player>();
                 if (CaughtStealing(character))
                 {
+                    MenuManager.instance.HideInventories();
+                    MenuManager.instance.HideBackButton();
+                    MenuManager.instance.HideStealInfo();
                     character.Enemy(this);
-                    Back();
+                    GameObject.Find("DialogueManager").GetComponent<DialogueManager>().initiateDialogue(this.GetComponent<Character>(), currentObjective.target.GetComponent<Character>(), true);
+                    StartCoroutine(NextStep());
                     yield break;
                 }
                 if (inventory.Contains(item)) {
@@ -285,14 +289,18 @@ public class Player : Character
         StartCoroutine(base.ChooseItem(item));
     }
 
-    public void PreviewItem(HoldableObject item, Vector3 position)
+    public void PreviewItem(HoldableObject item, Vector3 position, bool enemy)
     {
-        if (!attacking)
-            return;
-        int damage = GetDamage(currentObjective.target, item);
-        int hitPercent = HitPercent(currentObjective.target, item);
-        int critPercent = CritPercent(item);
-        MenuManager.instance.ShowAttackInfo(position, damage, hitPercent, critPercent);
+        if (attacking) {
+            int damage = GetDamage(currentObjective.target, item);
+            int hitPercent = HitPercent(currentObjective.target, item);
+            int critPercent = CritPercent(item);
+            MenuManager.instance.ShowAttackInfo(position, damage, hitPercent, critPercent);
+        // } else if (looting && !allies.Contains(currentObjective.target) && enemy) {
+        } else if (looting && !allies.Contains(currentObjective.target)) {
+            int stealChance = (10 - weightStolen - item.weight)*10;
+            MenuManager.instance.ShowStealInfo(position, stealChance);
+        }
     }
 
     protected override void Loot(InteractableObject toLoot)
@@ -309,6 +317,7 @@ public class Player : Character
 
     protected override void Steal(InteractableObject toStealFrom)
     {
+        actionsLeft--;
         looting = true;
         this.weightStolen = 0;
         GameManager.instance.CameraTarget(toStealFrom.gameObject);
@@ -366,9 +375,11 @@ public class Player : Character
         if (looting)
         {
             looting = false;
-            Storage storage = currentObjective.target.gameObject.GetComponent<Storage>();
-            if (storage != null)
-                storage.Close();
+            if (currentObjective != null && currentObjective.target != null) {
+                Storage storage = currentObjective.target.gameObject.GetComponent<Storage>();
+                if (storage != null)
+                    storage.Close();
+            }
             MenuManager.instance.HideInventories();
             MenuManager.instance.HideBackButton();
             StartCoroutine(NextStep());

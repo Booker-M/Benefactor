@@ -37,8 +37,8 @@ public class DialogueManager : MonoBehaviour
     private bool readyToEnd;
 
     // Object References
-    public GameObject player;
-    public GameObject talkingNPC;
+    public Character player;
+    public Character talkingNPC;
     public Text dialogueUI;
     public GameObject dialogueBackground;
     public GameObject portraitLeft;
@@ -55,6 +55,13 @@ public class DialogueManager : MonoBehaviour
     private float postTransitionDelay = .5f;
 
     // Template responses for the intimidate and reason options:
+    private string[] caughtStealing = new string[]
+    {
+        "Stop! Give that back.",
+        "Hey! I'll get you for that.",
+        "What do you think you're doing?",
+        "Trying to catch me off guard?",
+    };
     private string[] intimidatations = new string[]
     {
         "You need to leave. Now.",
@@ -131,8 +138,9 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Only to be used by players
-    public void initiateDialogue(GameObject initiator, GameObject responder)
+    public void initiateDialogue(Character initiator, Character responder, bool caught = false)
     {
+        GameManager.instance.dialogueInProgress = true;
         MenuManager.instance.HidePlayerStats();
         //currentIndex = 0;
         //pageNum = 0;
@@ -143,7 +151,6 @@ public class DialogueManager : MonoBehaviour
         talkingNPC = responder;
 
         // Disable Player Functionality should be taken care of in other classes, but might not work fully yet
-        GameManager.instance.dialogueInProgress = true;
         readyToEnd = false;
         waitingForPlayerResponse = false;
         conversationType = null;
@@ -151,12 +158,15 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.text = "";
         // portrait.GetComponent<PortraitManager>().changePortrait("RaskolnikovNeutral");
         // talkingCharacter.GetComponent<Text>().text = "Raskolnikov";
-        portraitLeft.GetComponent<Image>().sprite = initiator.GetComponent<Character>().portrait;
-        portraitRight.GetComponent<Image>().sprite = responder.GetComponent<Character>().portrait;
+        portraitLeft.GetComponent<Image>().sprite = initiator.portrait;
+        portraitRight.GetComponent<Image>().sprite = responder.portrait;
         portraitLeft.SetActive(true);
         portraitRight.SetActive(true);
-        talkingCharacter.GetComponent<Text>().text = GameManager.instance.activeCharacter.GetComponent<Character>().name;
-        conversationOptions.SetActive(true);
+        talkingCharacter.GetComponent<Text>().text = GameManager.instance.activeCharacter.name;
+        if (caught)
+            RespondToStealing();
+        else
+            conversationOptions.SetActive(true);
     }
    
 
@@ -200,10 +210,10 @@ public class DialogueManager : MonoBehaviour
         {
             // Intimidation algorithm here (I think it can stay this simple):
             // Would ideally choose what item to threaten with though
-            if (player.GetComponent<Character>().HasItemType("Weapon"))
+            if (player.HasItemType("Weapon") && player.GetHealth() > talkingNPC.GetHealth())
             {
                 // Insert code to set a "fleeing" variable to true here (threat worked)
-                talkingNPC.GetComponent<Character>().Subdue();
+                talkingNPC.Subdue();
                 System.Random rand = new System.Random();
                 int index = rand.Next(intimidationSuccessResponses.Length);
                 string randomResponse = intimidationSuccessResponses[index];
@@ -211,6 +221,7 @@ public class DialogueManager : MonoBehaviour
             } else
             {
                 // Insert code to convert neutral to enemy?
+                talkingNPC.Enemy(player);
                 System.Random rand = new System.Random();
                 int index = rand.Next(intimidationFailureResponses.Length);
                 string randomResponse = intimidationFailureResponses[index];
@@ -221,15 +232,17 @@ public class DialogueManager : MonoBehaviour
         if (conversationType == "reason")
         {
             // Reasoning algorithm (requires a certain threshold of rational AND reputation)
-            if (player.GetComponent<Player>().GetHealth() > player.GetComponent<Player>().maxHealth/2)
+            if (player.GetHealth() > player.maxHealth*0.75)
             {
                 // Insert code to convert enemy into an ally here (reasoning worked)
+                talkingNPC.Subdue();
                 System.Random rand = new System.Random();
                 int index = rand.Next(reasoningSuccessResponses.Length);
                 string randomResponse = reasoningSuccessResponses[index];
                 StartCoroutine(readDialogue(randomResponse, talkingNPC));
             } else
             {
+                talkingNPC.Enemy(player);
                 System.Random rand = new System.Random();
                 int index = rand.Next(reasoningFailureResponses.Length);
                 string randomResponse = reasoningFailureResponses[index];
@@ -240,15 +253,23 @@ public class DialogueManager : MonoBehaviour
         readyToEnd = true;
     }
 
-    IEnumerator readDialogue(string toDisplay, GameObject speakingCharacter)
+    public void RespondToStealing() {
+        System.Random rand = new System.Random();
+        int index = rand.Next(caughtStealing.Length);
+        string randomResponse = caughtStealing[index];
+        StartCoroutine(readDialogue(randomResponse, talkingNPC));
+        readyToEnd = true;
+    }
+
+    IEnumerator readDialogue(string toDisplay, Character speakingCharacter)
     {
         typingInProgress = true;
 
         dialogueUI.text = "";
         currentDialogue = toDisplay;
 
-        talkingCharacter.GetComponent<Text>().text = speakingCharacter.GetComponent<Character>().name;
-        // portrait.GetComponent<Image>().sprite = speakingCharacter.GetComponent<Character>().portrait;
+        talkingCharacter.GetComponent<Text>().text = speakingCharacter.name;
+        // portrait.GetComponent<Image>().sprite = speakingCharacter.portrait;
 
         foreach (char letter in currentDialogue)
         {

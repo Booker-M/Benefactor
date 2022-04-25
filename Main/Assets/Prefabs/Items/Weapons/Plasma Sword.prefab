@@ -127,7 +127,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a3a9730cd648ad04ca99f5206ba66066, type: 3}
   type: Weapon
   name: Plasma Sword
-  uses: 40
+  uses: 30
   amount: 25
   accuracy: 100
   critical: 5
@@ -141,3 +141,4 @@ MonoBehaviour:
   weapon: {fileID: 4488686633690031037, guid: b8f610e21cf1e034f97154890ae3596b, type: 3}
   power: 0
   bow: 0
+  sound: {fileID: 8300000, guid: 98a3b9d132de7b046bf2423fc2334e2a, type: 3}

@@ -36,17 +36,16 @@ public class InventorySlot : MonoBehaviour
         MenuManager.instance.HideAttackInfo();
     }
 
-    public void OnHover()
+    public void OnHover(bool enemy)
     {
-        Debug.Log("ON HOVER");
-        Debug.Log(item);
         if (item != null)
-            GameManager.instance.activeCharacter.PreviewItem(item, button.transform.position);
+            GameManager.instance.activeCharacter.PreviewItem(item, button.transform.position, enemy);
     }
 
     public void EndHover()
     {
         if (item != null)
             MenuManager.instance.HideAttackInfo();
+            MenuManager.instance.HideStealInfo();
     }
 }

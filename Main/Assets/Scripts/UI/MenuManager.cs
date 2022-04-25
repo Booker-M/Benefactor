@@ -28,6 +28,8 @@ public class MenuManager : MonoBehaviour
     public Text attackDamage;
     public Text attackHit;
     public Text attackCrit;
+    public GameObject stealInfo;
+    public Text stealChance;
     public GameObject experience;
     public GameObject expBar;
     public GameObject expBarBackground;
@@ -86,6 +88,8 @@ public class MenuManager : MonoBehaviour
         HidePlayerStats();
         
         HideAttackInfo();
+
+        HideStealInfo();
 
         inverseUpdateTime = 1 / expUpdateTime;
         HideExperience();
@@ -235,6 +239,19 @@ public class MenuManager : MonoBehaviour
     {
         attackInfo.SetActive(false);
     }
+
+    public void ShowStealInfo(Vector3 position, int chance)
+    {
+        stealChance.GetComponent<Text>().text = chance + "%";
+        stealInfo.GetComponent<RectTransform>().transform.position = position + new Vector3(0,130,0);
+        stealInfo.SetActive(true);
+    }
+
+    public void HideStealInfo()
+    {
+        stealInfo.SetActive(false);
+    }
+
 
     public IEnumerator UpdateExperience(int start, int amount)
     {

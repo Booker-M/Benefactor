@@ -147,6 +147,7 @@ public class Character : InteractableObject
     protected virtual IEnumerator NextStep()
     {
         GameManager.instance.CameraTarget(this.gameObject);
+        MenuManager.instance.HidePlayerStats();
 
         if (subdued)
         {
@@ -189,15 +190,18 @@ public class Character : InteractableObject
 
     protected virtual void UpdateObjectives()
     {
+        if (currentObjective == null || currentObjective.target == null || currentObjective.target.GetHealth() <= 0 || !currentObjective.target.enabled)
+            currentObjective = null;
+        
         Objective healClosest = new Objective(GetClosest(allies), "Heal");
-        if (healClosest.target != null && healClosest.target.IsDamaged() && HasItemType("Medicine") && !HasObjective(healClosest))
+        if (healClosest.target != null && healClosest.target.enabled  && healClosest.target.IsDamaged() && HasItemType("Medicine") && !HasObjective(healClosest))
         {
             objectives.Prepend(currentObjective);
             currentObjective = healClosest;
         }
 
         Objective attackClosest = new Objective(GetClosest(enemies), "Attack");
-        if (attackClosest.target != null && destructive && !subdued && HasItemType("Weapon") && !HasObjective(attackClosest))
+        if (attackClosest.target != null && attackClosest.target.enabled && destructive && !subdued && HasItemType("Weapon") && !HasObjective(attackClosest))
             objectives.Add(attackClosest);
 
         if (currentObjective == null && objectives.Count > 0)
@@ -206,12 +210,19 @@ public class Character : InteractableObject
             objectives.Remove(currentObjective);
         }
 
-        if (currentObjective == null || movesLeft <= 0 || (GetDistance(currentObjective.target) <= 1 && actionsLeft == 0))
+
+        if (currentObjective == null || (movesLeft <= 0 && (actionsLeft == 0 || currentObjective.action != "Attack" || GetDistance(currentObjective.target) > GetAttackRange())) || (GetDistance(currentObjective.target) <= 1 && actionsLeft == 0))
         {
             if (currentObjective != null && currentObjective.action != "Wait")
                 objectives.Prepend(new Objective(currentObjective.target, currentObjective.action));
             currentObjective = new Objective(this, "Wait");
         }
+    }
+
+    protected virtual void ClearObjectives()
+    {
+        currentObjective = null;
+        objectives = new List<Objective>();
     }
 
     protected virtual bool HasObjective(Objective toCheck)
@@ -230,7 +241,7 @@ public class Character : InteractableObject
 
         foreach (InteractableObject o in objects)
         {
-            if (o.GetHealth() <= 0)
+            if (o.GetHealth() <= 0 || !o.enabled)
                 continue;
             float distance = GetDistance(o);
             if (distance < minDistance)
@@ -274,8 +285,12 @@ public class Character : InteractableObject
                     if (newTarget != null && newTarget != currentObjective.target)
                     {
                         objectives.Prepend(new Objective(currentObjective.target, currentObjective.action));
-                        currentObjective = new Objective(newTarget, newTarget.tag == "Door" ? "Door" : "Attack");
-                        Debug.Log("Obstacle: " + currentObjective.target + ": " + currentObjective.action);
+                        if (allies.Contains(newTarget)) {
+                            currentObjective = new Objective(this, "Wait");
+                        } else {
+                            currentObjective = new Objective(newTarget, newTarget.tag == "Door" ? "Door" : "Attack");
+                            Debug.Log("Obstacle: " + currentObjective.target + ": " + currentObjective.action);
+                        }
                         Array.Resize(ref pathToObjective, i);
                         return;
                     }
@@ -706,6 +721,7 @@ public class Character : InteractableObject
 
     protected virtual void Steal(InteractableObject toStealFrom)
     {
+        actionsLeft--;
         GameManager.instance.CameraTarget(toStealFrom.gameObject);
         Player character = toStealFrom.gameObject.GetComponent<Player>();
         this.weightStolen = 0;
@@ -797,10 +813,15 @@ public class Character : InteractableObject
 
         if (weapon.bow) {
             animateBow(toAttack.transform.position);
-        } else if (weapon.power) {
+            if (weapon.sound)
+                SFXManager.instance.PlaySingle(weapon.sound);
+        } else if (weapon.range > 1) {
+            SFXManager.instance.PlaySingle("Charge");
             animatePower(toAttack.transform.position);
         } else {
             animateSwipe(toAttack.transform.position);
+            if (weapon.sound)
+                SFXManager.instance.PlaySingle(weapon.sound);
         }
 
         while(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
@@ -816,8 +837,11 @@ public class Character : InteractableObject
             yield return new WaitForSeconds(projectile.moveTime);
         }
 
-        if (weapon.effect != null)
-            Instantiate(weapon.effect, toAttack.transform.position,  Quaternion.Euler(new Vector3(0, 0, 0)));
+        if (weapon.effect != null) {
+            Instantiate(weapon.effect, toAttack.transform.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+            if (weapon.sound)
+                SFXManager.instance.PlaySingle(weapon.sound);
+        }
 
         bool hit = DoesHit(HitPercent(toAttack, weapon));
         if (hit) {
@@ -858,6 +882,7 @@ public class Character : InteractableObject
         } else {
             GameObject missText = GameObject.Find("MissText");
             missText.transform.position = new Vector2(toAttack.gameObject.transform.position.x, toAttack.gameObject.transform.position.y + 0.5f);
+            SFXManager.instance.PlaySingle("Miss");
             missText.GetComponent<SpriteRenderer>().enabled = true;
             yield return new WaitForSeconds(actionDelay);
             missText.GetComponent<SpriteRenderer>().enabled = false;
@@ -924,6 +949,8 @@ public class Character : InteractableObject
         }
         if (!character.GetAllies().Contains(this))
             character.Ally(this);
+
+        ClearObjectives();
     }
 
     public void Enemy(Character character, bool updateTeam = true)
@@ -937,6 +964,8 @@ public class Character : InteractableObject
         }
         if (!character.GetEnemies().Contains(this))
             character.Enemy(this);
+
+        ClearObjectives();
     }
 
     public List<InteractableObject> GetAllies()
@@ -951,7 +980,7 @@ public class Character : InteractableObject
 
     protected virtual void TalkTo(InteractableObject toTalkTo)
     {
-        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().initiateDialogue(this.gameObject, toTalkTo.gameObject);
+        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().initiateDialogue(this.GetComponent<Character>(), toTalkTo.GetComponent<Character>());
     }
 
     public override SortedSet<String> GetActions()

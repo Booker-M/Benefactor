@@ -19,7 +19,9 @@ public class SFXManager : MonoBehaviour
     public AudioClip Punch1;
     public AudioClip Punch2;
 
-
+    public AudioClip Die;
+    public AudioClip Charge;
+    public AudioClip Miss;
 
     // Start is called before the first frame update
     void Awake()
@@ -57,10 +59,25 @@ public class SFXManager : MonoBehaviour
             case "Punch2":
                 SFXSource.clip = Punch2;
                 break;
+            case "Die":
+                SFXSource.clip = Die;
+                break;
+            case "Charge":
+                SFXSource.clip = Charge;
+                break;
+            case "Miss":
+                SFXSource.clip = Miss;
+                break;
             default:
                 Debug.Log("No SFX found for " + clip);
                 break;
         }
+        SFXSource.Play();
+    }
+
+    public void PlaySingle(AudioClip clip)
+    {
+        SFXSource.clip = clip;
         SFXSource.Play();
     }
 

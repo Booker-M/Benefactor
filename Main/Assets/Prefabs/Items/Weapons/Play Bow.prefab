@@ -126,9 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 826e66afc6548ce4396b167ad9c6bfa3, type: 3}
   type: Weapon
-  name: Play Bow
+  name: Bow
   uses: 30
-  amount: 10
+  amount: 20
   accuracy: 85
   critical: 5
   range: 3
@@ -142,3 +142,4 @@ MonoBehaviour:
   weapon: {fileID: 4488686633690031037, guid: 89453f9e4693f934ca39656fb6d52c99, type: 3}
   power: 0
   bow: 1
+  sound: {fileID: 8300000, guid: 43d7cd05624400148bfd7b619723c4b4, type: 3}

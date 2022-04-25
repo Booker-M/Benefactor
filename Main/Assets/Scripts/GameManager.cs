@@ -331,11 +331,11 @@ public class GameManager : MonoBehaviour
         while (zooming == true) {
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("Zooming to: " + zoom);
         zooming = true;
-        while (Math.Abs(Camera.main.orthographicSize - (Camera.main.orthographicSize*0.99f + zoom*5*0.01f)) > 0.0001) {
-            Camera.main.orthographicSize = Camera.main.orthographicSize*0.99f + zoom*5*0.01f;
-            yield return new WaitForEndOfFrame();
+        while (Math.Abs(Camera.main.orthographicSize - (Camera.main.orthographicSize*0.99f + zoom*5*0.01f)) > 0.001) {
+            float remaining = Math.Max(Camera.main.orthographicSize - zoom*5, zoom*5 - Camera.main.orthographicSize);
+            Camera.main.orthographicSize += remaining*2*Time.fixedDeltaTime*(zoom*5 > Camera.main.orthographicSize ? 1 : -1);
+            yield return null;
         }
         Camera.main.orthographicSize = zoom*5;
         zooming = false;

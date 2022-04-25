@@ -172,7 +172,6 @@ MonoBehaviour:
   level: 1
   inventory:
   - {fileID: -5498856414594888391, guid: 903bd8f3f2fee9449ad325947a51c159, type: 3}
-  - {fileID: -5498856414594888391, guid: 11c400ec6ad6b874ab4161b618034ae5, type: 3}
   - {fileID: 2648351601887277121, guid: 3c8bc909cfcf86140a11ded9170ebd02, type: 3}
   isMale: 1
 --- !u!95 &3572253492244245701

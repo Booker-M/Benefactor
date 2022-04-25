@@ -20,17 +20,20 @@ public class Storage : InteractableObject
     public void Open()
     {
         spriteRenderer.sprite = openSprite;
+        SoundManager.instance.OpenDoor();
     }
 
     public void Close()
     {
         spriteRenderer.sprite = closedSprite;
+        SoundManager.instance.CloseDoor();
     }
 
     public void Unlock()
     {
         locked = false;
         spriteRenderer.sprite = closedSprite;
+        SoundManager.instance.Unlock();
     }
 
     public override SortedSet<String> GetActions()

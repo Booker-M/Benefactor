@@ -23,6 +23,7 @@ public class Door : InteractableObject
     {
         base.Start();
         animator = GetComponent<Animator>();
+        animator.SetBool("Open", false);
         SetSprite();
     }
 
@@ -88,6 +89,7 @@ public class Door : InteractableObject
         walkOver = true;
         animator.SetBool("Open", true);
         GameManager.instance.UpdateNode(transform.position, true, 0);
+        SoundManager.instance.OpenDoor();
     }
 
     void Close()
@@ -96,11 +98,13 @@ public class Door : InteractableObject
         walkOver = false;
         animator.SetBool("Open", false);
         UpdatePosition();
+        SoundManager.instance.CloseDoor();
     }
 
     public void Unlock()
     {
         locked = false;
+        SoundManager.instance.Unlock();
     }
 
     public bool IsOpen()
