@@ -25,6 +25,11 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(SwitchScene("PrologueCutscene"));
     }
 
+    public void Continue()
+    {
+        StartCoroutine(SwitchScene("SampleScene"));
+    }
+
     public void QuitGame()
     {
         Application.Quit();

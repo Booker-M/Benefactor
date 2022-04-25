@@ -847,6 +847,17 @@ public class Character : InteractableObject
         if (hit) {
             int damage = GetDamage(toAttack, weapon);
 
+            if (IsCritical(weapon)) {
+                damage*= 2;
+
+                GameObject critText = GameObject.Find("CritText");
+                critText.transform.position = new Vector2(toAttack.gameObject.transform.position.x, toAttack.gameObject.transform.position.y + 0.5f);
+                // SFXManager.instance.PlaySingle("Miss");
+                critText.GetComponent<SpriteRenderer>().enabled = true;
+                yield return new WaitForSeconds(actionDelay);
+                critText.GetComponent<SpriteRenderer>().enabled = false;
+            }
+
             yield return StartCoroutine(toAttack.TakeDamage(damage));
 
             // Check for subdued
@@ -904,15 +915,14 @@ public class Character : InteractableObject
     }
 
     protected int GetDamage(InteractableObject toAttack, HoldableObject weapon) {
-        int crit = GetCritical(weapon);
-        float damage = weapon.amount * (float)stats.strength/50f * crit;
+        float damage = weapon.amount * (float)stats.strength/50f;
         if (toAttack.gameObject.GetComponent<Character>() != null)
             damage = damage * (100f - (float)toAttack.gameObject.GetComponent<Character>().GetStats().defense)/50f;
         return (int)damage;
     }
 
-    protected int GetCritical(HoldableObject weapon) {
-        return DoesHit(CritPercent(weapon)) ? 2 : 1;
+    protected bool IsCritical(HoldableObject weapon) {
+        return DoesHit(CritPercent(weapon));
     }
 
     protected int CritPercent(HoldableObject weapon) {

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a1286463d61933841b3e44f8997aa4e9
+guid: f158bf17c0dc44748be7dfb4bd4cc7b8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -106,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sprite Male Dark Hair Smi01_0
+      name: CultLeaderShadow_0
       rect:
         serializedVersion: 2
-        x: 135
-        y: 520
-        width: 511
-        height: 646
+        x: 36
+        y: 13
+        width: 172
+        height: 197
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,8 +120,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d4d9f8fb84c3e51428ec9eeeee9d2b1b
-      internalID: 727451021
+      spriteID: 88a71165c84cb8f43bf222341341f764
+      internalID: 72610506
       vertices: []
       indices: 
       edges: []
@@ -137,7 +137,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Sprite Male Dark Hair Smi01_0: 727451021
+      CultLeaderShadow_0: 72610506
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

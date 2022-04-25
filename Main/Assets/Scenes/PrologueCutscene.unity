@@ -297,8 +297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 0}
-  m_SizeDelta: {x: 450, y: 500}
+  m_AnchoredPosition: {x: -175, y: -30}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242708885
 MonoBehaviour:
@@ -313,17 +313,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unknown: {fileID: 21300000, guid: 6c80f7305b9cac444b9bfea080baee29, type: 3}
-  Ranger: {fileID: 626429343, guid: e479be04b6b67584e950e204885a0459, type: 3}
-  Policeman: {fileID: 0}
+  Ranger: {fileID: -1673034239, guid: e479be04b6b67584e950e204885a0459, type: 3}
+  Policeman: {fileID: 1917913235, guid: 4c56f2cedc3be3d4e8efe37bc4055029, type: 3}
   Policewoman: {fileID: 0}
-  MaleScientist: {fileID: 0}
+  MaleScientist: {fileID: 2423972551562549796, guid: a54246bf0c985bb4089f676138635e02,
+    type: 3}
   FemaleScientist: {fileID: 0}
-  CultLeader: {fileID: 21300000, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
-  CultLeaderShadow: {fileID: 21300000, guid: f158bf17c0dc44748be7dfb4bd4cc7b8, type: 3}
+  CultLeader: {fileID: 1658551199, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
+  CultLeaderShadow: {fileID: 72610506, guid: f158bf17c0dc44748be7dfb4bd4cc7b8, type: 3}
   MaleCultist: {fileID: 0}
   FemaleCultist: {fileID: 0}
-  OlderBrother: {fileID: 21300000, guid: 3be1647184907a34fb2a1ad7c89180f8, type: 3}
-  YoungerBrother: {fileID: 21300000, guid: 2ae95c326515d634892e2254650e9d9a, type: 3}
+  OlderBrother: {fileID: 727451021, guid: a1286463d61933841b3e44f8997aa4e9, type: 3}
+  YoungerBrother: {fileID: 186347478, guid: 080d5a02efd52e147bcd4ed8c71ed359, type: 3}
 --- !u!114 &242708886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
+  m_Sprite: {fileID: 1658551199, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1238,6 +1239,9 @@ MonoBehaviour:
   DoorOpening: {fileID: 8300000, guid: 874508576c18bb242bb98e2c035ae259, type: 3}
   Punch1: {fileID: 8300000, guid: 1bfe7eca1f4f5ed49b3957a98ba85cc5, type: 3}
   Punch2: {fileID: 8300000, guid: aaa21f616b6f40a4dbeec67e5e0aeb7d, type: 3}
+  Die: {fileID: 0}
+  Charge: {fileID: 0}
+  Miss: {fileID: 0}
 --- !u!4 &748692536
 Transform:
   m_ObjectHideFlags: 0
@@ -1484,8 +1488,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 175, y: 0}
-  m_SizeDelta: {x: 450, y: 500}
+  m_AnchoredPosition: {x: 175, y: -30}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987270148
 MonoBehaviour:
@@ -1500,17 +1504,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unknown: {fileID: 21300000, guid: 6c80f7305b9cac444b9bfea080baee29, type: 3}
-  Ranger: {fileID: 626429343, guid: e479be04b6b67584e950e204885a0459, type: 3}
-  Policeman: {fileID: 0}
+  Ranger: {fileID: -1673034239, guid: e479be04b6b67584e950e204885a0459, type: 3}
+  Policeman: {fileID: 1917913235, guid: 4c56f2cedc3be3d4e8efe37bc4055029, type: 3}
   Policewoman: {fileID: 0}
-  MaleScientist: {fileID: 0}
+  MaleScientist: {fileID: 2423972551562549796, guid: a54246bf0c985bb4089f676138635e02,
+    type: 3}
   FemaleScientist: {fileID: 0}
-  CultLeader: {fileID: 21300000, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
-  CultLeaderShadow: {fileID: 21300000, guid: f158bf17c0dc44748be7dfb4bd4cc7b8, type: 3}
+  CultLeader: {fileID: 1658551199, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
+  CultLeaderShadow: {fileID: 72610506, guid: f158bf17c0dc44748be7dfb4bd4cc7b8, type: 3}
   MaleCultist: {fileID: 0}
   FemaleCultist: {fileID: 0}
-  OlderBrother: {fileID: 21300000, guid: 3be1647184907a34fb2a1ad7c89180f8, type: 3}
-  YoungerBrother: {fileID: 21300000, guid: 2ae95c326515d634892e2254650e9d9a, type: 3}
+  OlderBrother: {fileID: 727451021, guid: a1286463d61933841b3e44f8997aa4e9, type: 3}
+  YoungerBrother: {fileID: 186347478, guid: 080d5a02efd52e147bcd4ed8c71ed359, type: 3}
 --- !u!114 &987270149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,7 +1536,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
+  m_Sprite: {fileID: 1658551199, guid: 1bb131c3e37178b4b96fe5b53e69a2ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
