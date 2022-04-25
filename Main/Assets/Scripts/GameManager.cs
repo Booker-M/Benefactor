@@ -48,6 +48,8 @@ public class GameManager : MonoBehaviour
         dialogueInProgress = false;
         playerTurn = playerStart;
         zooming = false;
+        GameObject.Find("CritText").GetComponent<SpriteRenderer>().enabled = false;
+        GameObject.Find("MissText").GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
