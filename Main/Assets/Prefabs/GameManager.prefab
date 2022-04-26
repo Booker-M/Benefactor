@@ -120,11 +120,12 @@ MonoBehaviour:
   - {fileID: 5828532957960981727, guid: d05ede304b84bb74e996003457a52929, type: 3}
   - {fileID: 5828532957960981727, guid: b33d39d989bab2241aa51d251ed64c6c, type: 3}
   - {fileID: 3459576626915240523, guid: 5197b8fd4f45d1f40909d1c20fea8d8e, type: 3}
-  enemies:
+  forestEnemies:
   - {fileID: 5495209542717074604, guid: 95434a6419c3c8540b8a58911e28f596, type: 3}
   - {fileID: 8178759162555290993, guid: 70d91124e870e344f89f261e24c1ac92, type: 3}
+  winterEnemies:
   - {fileID: 6396008092024031312, guid: d970f7a580372ad42ba3297c12f1e350, type: 3}
-  trees:
+  forestTrees:
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
@@ -136,14 +137,23 @@ MonoBehaviour:
   - {fileID: 7991227353612988546, guid: 4f39391a6247ffe43bd1afcf92b3a0ff, type: 3}
   - {fileID: 7991227353612988546, guid: 44b08350b38e4a04f80ae5172d79fc06, type: 3}
   - {fileID: 7991227353612988546, guid: 81759b95d8bffae449d79d013a20b70c, type: 3}
-  natureObjects:
+  winterTrees:
+  - {fileID: 7991227353612988546, guid: 0ed096cc4d2c82e4293a46bee6a9e070, type: 3}
+  forestNatureObjects:
   - {fileID: 7991227353612988546, guid: 452a827b76b83484fb5d8b24688c5a2f, type: 3}
   - {fileID: 7991227353612988546, guid: 49988787568ff964bbf88d91be4cab89, type: 3}
-  streetObjects:
+  winterNatureObjects:
+  - {fileID: 7991227353612988546, guid: 452a827b76b83484fb5d8b24688c5a2f, type: 3}
+  - {fileID: 7991227353612988546, guid: 49988787568ff964bbf88d91be4cab89, type: 3}
+  forestStreetObjects:
   - {fileID: 7991227353612988546, guid: 77211cd42fc70d74e906334983cb2c46, type: 3}
   - {fileID: 7991227353612988546, guid: dd2a35f8c84e27b4ba3121e96f625596, type: 3}
   - {fileID: 7991227353612988546, guid: 66de3572df508d2428de0f57f37c0aa5, type: 3}
   - {fileID: 7991227353612988546, guid: e185dcf0d0c6feb4c86f2b323f3e015e, type: 3}
+  winterStreetObjects:
+  - {fileID: 7991227353612988546, guid: 77211cd42fc70d74e906334983cb2c46, type: 3}
+  - {fileID: 7991227353612988546, guid: dd2a35f8c84e27b4ba3121e96f625596, type: 3}
+  - {fileID: 7991227353612988546, guid: 66de3572df508d2428de0f57f37c0aa5, type: 3}
   wall: {fileID: 7991227353612988546, guid: 2df4a3cc6978edc44a19911f9ebf43be, type: 3}
   basicDoor: {fileID: 7991227353612988546, guid: edb7eb91ba0d2e842b1982ee35ffd0ae,
     type: 3}
@@ -175,10 +185,15 @@ MonoBehaviour:
   stove: {fileID: 7991227353612988546, guid: fcf18b76e6d62734b97415eb793208b2, type: 3}
   dirtTile: {fileID: 11400000, guid: adbcfb43841ef9c41bd9c466a468bd9a, type: 2}
   grassTile: {fileID: 11400000, guid: 6e3cd8e19dd5f3d40b26895ebfa30c9c, type: 2}
+  snowTile: {fileID: 11400000, guid: 0596d9d7590bfcd4da51fbbcf535317e, type: 2}
   roofTile: {fileID: 11400000, guid: 7e1d95070c8833446adadbfb4f8a1cc7, type: 2}
   floorTile: {fileID: 11400000, guid: e6c2a63b349f42b4b8e159ef0e65d2ce, type: 2}
-  pathTile: {fileID: 11400000, guid: 967e3e82305713d4dae77cab2fca7216, type: 2}
+  brickPathTile: {fileID: 11400000, guid: 967e3e82305713d4dae77cab2fca7216, type: 2}
+  cobblestonePathTile: {fileID: 11400000, guid: eff8fae1bd386144692d84641ad7cd3e,
+    type: 2}
   waterTile: {fileID: 11400000, guid: 7ad69b7706928874da78db4e95e84db6, type: 2}
+  pondTile: {fileID: 11400000, guid: 7ad69b7706928874da78db4e95e84db6, type: 2}
+  iceTile: {fileID: 11400000, guid: 626a46d16f5c132419a0242b1ba31a70, type: 2}
   flowerTile: {fileID: 11400000, guid: 199d5c6213a228d43a09879ada88e4bc, type: 2}
   mushroomTile: {fileID: 11400000, guid: b7fc1811409ec364195f502cea387f3e, type: 2}
   waterFloraTile: {fileID: 11400000, guid: 1baffb77c8fe04242ac76559b5967084, type: 2}
@@ -187,6 +202,9 @@ MonoBehaviour:
   - {x: 16, y: 0}
   - {x: 16, y: 1}
   - {x: 15, y: 1}
+  biomes:
+  - Forest
+  - Winter
 --- !u!114 &5498348103610966037
 MonoBehaviour:
   m_ObjectHideFlags: 0

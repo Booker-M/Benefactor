@@ -88,10 +88,18 @@ public class BoardManager : MonoBehaviour
     public Count pondRadius;
 
     public GameObject[] players;
-    public GameObject[] enemies;
-    public GameObject[] trees;
-    public GameObject[] natureObjects;
-    public GameObject[] streetObjects;
+    private GameObject[] enemies;
+    public GameObject[] forestEnemies;
+    public GameObject[] winterEnemies;
+    private GameObject[] trees;
+    public GameObject[] forestTrees;
+    public GameObject[] winterTrees;
+    private GameObject[] natureObjects;
+    public GameObject[] forestNatureObjects;
+    public GameObject[] winterNatureObjects;
+    private GameObject[] streetObjects;
+    public GameObject[] forestStreetObjects;
+    public GameObject[] winterStreetObjects;
 
     public GameObject wall;
     public GameObject basicDoor;
@@ -109,10 +117,15 @@ public class BoardManager : MonoBehaviour
 
     public RuleTile dirtTile;
     public RuleTile grassTile;
+    public RuleTile snowTile;
     public RuleTile roofTile;
     public RuleTile floorTile;
-    public RuleTile pathTile;
-    public RuleTile waterTile;
+    private RuleTile pathTile;
+    public RuleTile brickPathTile;
+    public RuleTile cobblestonePathTile;
+    private RuleTile waterTile;
+    public RuleTile pondTile;
+    public RuleTile iceTile;
     public RuleTile flowerTile;
     public RuleTile mushroomTile;
     public RuleTile waterFloraTile;
@@ -126,9 +139,13 @@ public class BoardManager : MonoBehaviour
     private List<Vector2Int> pathPositions;
     private Tilemap bottomTilemap;
     private Tilemap grassTilemap;
+    private RuleTile middleTile;
     private Tilemap overGroundTilemap;
     private Tilemap plantTilemap;
     private Tilemap floorTilemap;
+
+    public List<String> biomes;
+    private String biome;
 
     void InitializeList()
     {
@@ -144,6 +161,7 @@ public class BoardManager : MonoBehaviour
 
     private void BoardSetup()
     {
+
         Grid = new List<List<Node>>();
         bottomTilemap = CreateTilemap("Bottom").GetComponent<Tilemap>();
         grassTilemap = CreateTilemap("Grass").GetComponent<Tilemap>();
@@ -152,6 +170,40 @@ public class BoardManager : MonoBehaviour
         floorTilemap = CreateTilemap("Floor").GetComponent<Tilemap>();
         roofs = new List<Roof>();
         pathPositions = new List<Vector2Int>();
+
+        biome = biomes[Random.Range(0, biomes.Count)];
+
+        switch (biome)
+        {
+        case "Forest":
+            middleTile = grassTile;
+            enemies = forestEnemies;
+            trees = forestTrees;
+            natureObjects = forestNatureObjects;
+            streetObjects = forestStreetObjects;
+            pathTile = brickPathTile;
+            waterTile = pondTile;
+            break;
+        case "Winter":
+            middleTile = snowTile;
+            enemies = winterEnemies;
+            trees = winterTrees;
+            natureObjects = winterNatureObjects;
+            streetObjects = winterStreetObjects;
+            pathTile = cobblestonePathTile;
+            waterTile = iceTile;
+            break;
+        default:
+            middleTile = grassTile;
+            enemies = forestEnemies;
+            trees = forestTrees;
+            natureObjects = forestNatureObjects;
+            streetObjects = forestStreetObjects;
+            pathTile = brickPathTile;
+            waterTile = pondTile;
+            break;
+        }
+
         for (int x = -1; x <= columns; x++)
         {
             if (x >= 0 && x < columns)
@@ -217,7 +269,7 @@ public class BoardManager : MonoBehaviour
             {
                 GameObject tileChoice = RandomObject(tileArray);
                 Instantiate(tileChoice, position, Quaternion.identity);
-                PlaceTiles(grassTilemap, grassTile, (Vector2Int) position, 3);
+                PlaceTiles(grassTilemap, middleTile, (Vector2Int) position, 3);
                 gridPositions.RemoveAt(i);
             }
         }
@@ -231,7 +283,7 @@ public class BoardManager : MonoBehaviour
                 return;
             Vector3Int position = new Vector3Int(spawnPositions[i].x, spawnPositions[i].y, spawnPositions[i].y);
             Instantiate(player, position, Quaternion.identity);
-            PlaceTiles(grassTilemap, grassTile, (Vector2Int) position, 3);
+            PlaceTiles(grassTilemap, middleTile, (Vector2Int) position, 3);
             gridPositions.Remove(position);
             pathPositions.Add(spawnPositions[i]);
             i++;
@@ -753,7 +805,7 @@ public class BoardManager : MonoBehaviour
                     added.Add(newPosGrid);
                     if (pond && newPos.x >= 0 && newPos.x < columns && newPos.y >= 0 && newPos.y < rows) {
                         Grid[newPos.x][newPos.y] = new Node(new Vector2(newPos.x, newPos.y), false);
-                        grassTilemap.SetTile(newPos, grassTile);
+                        grassTilemap.SetTile(newPos, middleTile);
                     }
                     if (!path && gridPositions.Contains(newPosGrid) && ((pond && Random.Range(0,3) == 0) || (!center && Random.Range(0,30) == 0)))
                         if (pond) {
@@ -766,10 +818,10 @@ public class BoardManager : MonoBehaviour
                                         onEdge = true;
                                 }
                             }
-                            if (!onEdge)
+                            if (!onEdge && biome == "Forest")
                                 plantTilemap.SetTile(newPos, waterFloraTile);
                         }
-                        else
+                        else if (biome == "Forest")
                             plantTilemap.SetTile(newPos, Random.Range(0,5) > 0 ? flowerTile : mushroomTile);
                     if ((path || pond) && gridPositions.Contains(newPosGrid))
                         gridPositions.Remove(newPosGrid);
