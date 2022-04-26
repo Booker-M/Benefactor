@@ -125,6 +125,10 @@ MonoBehaviour:
   - {fileID: 8178759162555290993, guid: 70d91124e870e344f89f261e24c1ac92, type: 3}
   winterEnemies:
   - {fileID: 6396008092024031312, guid: d970f7a580372ad42ba3297c12f1e350, type: 3}
+  - {fileID: 6396008092024031312, guid: 9481a67bed902c146a93b2483c0f7db2, type: 3}
+  - {fileID: 6396008092024031312, guid: 57d874878dfbbdd48b3a4cc72c7f1247, type: 3}
+  - {fileID: 6396008092024031312, guid: 221df0c0f24309349a9b6be15e6d290c, type: 3}
+  - {fileID: 6396008092024031312, guid: 454ba040e9e9fbc468713847fb64e6ea, type: 3}
   forestTrees:
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
   - {fileID: 7991227353612988546, guid: 913b56d3e879ba14fadb3cd0b3440e70, type: 3}
@@ -145,15 +149,42 @@ MonoBehaviour:
   winterNatureObjects:
   - {fileID: 7991227353612988546, guid: 452a827b76b83484fb5d8b24688c5a2f, type: 3}
   - {fileID: 7991227353612988546, guid: 49988787568ff964bbf88d91be4cab89, type: 3}
+  - {fileID: 7991227353612988546, guid: bb98c831a0c5210449a8cf72ed27ce45, type: 3}
+  desertNatureObjects:
+  - {fileID: 7991227353612988546, guid: 964fe7cadb0985f40badefcd83cad2fa, type: 3}
+  - {fileID: 7991227353612988546, guid: 964fe7cadb0985f40badefcd83cad2fa, type: 3}
+  - {fileID: 7991227353612988546, guid: 964fe7cadb0985f40badefcd83cad2fa, type: 3}
+  - {fileID: 7991227353612988546, guid: 964fe7cadb0985f40badefcd83cad2fa, type: 3}
+  - {fileID: 7991227353612988546, guid: 964fe7cadb0985f40badefcd83cad2fa, type: 3}
+  - {fileID: 7991227353612988546, guid: 2960d2a17a3ca664285f4b211fa3df90, type: 3}
+  - {fileID: 7991227353612988546, guid: 2960d2a17a3ca664285f4b211fa3df90, type: 3}
+  - {fileID: 7991227353612988546, guid: 2960d2a17a3ca664285f4b211fa3df90, type: 3}
+  - {fileID: 7991227353612988546, guid: 1eb76e0c965b02b4d9848a334edc3cb8, type: 3}
+  - {fileID: 7991227353612988546, guid: 1eb76e0c965b02b4d9848a334edc3cb8, type: 3}
+  - {fileID: 7991227353612988546, guid: 0fd050fc23cfa5f4d8395c6690e0c864, type: 3}
+  - {fileID: 7991227353612988546, guid: 14d4b9e19ba928747afecccd0243e4f0, type: 3}
+  - {fileID: 7991227353612988546, guid: 452a827b76b83484fb5d8b24688c5a2f, type: 3}
+  - {fileID: 7991227353612988546, guid: 49988787568ff964bbf88d91be4cab89, type: 3}
+  - {fileID: 7991227353612988546, guid: bb98c831a0c5210449a8cf72ed27ce45, type: 3}
+  volcanicNatureObjects:
+  - {fileID: 7991227353612988546, guid: 14d4b9e19ba928747afecccd0243e4f0, type: 3}
+  - {fileID: 7991227353612988546, guid: 0fd050fc23cfa5f4d8395c6690e0c864, type: 3}
+  - {fileID: 7991227353612988546, guid: bb98c831a0c5210449a8cf72ed27ce45, type: 3}
   forestStreetObjects:
   - {fileID: 7991227353612988546, guid: 77211cd42fc70d74e906334983cb2c46, type: 3}
   - {fileID: 7991227353612988546, guid: dd2a35f8c84e27b4ba3121e96f625596, type: 3}
   - {fileID: 7991227353612988546, guid: 66de3572df508d2428de0f57f37c0aa5, type: 3}
   - {fileID: 7991227353612988546, guid: e185dcf0d0c6feb4c86f2b323f3e015e, type: 3}
+  - {fileID: 7991227353612988546, guid: 299b25b7b95f4434f8b3f189ccd7a3b1, type: 3}
   winterStreetObjects:
   - {fileID: 7991227353612988546, guid: 77211cd42fc70d74e906334983cb2c46, type: 3}
   - {fileID: 7991227353612988546, guid: dd2a35f8c84e27b4ba3121e96f625596, type: 3}
   - {fileID: 7991227353612988546, guid: 66de3572df508d2428de0f57f37c0aa5, type: 3}
+  desertStreetObjects:
+  - {fileID: 7991227353612988546, guid: 77211cd42fc70d74e906334983cb2c46, type: 3}
+  - {fileID: 7991227353612988546, guid: dd2a35f8c84e27b4ba3121e96f625596, type: 3}
+  - {fileID: 7991227353612988546, guid: 66de3572df508d2428de0f57f37c0aa5, type: 3}
+  - {fileID: 7991227353612988546, guid: 299b25b7b95f4434f8b3f189ccd7a3b1, type: 3}
   wall: {fileID: 7991227353612988546, guid: 2df4a3cc6978edc44a19911f9ebf43be, type: 3}
   basicDoor: {fileID: 7991227353612988546, guid: edb7eb91ba0d2e842b1982ee35ffd0ae,
     type: 3}
@@ -180,10 +211,13 @@ MonoBehaviour:
   - {fileID: 7991227353612988546, guid: fcf18b76e6d62734b97415eb793208b2, type: 3}
   table: {fileID: 7991227353612988546, guid: 61ac70d0452c5154b9b26b283eb70995, type: 3}
   chair: {fileID: 7991227353612988546, guid: 757e290814b57654db46c3aac8dd7d3f, type: 3}
-  bed: {fileID: 0}
+  bed: {fileID: 7991227353612988546, guid: e3d8529ed90ca0d469c9ac9b92a2e60d, type: 3}
   stool: {fileID: 7991227353612988546, guid: 06f8a59fda86f8442a8d82193b2f9057, type: 3}
   stove: {fileID: 7991227353612988546, guid: fcf18b76e6d62734b97415eb793208b2, type: 3}
+  emptyTile: {fileID: 11400000, guid: a64e6d29fbff0c444b5137aea2d54a9f, type: 2}
   dirtTile: {fileID: 11400000, guid: adbcfb43841ef9c41bd9c466a468bd9a, type: 2}
+  sandTile: {fileID: 11400000, guid: c00d6162e36eb4d4498347814dd0d971, type: 2}
+  lavaRockTile: {fileID: 11400000, guid: c43e9d4d50d66b843b29af96194b0cb4, type: 2}
   grassTile: {fileID: 11400000, guid: 6e3cd8e19dd5f3d40b26895ebfa30c9c, type: 2}
   snowTile: {fileID: 11400000, guid: 0596d9d7590bfcd4da51fbbcf535317e, type: 2}
   roofTile: {fileID: 11400000, guid: 7e1d95070c8833446adadbfb4f8a1cc7, type: 2}
@@ -191,8 +225,11 @@ MonoBehaviour:
   brickPathTile: {fileID: 11400000, guid: 967e3e82305713d4dae77cab2fca7216, type: 2}
   cobblestonePathTile: {fileID: 11400000, guid: eff8fae1bd386144692d84641ad7cd3e,
     type: 2}
+  sandstonePathTile: {fileID: 11400000, guid: ed54931c23681b1459c52823f3978918, type: 2}
   pondTile: {fileID: 11400000, guid: 7ad69b7706928874da78db4e95e84db6, type: 2}
   iceTile: {fileID: 11400000, guid: 626a46d16f5c132419a0242b1ba31a70, type: 2}
+  holeTile: {fileID: 11400000, guid: 4a0c1d5baf243904080227c0e6fd1989, type: 2}
+  lavaTile: {fileID: 11400000, guid: a6347a3da8f604542a8235b15b7cdfe6, type: 2}
   flowerTile: {fileID: 11400000, guid: 199d5c6213a228d43a09879ada88e4bc, type: 2}
   mushroomTile: {fileID: 11400000, guid: b7fc1811409ec364195f502cea387f3e, type: 2}
   waterFloraTile: {fileID: 11400000, guid: 1baffb77c8fe04242ac76559b5967084, type: 2}
@@ -204,8 +241,12 @@ MonoBehaviour:
   biomes:
   - Forest
   - Winter
+  - Desert
+  - Volcanic
   leaf: {fileID: 2100000, guid: a7cbd16d584bd7140979c49e89d72b18, type: 2}
   snowflake: {fileID: 2100000, guid: 3159762816f3fa749a7d3afadb7190f6, type: 2}
+  sand: {fileID: 2100000, guid: 2939444800037a24485dff3ec8602403, type: 2}
+  ember: {fileID: 2100000, guid: 3db4a930fa1c03141a4204963aa5d2da, type: 2}
 --- !u!114 &5498348103610966037
 MonoBehaviour:
   m_ObjectHideFlags: 0

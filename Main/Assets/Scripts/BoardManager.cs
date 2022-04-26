@@ -97,9 +97,12 @@ public class BoardManager : MonoBehaviour
     private GameObject[] natureObjects;
     public GameObject[] forestNatureObjects;
     public GameObject[] winterNatureObjects;
+    public GameObject[] desertNatureObjects;
+    public GameObject[] volcanicNatureObjects;
     private GameObject[] streetObjects;
     public GameObject[] forestStreetObjects;
     public GameObject[] winterStreetObjects;
+    public GameObject[] desertStreetObjects;
 
     public GameObject wall;
     public GameObject basicDoor;
@@ -115,7 +118,11 @@ public class BoardManager : MonoBehaviour
     public GameObject stool;
     public GameObject stove;
 
+    public RuleTile emptyTile;
+    private RuleTile groundTile;
     public RuleTile dirtTile;
+    public RuleTile sandTile;
+    public RuleTile lavaRockTile;
     public RuleTile grassTile;
     public RuleTile snowTile;
     public RuleTile roofTile;
@@ -123,9 +130,12 @@ public class BoardManager : MonoBehaviour
     private RuleTile pathTile;
     public RuleTile brickPathTile;
     public RuleTile cobblestonePathTile;
+    public RuleTile sandstonePathTile;
     private RuleTile waterTile;
     public RuleTile pondTile;
     public RuleTile iceTile;
+    public RuleTile holeTile;
+    public RuleTile lavaTile;
     public RuleTile flowerTile;
     public RuleTile mushroomTile;
     public RuleTile waterFloraTile;
@@ -149,6 +159,8 @@ public class BoardManager : MonoBehaviour
 
     public Material leaf;
     public Material snowflake;
+    public Material sand;
+    public Material ember;
 
     void InitializeList()
     {
@@ -179,6 +191,7 @@ public class BoardManager : MonoBehaviour
         switch (biome)
         {
         case "Forest":
+            groundTile = dirtTile;
             middleTile = grassTile;
             enemies = forestEnemies;
             trees = forestTrees;
@@ -189,6 +202,7 @@ public class BoardManager : MonoBehaviour
             UpdateParticles(leaf);
             break;
         case "Winter":
+            groundTile = dirtTile;
             middleTile = snowTile;
             enemies = winterEnemies;
             trees = winterTrees;
@@ -198,7 +212,26 @@ public class BoardManager : MonoBehaviour
             waterTile = iceTile;
             UpdateParticles(snowflake);
             break;
+        case "Desert":
+            groundTile = sandTile;
+            middleTile = emptyTile;
+            enemies = forestEnemies;
+            natureObjects = desertNatureObjects;
+            streetObjects = desertStreetObjects;
+            pathTile = sandstonePathTile;
+            waterTile = holeTile;
+            UpdateParticles(sand);
+            break;
+        case "Volcanic":
+            groundTile = lavaRockTile;
+            middleTile = emptyTile;
+            enemies = winterEnemies;
+            natureObjects = volcanicNatureObjects;
+            waterTile = lavaTile;
+            UpdateParticles(ember);
+            break;
         default:
+            groundTile = dirtTile;
             middleTile = grassTile;
             enemies = forestEnemies;
             trees = forestTrees;
@@ -216,7 +249,7 @@ public class BoardManager : MonoBehaviour
                 Grid.Add(new List<Node>());
             for (int y = -1; y <= rows; y++)
             {
-                bottomTilemap.SetTile(new Vector3Int(x, y, 0), dirtTile);
+                bottomTilemap.SetTile(new Vector3Int(x, y, 0), groundTile);
                 if (x >= 0 && x < columns && y >= 0 && y < rows)
                 {
                     Grid[x].Add(new Node(new Vector2(x, y), true));
@@ -749,7 +782,8 @@ public class BoardManager : MonoBehaviour
         for (int i = 0; i < gridPositions.Count; i++)
         {
             Vector3Int position = gridPositions[i];
-            double spawnChance = Math.Pow((Math.Max(position.x, columns - position.x) * Math.Max(position.y, rows - position.y)), 3) / Math.Pow((columns * rows), 3);
+            float power = (biome == "Volcanic") ? 0.2f : 3;
+            double spawnChance = Math.Pow((Math.Max(position.x, columns - position.x) * Math.Max(position.y, rows - position.y)), power) / Math.Pow((columns * rows), power);
             if (Random.value*50 < spawnChance)
             {
                 PlaceTiles(overGroundTilemap, waterTile, (Vector2Int) position, Random.Range(pondRadius.minimum, pondRadius.maximum + 1), false, null, true);
@@ -853,11 +887,18 @@ public class BoardManager : MonoBehaviour
         BoardSetup();
         InitializeList();
         SpawnPlayers();
-        SpawnBuildings();
-        SpawnPaths();
+        if (biome != "Volcanic") {
+            SpawnBuildings();
+            SpawnPaths();
+        }
         SpawnPonds();
-        LayoutObjectAtCorners(trees);
-        LayoutObjectAtRandom(natureObjects, objectCount.minimum, objectCount.maximum);
+        if (biome == "Desert") {
+            LayoutObjectAtRandom(natureObjects, objectCount.minimum*5, objectCount.maximum*5);
+        } else {
+            if (biome != "Volcanic")
+                LayoutObjectAtCorners(trees);
+            LayoutObjectAtRandom(natureObjects, objectCount.minimum, objectCount.maximum);
+        }
         LayoutObjectAtRandom(enemies, enemyCount.minimum, enemyCount.maximum);
         return Grid;
     }

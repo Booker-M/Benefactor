@@ -173,6 +173,7 @@ MonoBehaviour:
   - {fileID: -5498856414594888391, guid: 37337875af2bc48438376b476efb74d8, type: 3}
   - {fileID: -5498856414594888391, guid: 2bf7f4a213a3d4f4ba7c86e5399731a3, type: 3}
   - {fileID: 2648351601887277121, guid: d7223e9ce65c5ff40a98ff9432da0fcf, type: 3}
+  - {fileID: -5498856414594888391, guid: bc0edcda2f618f14eb2a7804bd691c91, type: 3}
   isMale: 0
 --- !u!95 &898501715075140451
 Animator:
