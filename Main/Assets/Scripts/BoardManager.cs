@@ -147,6 +147,9 @@ public class BoardManager : MonoBehaviour
     public List<String> biomes;
     private String biome;
 
+    public Material leaf;
+    public Material snowflake;
+
     void InitializeList()
     {
         gridPositions = new List<Vector3Int>();
@@ -183,6 +186,7 @@ public class BoardManager : MonoBehaviour
             streetObjects = forestStreetObjects;
             pathTile = brickPathTile;
             waterTile = pondTile;
+            UpdateParticles(leaf);
             break;
         case "Winter":
             middleTile = snowTile;
@@ -192,6 +196,7 @@ public class BoardManager : MonoBehaviour
             streetObjects = winterStreetObjects;
             pathTile = cobblestonePathTile;
             waterTile = iceTile;
+            UpdateParticles(snowflake);
             break;
         default:
             middleTile = grassTile;
@@ -201,6 +206,7 @@ public class BoardManager : MonoBehaviour
             streetObjects = forestStreetObjects;
             pathTile = brickPathTile;
             waterTile = pondTile;
+            UpdateParticles(leaf);
             break;
         }
 
@@ -217,6 +223,10 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void UpdateParticles(Material material) {
+        GameObject.Find("Particles").GetComponent<ParticleSystem>().GetComponent<Renderer>().material = material;
     }
 
     private static GameObject CreateTilemap(String name, Vector3 tileAnchor = default(Vector3)) {

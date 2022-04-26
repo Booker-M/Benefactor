@@ -191,7 +191,6 @@ MonoBehaviour:
   brickPathTile: {fileID: 11400000, guid: 967e3e82305713d4dae77cab2fca7216, type: 2}
   cobblestonePathTile: {fileID: 11400000, guid: eff8fae1bd386144692d84641ad7cd3e,
     type: 2}
-  waterTile: {fileID: 11400000, guid: 7ad69b7706928874da78db4e95e84db6, type: 2}
   pondTile: {fileID: 11400000, guid: 7ad69b7706928874da78db4e95e84db6, type: 2}
   iceTile: {fileID: 11400000, guid: 626a46d16f5c132419a0242b1ba31a70, type: 2}
   flowerTile: {fileID: 11400000, guid: 199d5c6213a228d43a09879ada88e4bc, type: 2}
@@ -205,6 +204,8 @@ MonoBehaviour:
   biomes:
   - Forest
   - Winter
+  leaf: {fileID: 2100000, guid: a7cbd16d584bd7140979c49e89d72b18, type: 2}
+  snowflake: {fileID: 2100000, guid: 3159762816f3fa749a7d3afadb7190f6, type: 2}
 --- !u!114 &5498348103610966037
 MonoBehaviour:
   m_ObjectHideFlags: 0
